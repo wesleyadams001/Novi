@@ -7,11 +7,14 @@
              xmlns:model="clr-namespace:XModule.Models;assembly=XModule"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Grid MaxWidth="{StaticResource ViewMaxWidth}" HorizontalAlignment="Left">
+    
+    <Grid MaxWidth="{StaticResource ResourceKey=ViewMaxWidth}" HorizontalAlignment="Left">
+        
         <Grid.Resources>
             <!--Create list of enumeration values-->
             <ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
@@ -22,6 +25,8 @@
         </Grid.Resources>
         
         <DockPanel>
+            <TextBlock Text="{Binding ThereIsNoDataContext, 
+            diag:PresentationTraceSources.TraceLevel=High}"/>
             <TextBlock DockPanel.Dock="Top" Text="MODULE ONE EXAMPLE TABLE" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
             <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
