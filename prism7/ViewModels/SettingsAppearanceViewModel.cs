@@ -48,18 +48,15 @@ namespace prism7.ViewModels
 
         public SettingsAppearanceViewModel()
         {
-            // add the default themes
-            //this.themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
-            //this.themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
 
             // add additional themes
-            this.themes.Add(new Link { DisplayName = "dynamic modules", Source = new Uri(ThemesPath.Novi, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "light", Source = new Uri(ThemesPath.Light, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "dark", Source = new Uri(ThemesPath.Dark, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "light bing image", Source = new Uri(ThemesPath.LightBingImage, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "dark bing image", Source = new Uri(ThemesPath.DarkBingImage, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "windows 10", Source = new Uri(ThemesPath.Windows10, UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "mac osx", Source = new Uri(ThemesPath.MacOSX, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Novi Theme", Source = new Uri(ThemesPath.Novi, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Light", Source = new Uri(ThemesPath.Light, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Dark", Source = new Uri(ThemesPath.Dark, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Light Bing Image", Source = new Uri(ThemesPath.LightBingImage, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Dark Bing Image", Source = new Uri(ThemesPath.DarkBingImage, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Windows 10", Source = new Uri(ThemesPath.Windows10, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "Mac osx", Source = new Uri(ThemesPath.MacOSX, UriKind.Relative) });
 
             this.SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
             SyncThemeAndColor();

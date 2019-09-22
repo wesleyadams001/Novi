@@ -2,12 +2,12 @@
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 
-namespace ModuleOne
+namespace KeepaModule
 {
     public class ModuleOne : IModule
     {
         private readonly IUnityContainer _container;
-
+        
         public ModuleOne(IUnityContainer container)
         {
             if (container == null)

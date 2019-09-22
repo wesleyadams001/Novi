@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ModuleOne.Views.MainView"
+﻿<UserControl x:Class="KeepaModule.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,11 +8,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
     
     <Grid Style="{StaticResource ContentRoot}">
-        <mui:ModernTab SelectedSource="/ModuleOne;component/Views/DataGrid.xaml" Layout="List">
+        <mui:ModernTab SelectedSource="/KeepaModule;component/Views/DataGrid.xaml" Layout="List">
             <mui:ModernTab.Links>
-                <mui:Link DisplayName="Option 1" Source="/ModuleOne;component/Views/DataGrid.xaml" />
-                <mui:Link DisplayName="Option 2" Source="/ModuleOne;component/Views/LoremIpsum1.xaml" />
-                <mui:Link DisplayName="Option 3" Source="/ModuleOne;component/Views/LoremIpsum2.xaml" />
+                <mui:Link DisplayName="Option 1" Source="/KeepaModule;component/Views/DataGrid.xaml" />
+                <mui:Link DisplayName="Option 2" Source="/KeepaModule;component/Views/LoremIpsum1.xaml" />
+                <mui:Link DisplayName="Option 3" Source="/KeepaModule;component/Views/LoremIpsum2.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>
     </Grid>

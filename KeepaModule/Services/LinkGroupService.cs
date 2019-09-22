@@ -1,9 +1,9 @@
 ﻿using System;
 using FirstFloor.ModernUI.Presentation;
-using ModuleOne.Views;
 using XModule.Interfaces;
+using KeepaModule.Views;
 
-namespace ModuleOne.Services
+namespace KeepaModule.Services
 {
     /// <summary>
     /// Creates a LinkGroup
@@ -18,13 +18,13 @@ namespace ModuleOne.Services
         {
             LinkGroup linkGroup = new LinkGroup
             {
-                DisplayName = "Module One"
+                DisplayName = "KeepaModule"
             };
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Module One",
-                Source = new Uri($"/ModuleOne;component/Views/{nameof(MainView)}.xaml", UriKind.Relative)
+                DisplayName = "KeepaModule",
+                Source = new Uri($"/KeepaModule;component/Views/{nameof(MainView)}.xaml", UriKind.Relative)
             });
 
             return linkGroup;

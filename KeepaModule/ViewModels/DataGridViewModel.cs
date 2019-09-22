@@ -4,7 +4,7 @@ using Prism.Mvvm;
 using XModule.Models;
 using XModule.Services;
 
-namespace ModuleOne.ViewModels
+namespace KeepaModule.ViewModels
 {
     public class DataGridViewModel : BindableBase
     {

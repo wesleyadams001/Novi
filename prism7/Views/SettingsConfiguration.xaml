@@ -64,7 +64,7 @@
                                             <GridViewColumn Header="Api:"
                                                     DisplayMemberBinding="{Binding Key}" Width="100"/>
                                             <GridViewColumn Header="Key:"
-                                                     DisplayMemberBinding="{Binding Value}" Width="100"/>
+                                                     DisplayMemberBinding="{Binding Value}" Width="160"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -104,13 +104,13 @@
                     <GroupBox Grid.Column="1" Grid.Row="1" Header="Api and Connection String" Height="Auto" Width="Auto">
                         <StackPanel Grid.Column="0">
                             <ListBox >
-                                <ListView ItemsSource="{Binding ConnectionStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" SelectedItem="{Binding SelectedItemKey}">
+                                <ListView ItemsSource="{Binding ConnectionStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" Width="300" SelectedItem="{Binding SelectedItemKey}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Api:"
-                                                    DisplayMemberBinding="{Binding Key}" />
+                                                    DisplayMemberBinding="{Binding Key}" Width="100"/>
                                             <GridViewColumn Header="Connection String:"
-                                                     DisplayMemberBinding="{Binding Value}" />
+                                                     DisplayMemberBinding="{Binding Value}" Width="160"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
