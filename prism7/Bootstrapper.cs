@@ -84,9 +84,9 @@ namespace prism7
                 }
             }
 
-            // Module CoreModule is defined in the code.
-            //var moduleCatalog = (ModuleCatalog)ModuleCatalog;
-            //moduleCatalog.AddModule(typeof(Core.CoreModule));
+            // The XModule is defined in the code so as to always be loaded
+            var moduleCatalog = (ModuleCatalog)ModuleCatalog;
+            moduleCatalog.AddModule(typeof(XModule.XModule));
         }
 
         private bool InterfaceFilter(Type typeObj, Object criteriaObj)

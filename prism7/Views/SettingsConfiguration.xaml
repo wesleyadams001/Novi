@@ -58,13 +58,13 @@
                     <GroupBox Grid.Column="1" Header="Api and Associated Key" Height="Auto" Width="Auto">
                         <StackPanel Grid.Column="0">
                             <ListBox>
-                                <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" SelectedItem="{Binding SelectedItemKey}">
+                                <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" Width="300" SelectedItem="{Binding SelectedItemKey}">
                                     <ListView.View >
                                         <GridView>
                                             <GridViewColumn Header="Api:"
-                                                    DisplayMemberBinding="{Binding Key}" />
+                                                    DisplayMemberBinding="{Binding Key}" Width="100"/>
                                             <GridViewColumn Header="Key:"
-                                                     DisplayMemberBinding="{Binding Value}" />
+                                                     DisplayMemberBinding="{Binding Value}" Width="100"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

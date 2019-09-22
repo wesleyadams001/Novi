@@ -144,25 +144,32 @@ namespace prism7.ViewModels
             //See if it has default value or not
             if (!Properties.Settings.Default.ApiKeys.Equals("empty"))
             {
+                if(this.SelectedItemKey == null)
+                {
+                    MessageBox.Show("No Keys to remove");
+                }
+                else
+                {
+                    //remove a target entry from the dictionary
+                    int index1 = this.SelectedItemKey.IndexOf('[') + 1;
+                    int index2 = this.SelectedItemKey.IndexOf(',');
+                    int length = index2 - index1;
+                    var key = this.SelectedItemKey.Substring(index1, length);
+                    this.ApiKeys.Remove(key);
 
-                //remove a target entry from the dictionary
-                int index1 = this.SelectedItemKey.IndexOf('[') + 1;
-                int index2 = this.SelectedItemKey.IndexOf(',');
-                int length = index2 - index1;
-                var key = this.SelectedItemKey.Substring(index1, length);
-                this.ApiKeys.Remove(key);
+                    //Serialize a string dictionary to a json string 
+                    var objString = JsonConvert.SerializeObject(ApiKeys);
 
-                //Serialize a string dictionary to a json string 
-                var objString = JsonConvert.SerializeObject(ApiKeys);
+                    //Add string to the setting apikeys
+                    Properties.Settings.Default.ApiKeys = objString;
 
-                //Add string to the setting apikeys
-                Properties.Settings.Default.ApiKeys = objString;
+                    //save properties
+                    Properties.Settings.Default.Save();
 
-                //save properties
-                Properties.Settings.Default.Save();
-
-                //refresh previously updated properties
-                Properties.Settings.Default.Reload();
+                    //refresh previously updated properties
+                    Properties.Settings.Default.Reload();
+                }
+                
             }
            
         }
@@ -228,25 +235,32 @@ namespace prism7.ViewModels
             //See if it has default value or not
             if (!Properties.Settings.Default.ConnectionStrings.Equals("empty"))
             {
+                if (this.SelectedItemKey == null)
+                {
+                    MessageBox.Show("No connection string to remove");
+                }
+                else
+                {
+                    //remove a target entry from the dictionary
+                    int index1 = this.SelectedItemKey.IndexOf('[') + 1;
+                    int index2 = this.SelectedItemKey.IndexOf(',');
+                    int length = index2 - index1;
+                    var key = this.SelectedItemKey.Substring(index1, length);
+                    this.ConnectionStrings.Remove(key);
 
-                //remove a target entry from the dictionary
-                int index1 = this.SelectedItemKey.IndexOf('[') + 1;
-                int index2 = this.SelectedItemKey.IndexOf(',');
-                int length = index2 - index1;
-                var key = this.SelectedItemKey.Substring(index1, length);
-                this.ConnectionStrings.Remove(key);
+                    //Serialize a string dictionary to a json string 
+                    var objString = JsonConvert.SerializeObject(ConnectionStrings);
 
-                //Serialize a string dictionary to a json string 
-                var objString = JsonConvert.SerializeObject(ConnectionStrings);
+                    //Add string to the setting apikeys
+                    Properties.Settings.Default.ConnectionStrings = objString;
 
-                //Add string to the setting apikeys
-                Properties.Settings.Default.ConnectionStrings = objString;
+                    //save properties
+                    Properties.Settings.Default.Save();
 
-                //save properties
-                Properties.Settings.Default.Save();
-
-                //refresh previously updated properties
-                Properties.Settings.Default.Reload();
+                    //refresh previously updated properties
+                    Properties.Settings.Default.Reload();
+                }
+                
             }
         }
     }
