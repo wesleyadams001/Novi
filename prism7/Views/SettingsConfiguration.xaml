@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:prism7.Views"
-             xmlns:properties="clr-namespace:prism7.ViewModels"
              xmlns:converters="clr-namespace:prism7.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -31,7 +29,7 @@
                     <GroupBox Header="Add Api Key" Height="Auto" Width="180">
                         <StackPanel Grid.Column="0">
                             <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
-                            <TextBox Name="Key" Grid.Row="0" Grid.Column="1" Text="{Binding Api}" />
+                            <ComboBox Name="Key" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}" />
 
                             <TextBlock Grid.Row="1" Text="Key:" VerticalAlignment="Center" Margin="0,0,16,0" />
                             <TextBox Name="Value" Grid.Row="0" Grid.Column="1" Text="{Binding ApiKey}" />
@@ -76,7 +74,7 @@
                     <GroupBox Header="Add Connection String" Height="Auto" Width="180" Grid.Column="0" Grid.Row="1">
                         <StackPanel Grid.Column="0" Grid.Row="1">
                             <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
-                            <TextBox Name="csKey" Grid.Row="1" Grid.Column="1" Text="{Binding csApi}" />
+                            <ComboBox Name="Key2" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}"/>
 
                             <TextBlock Grid.Row="1" Text="Connection String:" VerticalAlignment="Center" Margin="0,0,16,0" />
                             <TextBox Name="csValue" Grid.Row="1" Grid.Column="1" Text="{Binding ConnectionString}" />

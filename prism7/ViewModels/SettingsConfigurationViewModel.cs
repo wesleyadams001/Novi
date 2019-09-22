@@ -56,6 +56,12 @@ namespace prism7.ViewModels
         }
         private bool _useEncryption;
 
+        public ObservableCollection<string> AvailableApis
+        {
+            get { return _availableApis; }
+            set { _availableApis = value; OnPropertyChanged("AvailableApis"); }
+        }
+
         /// <summary>
         /// The api key
         /// </summary>
@@ -67,11 +73,6 @@ namespace prism7.ViewModels
         public string Api { get; set; }
 
         /// <summary>
-        /// The connectino string Api
-        /// </summary>
-        public string csApi { get; set; }
-
-        /// <summary>
         /// The connection string
         /// </summary>
         public string ConnectionString { get; set; }
@@ -81,12 +82,28 @@ namespace prism7.ViewModels
         /// </summary>
         public string SelectedItemKey { get; set; }
 
+        /// <summary>
+        /// List of availble Apis based on loaded modules
+        /// </summary>
+        private ObservableCollection<string> _availableApis;
 
         /// <summary>
         /// Default constructor for settings configuration view model
         /// </summary>
         public SettingsConfigurationViewModel()
         {
+            //set new collection 
+            this.AvailableApis = new ObservableCollection<string>();
+
+            //pull arr of strings out of properties xml
+            string[] arr = new string[Properties.Settings.Default.Modules.Count];
+            Properties.Settings.Default.Modules.CopyTo(arr,0);
+
+            //add each item in the string array to list of available Apis
+            for(int x = 0; x<arr.Length; x++)
+            {
+                AvailableApis.Add(arr[x]);
+            }
 
             //See if it has default value or not
             if (!Properties.Settings.Default.ApiKeys.Equals("empty"))

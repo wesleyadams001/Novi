@@ -201,7 +201,7 @@ namespace prism7.ViewModels
             try
             {
                 //Add item to dictionary
-                this.ConnectionStrings.Add(this.csApi, this.ConnectionString);
+                this.ConnectionStrings.Add(this.Api, this.ConnectionString);
             }
             catch (Exception e)
             {

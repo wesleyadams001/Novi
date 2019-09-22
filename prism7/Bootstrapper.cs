@@ -8,6 +8,7 @@ using System.Reflection;
 using Microsoft.Practices.Unity;
 using System.Windows;
 using XModule.Interfaces;
+using Newtonsoft.Json;
 
 namespace prism7
 {
@@ -24,6 +25,15 @@ namespace prism7
             if (linkGroupCollection != null)
             {
                 shell.AddLinkGroups(linkGroupCollection);
+
+                //Clear out any previous modules as they might have changed
+                Properties.Settings.Default.Modules.Clear();
+
+                //load available modules
+                foreach (LinkGroup temp in linkGroupCollection)
+                {
+                    Properties.Settings.Default.Modules.Add(temp.DisplayName);
+                }
             }
 
             return shell;

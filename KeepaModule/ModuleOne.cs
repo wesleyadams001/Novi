@@ -21,7 +21,7 @@ namespace KeepaModule
         public void Initialize()
         {
             //_container.RegisterType<InterfaceName, ClassName>();
-            System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized ;-)");
+            System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
         }
     }
 }
