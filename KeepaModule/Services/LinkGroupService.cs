@@ -18,12 +18,12 @@ namespace KeepaModule.Services
         {
             LinkGroup linkGroup = new LinkGroup
             {
-                DisplayName = "KeepaModule"
+                DisplayName = "Keepa"
             };
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "KeepaModule",
+                DisplayName = "Keepa",
                 Source = new Uri($"/KeepaModule;component/Views/{nameof(MainView)}.xaml", UriKind.Relative)
             });
 
