@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using KeepaModule.ViewModels;
+using System.Windows.Controls;
 
 namespace KeepaModule.Views
 {

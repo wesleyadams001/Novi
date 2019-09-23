@@ -26,6 +26,7 @@ namespace XModule
         public void Initialize()
         {
             _container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+            //_container.RegisterType<IKeyService, KeyService>
         }
     }
 }

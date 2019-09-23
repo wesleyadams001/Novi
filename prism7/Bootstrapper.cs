@@ -9,6 +9,8 @@ using Microsoft.Practices.Unity;
 using System.Windows;
 using XModule.Interfaces;
 using Newtonsoft.Json;
+using XModule.Services;
+using prism7.Services;
 
 namespace prism7
 {
@@ -50,7 +52,7 @@ namespace prism7
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            //Container.RegisterType<InterfaceName, ClassName>();
+            Container.RegisterType<IKeyService, KeyService>();
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

@@ -9,9 +9,19 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" Width="339.873">
 
     <Grid MaxWidth="{StaticResource ViewMaxWidth}" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.Resources>
             <!--Create list of enumeration values-->
             <ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
@@ -20,18 +30,47 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </Grid.Resources>
-        
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="MODULE ONE EXAMPLE TABLE" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-            <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
-                <DataGrid.Columns>
-                    <mui:DataGridTextColumn Header="First Name"  Binding="{Binding FirstName}"/>
-                    <mui:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
-                    <mui:DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                    <mui:DataGridCheckBoxColumn Header="Is Member" Binding="{Binding IsMember}" />
-                    <mui:DataGridComboBoxColumn Header="Order Status" SelectedItemBinding="{Binding Status}" ItemsSource="{Binding Source={StaticResource myEnum}}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+
+        <GroupBox Header="Api and Associated Key" Height="Auto" Grid.Column="0" Grid.Row="0" Margin="0,0,10.4,0.6">
+            <StackPanel Grid.Column="0" Margin="10,0,18.2,0">
+                <ListBox Width="272" Height="125" RenderTransformOrigin="0.496,0.538">
+                    <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="115" Width="276" SelectedItem="{Binding SelectedItemKey}">
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Api:"
+                                                DisplayMemberBinding="{Binding Key}" Width="100"/>
+                                <GridViewColumn Header="Key:"
+                                                    DisplayMemberBinding="{Binding Value}" Width="160"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ListBox>
+            </StackPanel>
+
+        </GroupBox>
+
+        <GroupBox Header="Api and Connection String" Height="Auto" Grid.Column="0" Margin="0,0,0.4,0" Grid.Row="1">
+            <StackPanel Grid.Column="0" Width="250">
+                <ListBox Width="Auto" Margin="-24,0,-0.4,0" RenderTransformOrigin="0.347,0.501">
+                    <ListView ItemsSource="{Binding ConnStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="108" Width="268" SelectedItem="{Binding SelectedItemKey}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Api:"
+                                                    DisplayMemberBinding="{Binding Key}" Width="100"/>
+                                <GridViewColumn Header="Connection String:"
+                                                     DisplayMemberBinding="{Binding Value}" Width="160"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ListBox>
+
+            </StackPanel>
+
+        </GroupBox>
     </Grid>
+
+
+
+
+
 </UserControl>

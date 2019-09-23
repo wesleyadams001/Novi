@@ -10,9 +10,9 @@
     <Grid Style="{StaticResource ContentRoot}">
         <mui:ModernTab SelectedSource="/KeepaModule;component/Views/DataGrid.xaml" Layout="List">
             <mui:ModernTab.Links>
-                <mui:Link DisplayName="Option 1" Source="/KeepaModule;component/Views/DataGrid.xaml" />
-                <mui:Link DisplayName="Option 2" Source="/KeepaModule;component/Views/LoremIpsum1.xaml" />
-                <mui:Link DisplayName="Option 3" Source="/KeepaModule;component/Views/LoremIpsum2.xaml" />
+                <mui:Link DisplayName="Configuration" Source="/KeepaModule;component/Views/DataGrid.xaml" />
+                <mui:Link DisplayName="Requests" Source="/KeepaModule;component/Views/LoremIpsum1.xaml" />
+                <mui:Link DisplayName="Scheduler" Source="/KeepaModule;component/Views/LoremIpsum2.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>
     </Grid>
