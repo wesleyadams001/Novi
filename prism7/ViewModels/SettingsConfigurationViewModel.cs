@@ -129,6 +129,23 @@ namespace prism7.ViewModels
             this.RemoveApiKeyCommand = new DelegateCommand(RemoveApiKey);
             this.RemoveConnectionStringCommand = new DelegateCommand(RemoveConnectionString);
             this.SelectedItemKey = null;
+
+            // Open the configuration file and retrieve 
+            // the connectionStrings section.
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+
+            //Get section for user settings
+            ConfigurationSection userSettings = config.GetSection("userSettings/prism7.Properties.Settings");
+
+            //Sets the start up value of the check boxes isChecked value based on the encryption status of the settings file
+            if (userSettings.SectionInformation.IsProtected)
+            {
+                this.UseEncryption = true;
+            }
+            else
+            {
+                this.UseEncryption = false;
+            }
         }
 
 
