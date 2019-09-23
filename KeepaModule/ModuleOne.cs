@@ -22,6 +22,7 @@ namespace KeepaModule
         {
             //_container.RegisterType<InterfaceName, ClassName>();
             System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
+            //_container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
         }
     }
 }

@@ -26,7 +26,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Add Api Key" Height="Auto" Width="180">
+                    <GroupBox Header="Add Api Key" Height="Auto" Width="185">
                         <StackPanel Grid.Column="0">
                             <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
                             <ComboBox Name="Key" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}" />
@@ -71,7 +71,7 @@
                         </StackPanel>
 
                     </GroupBox>
-                    <GroupBox Header="Add Connection String" Height="Auto" Width="180" Grid.Column="0" Grid.Row="1">
+                    <GroupBox Header="Add Connection String" Height="Auto" Width="185" Grid.Column="0" Grid.Row="1">
                         <StackPanel Grid.Column="0" Grid.Row="1">
                             <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
                             <ComboBox Name="Key2" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}"/>

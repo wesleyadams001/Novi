@@ -67,7 +67,7 @@ namespace prism7
             //
             // xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)modules\" /y
             //
-            // WARNING! Do not forget to explicitly compile the solution before each running
+            // Explicitly compile the solution before each running
             // so the modules are copied into the modules folder.
             var directoryCatalog = (DirectoryModuleCatalog)ModuleCatalog;
             directoryCatalog.Initialize();
