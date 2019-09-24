@@ -9,11 +9,12 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" Width="339.873">
+             d:DesignHeight="300" Width="410.127">
 
-    <Grid MaxWidth="{StaticResource ViewMaxWidth}" HorizontalAlignment="Left">
+    <Grid Width="411" HorizontalAlignment="Left" Margin="10,0,-10.6,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="100" />
 
 
         </Grid.ColumnDefinitions>
@@ -31,10 +32,25 @@
             </ObjectDataProvider>
         </Grid.Resources>
 
-        <GroupBox Header="Api and Associated Key" Height="Auto" Grid.Column="0" Grid.Row="0" Margin="0,0,10.4,0.6">
-            <StackPanel Grid.Column="0" Margin="10,0,18.2,0">
-                <ListBox Width="272" Height="125" RenderTransformOrigin="0.496,0.538">
-                    <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="115" Width="276" SelectedItem="{Binding SelectedItemKey}">
+
+        <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-150,0,4.8,-0.2">
+            <StackPanel Margin="34,0,-0.8,-0.6">
+                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Requests:" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </GroupBox>
+
+
+
+        <GroupBox Header="Api and Associated Key" Height="200" Grid.Column="1" Grid.Row="0" Margin="0.2,0,-203.4,1" >
+            <StackPanel Grid.Column="0" Margin="10,0,12.2,-0.4" Height="Auto">
+                <ListBox Height="125" RenderTransformOrigin="0.496,0.538" Margin="0,0,-10.8,0">
+                    <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding SelectedItemKey}">
                         <ListView.View >
                             <GridView>
                                 <GridViewColumn Header="Api:"
@@ -45,14 +61,15 @@
                         </ListView.View>
                     </ListView>
                 </ListBox>
+                
             </StackPanel>
 
         </GroupBox>
 
-        <GroupBox Header="Api and Connection String" Height="Auto" Grid.Column="0" Margin="0,0,0.4,0" Grid.Row="1">
-            <StackPanel Grid.Column="0" Width="250">
-                <ListBox Width="Auto" Margin="-24,0,-0.4,0" RenderTransformOrigin="0.347,0.501">
-                    <ListView ItemsSource="{Binding ConnStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="108" Width="268" SelectedItem="{Binding SelectedItemKey}">
+        <GroupBox Header="Api and Connection String" Height="200" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.193,0.32" Margin="0.2,1,-203.4,1">
+            <StackPanel Grid.Column="0" Margin="10,0,18.2,0" Height="Auto">
+                <ListBox Height="125" RenderTransformOrigin="0.496,0.538" Margin="0,0,-14.8,0">
+                    <ListView ItemsSource="{Binding ConnStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding SelectedItemKey}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Api:"
@@ -68,9 +85,6 @@
 
         </GroupBox>
     </Grid>
-
-
-
 
 
 </UserControl>

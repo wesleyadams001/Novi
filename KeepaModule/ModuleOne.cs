@@ -1,6 +1,8 @@
 ﻿using System;
+using KeepaModule.Services;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
+using XModule.Services;
 
 namespace KeepaModule
 {
@@ -22,7 +24,9 @@ namespace KeepaModule
         {
             //_container.RegisterType<InterfaceName, ClassName>();
             System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
-            //_container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+
+            //Register available requests
+            _container.RegisterType<IAvailableRequestsService, AvailableRequests>(new ContainerControlledLifetimeManager());
         }
     }
 }
