@@ -63,7 +63,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Active Requests" ToolTip="Requests that are scheduled to be sent." Grid.Row="0" Grid.Column="1" Margin="1,0,0,0" Height="500" Width="400">
+        <GroupBox Header="Active Requests" ToolTip="Requests that are scheduled to be sent." Grid.Row="0" Grid.Column="1" Margin="1,0,0,0" Height="500" Width="Auto">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -78,10 +78,20 @@
                     <DataGrid.Columns>
                         <mui:DataGridTextColumn Header="Api Name" Binding="{Binding First}"/>
                         <mui:DataGridTextColumn Header="Request" Binding="{Binding Second}"/>
+                        <DataGridTemplateColumn Header="Input Parameters">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <mui:ModernButton Content="Parameters" Width="80" Height="30" Command="{Binding OpenMenuCommand}" ToolTip="Opens dialog box to input call parameters."/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </GroupBox>
+        
     </Grid>
+
+    
     
 </UserControl>

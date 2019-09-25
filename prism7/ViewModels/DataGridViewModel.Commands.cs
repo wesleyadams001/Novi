@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace prism7.ViewModels
 {
@@ -20,6 +21,11 @@ namespace prism7.ViewModels
         public DelegateCommand RemoveSelectedItemFromActiveCommand { get; private set; }
 
         /// <summary>
+        /// Delegate command that opens the parameter input dialog box
+        /// </summary>
+        public DelegateCommand OpenDialogInputParamsCommand { get; private set; }
+
+        /// <summary>
         /// Method that adds selected item to active list
         /// </summary>
         private void AddSelectedItemToActive()
@@ -33,6 +39,11 @@ namespace prism7.ViewModels
         private void RemoveSelectedItemFromActive()
         {
             this.ActiveRequests.Remove(this.SelectedActiveRequestItem);
+        }
+
+        private void OpenDialogInputParams()
+        {
+            //Open modal
         }
     }
 }
