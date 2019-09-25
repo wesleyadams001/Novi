@@ -12,28 +12,76 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <Grid MaxWidth="{StaticResource ResourceKey=ViewMaxWidth}" HorizontalAlignment="Left">
-        <Grid.Resources>
-            <!--Create list of enumeration values-->
-            <ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type Type="model:OrderStatus"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-        </Grid.Resources>
-        
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="COMMON EXAMPLE TABLE" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-            <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
-                <DataGrid.Columns>
-                    <mui:DataGridTextColumn Header="First Name"  Binding="{Binding FirstName}"/>
-                    <mui:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
-                    <mui:DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                    <mui:DataGridCheckBoxColumn Header="Is Member" Binding="{Binding IsMember}" />
-                    <mui:DataGridComboBoxColumn Header="Order Status" SelectedItemBinding="{Binding Status}" ItemsSource="{Binding Source={StaticResource myEnum}}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+    <Grid HorizontalAlignment="Left" Width="1000" Height="500">
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Available Requests" ToolTip="Requests that are available from all plugins." Grid.Row="0" Grid.Column="0" Height="500" Width="400">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Requests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRequestItem}" VerticalScrollBarVisibility="Visible">
+                    <DataGrid.Columns>
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding First}" />
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding Second}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <GroupBox  Header="Options:" Height="80" Width="250">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <mui:ModernButton Grid.Column="0" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding AddSelectedItemToActiveCommand}" FontSize="12" Content="Add"></mui:ModernButton>
+                            <mui:ModernButton Grid.Column="1" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding RemoveSelectedItemFromActiveCommand}" FontSize="12" Content="Remove"></mui:ModernButton>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+                
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Active Requests" ToolTip="Requests that are scheduled to be sent." Grid.Row="0" Grid.Column="1" Margin="1,0,0,0" Height="500" Width="400">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid ItemsSource="{Binding ActiveRequests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedActiveRequestItem}" VerticalScrollBarVisibility="Visible">
+                    <DataGrid.Columns>
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding First}"/>
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding Second}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
     </Grid>
     
 </UserControl>

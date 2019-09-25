@@ -22,10 +22,9 @@ namespace KeepaModule
 
         public void Initialize()
         {
-            //_container.RegisterType<InterfaceName, ClassName>();
             System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
-
-            //Register available requests
+            
+            //Register available requestservice
             _container.RegisterType<IAvailableRequestsService, AvailableRequests>(new ContainerControlledLifetimeManager());
         }
     }

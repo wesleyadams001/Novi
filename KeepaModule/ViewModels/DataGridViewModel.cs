@@ -8,12 +8,13 @@ using Prism.Commands;
 using Prism.Mvvm;
 using XModule.Models;
 using XModule.Services;
+using XModule.Tools;
 
 namespace KeepaModule.ViewModels
 {
     public partial class DataGridViewModel : BindableBase
     {
-        private ObservableConcurrentCollection<string> _requests;
+        private ObservableConcurrentCollection<Pair<string, string>> _requests;
         private ObservableConcurrentDictionary<string, string> _ApiKeys;
         private ObservableConcurrentDictionary<string, string> _ConnStrings; 
         private IKeyService service;
@@ -25,7 +26,7 @@ namespace KeepaModule.ViewModels
         /// <summary>
         /// The collection of available requests
         /// </summary>
-        public ObservableConcurrentCollection<string> Requests
+        public ObservableConcurrentCollection<Pair<string, string>> Requests
         {
             get { return _requests; }
             set { SetProperty(ref _requests, value); OnPropertyChanged("Requests"); }
@@ -53,8 +54,8 @@ namespace KeepaModule.ViewModels
         {
             this.container = container;
             var req = new AvailableRequests();
-            this.Requests = new ObservableConcurrentCollection<string>();
-            this.Requests = req.GetRequests();
+            this.Requests = new ObservableConcurrentCollection<Pair<string, string>>();
+            this.Requests.AddFromEnumerable(req.GetRequests());
             this.service = service;
             this.ApiKeys = new ObservableConcurrentDictionary<string, string>();
             this.ConnStrings = new ObservableConcurrentDictionary<string, string>();

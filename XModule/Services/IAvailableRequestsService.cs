@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Models;
 using XModule.Interfaces;
+using XModule.Tools;
 
 namespace XModule.Services
 {
     public interface IAvailableRequestsService
     {
-        ObservableConcurrentCollection<string> GetRequests();
+        List<Pair<string, string>> GetRequests();
     }
 }

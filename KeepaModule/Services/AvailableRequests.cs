@@ -8,16 +8,17 @@ using XModule.Interfaces;
 using XModule.Services;
 using KeepaModule.Models;
 using System.Reflection;
+using XModule.Tools;
 
 namespace KeepaModule.Services
 {
     public class AvailableRequests : IAvailableRequestsService
     {
-        private ObservableConcurrentCollection<string> typesCollection;
+        private List<Pair<string, string>> typesCollection;
         
-        public ObservableConcurrentCollection<string> GetRequests()
+        public List<Pair<string, string>> GetRequests()
         {
-            this.typesCollection = new ObservableConcurrentCollection<string>();
+            this.typesCollection = new List<Pair<string, string>>();
 
             //Use parent type as a root
             Type parentType = typeof(KeepaRequest);
@@ -34,8 +35,17 @@ namespace KeepaModule.Services
             //Get names of subclasses
             var names = subclasses.Select(t => t.Name);
 
+            //declare array of tuples
+            List<Pair<string, string>> pairs = new List<Pair<string, string>>();
+            
+
+            for(int x=0; x<names.Count(); x++)
+            {
+                pairs.Add(new Pair<string, string>("Keepa", names.ElementAt(x)));
+            }
+
             //add to types collection
-            typesCollection.AddFromEnumerable<string>(names);
+            typesCollection = pairs;
 
             return this.typesCollection;
         }

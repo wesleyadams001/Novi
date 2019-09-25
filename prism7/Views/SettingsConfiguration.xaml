@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:converters="clr-namespace:prism7.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -46,8 +47,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <Button Grid.Row="2" Grid.Column="0" Width="80" Height="30" Margin="0,10,0,10" Command="{Binding AddApiKeyCommand}" FontSize="12" Content="Add"></Button>
-                                <Button Grid.Row="2" Grid.Column="1" Width="80" Height="30" Margin="0,10,5,10" Command="{Binding RemoveApiKeyCommand}" FontSize="12" Content="Remove"></Button>
+                                <mui:ModernButton Grid.Row="2" Grid.Column="0" Width="80" Height="30" Margin="0,10,0,10" Command="{Binding AddApiKeyCommand}" FontSize="12" Content="Add"></mui:ModernButton>
+                                <mui:ModernButton Grid.Row="2" Grid.Column="1" Width="80" Height="30" Margin="0,10,5,10" Command="{Binding RemoveApiKeyCommand}" FontSize="12" Content="Remove"></mui:ModernButton>
 
                             </Grid>
                         </StackPanel>
@@ -90,8 +91,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <Button Grid.Row="3" Grid.Column="0" Width="80" Height="30" Margin="0,10,0,10" Command="{Binding AddConnectionStringCommand}" FontSize="12" Content="Add"></Button>
-                                <Button Grid.Row="3" Grid.Column="1" Width="80" Height="30" Margin="0,10,5,10" Command="{Binding RemoveConnectionStringCommand}" FontSize="12" Content="Remove"></Button>
+                                <mui:ModernButton Grid.Row="3" Grid.Column="0" Width="80" Height="30" Margin="0,10,0,10" Command="{Binding AddConnectionStringCommand}" FontSize="12" Content="Add"></mui:ModernButton>
+                                <mui:ModernButton Grid.Row="3" Grid.Column="1" Width="80" Height="30" Margin="0,10,5,10" Command="{Binding RemoveConnectionStringCommand}" FontSize="12" Content="Remove"></mui:ModernButton>
 
 
                             </Grid>

@@ -32,20 +32,17 @@
             </ObjectDataProvider>
         </Grid.Resources>
 
-
         <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-150,0,4.8,-0.2">
             <StackPanel Margin="34,0,-0.8,-0.6">
                 <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Requests:" />
+                            <GridViewColumn Header="Requests:" DisplayMemberBinding="{Binding Second}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
             </StackPanel>
         </GroupBox>
-
-
 
         <GroupBox Header="Api and Associated Key" Height="200" Grid.Column="1" Grid.Row="0" Margin="0.2,0,-203.4,1" >
             <StackPanel Grid.Column="0" Margin="10,0,12.2,-0.4" Height="Auto">
@@ -61,9 +58,7 @@
                         </ListView.View>
                     </ListView>
                 </ListBox>
-                
             </StackPanel>
-
         </GroupBox>
 
         <GroupBox Header="Api and Connection String" Height="200" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.193,0.32" Margin="0.2,1,-203.4,1">
