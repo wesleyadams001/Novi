@@ -23,14 +23,6 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.Resources>
-            <!--Create list of enumeration values-->
-            <ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type Type="model:OrderStatus"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-        </Grid.Resources>
 
         <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-150,0,4.8,-0.2">
             <StackPanel Margin="34,0,-0.8,-0.6">

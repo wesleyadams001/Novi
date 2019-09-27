@@ -9,6 +9,9 @@ using XModule.Services;
 
 namespace XModule
 {
+    /// <summary>
+    /// This module acts as kind of definitions donkey
+    /// </summary>
     public class XModule : IModule
     {
         private readonly IUnityContainer _container;
@@ -25,8 +28,8 @@ namespace XModule
 
         public void Initialize()
         {
-            _container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
-            //_container.RegisterType<IKeyService, KeyService>
+           // _container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+         
         }
     }
 }
