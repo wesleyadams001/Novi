@@ -39,11 +39,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Requests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRequestItem}" VerticalScrollBarVisibility="Visible">
+                <DataGrid Grid.Row="0" Grid.RowSpan="2" Height="380" ItemsSource="{Binding Requests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRequestItem}" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding First}" />
-                        <mui:DataGridTextColumn Header="Request" Binding="{Binding Second}"/>
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"  />
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" />
                     </DataGrid.Columns>
+                    
                 </DataGrid>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -76,8 +77,8 @@
                 </Grid.RowDefinitions>
                 <DataGrid ItemsSource="{Binding ActiveRequests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedActiveRequestItem}" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding First}"/>
-                        <mui:DataGridTextColumn Header="Request" Binding="{Binding Second}"/>
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"/>
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}"/>
                         <DataGridTemplateColumn Header="Input Parameters">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

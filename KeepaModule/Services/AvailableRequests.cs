@@ -9,16 +9,19 @@ using XModule.Services;
 using KeepaModule.Models;
 using System.Reflection;
 using XModule.Tools;
+using XModule.Models;
+using System.IO;
+using XModule;
 
 namespace KeepaModule.Services
 {
     public class AvailableRequests : IAvailableRequestsService
     {
-        private List<Pair<string, string>> typesCollection;
-        
-        public List<Pair<string, string>> GetRequests()
+        private const string ModuleName = "Keepa";
+        private RequestObject[] typesCollection;
+
+        public RequestObject[] GetRequests()
         {
-            this.typesCollection = new List<Pair<string, string>>();
 
             //Use parent type as a root
             Type parentType = typeof(KeepaRequest);
@@ -32,22 +35,49 @@ namespace KeepaModule.Services
             //Get subclasses
             var subclasses = types.Where(t => t.IsSubclassOf(parentType));
 
-            //Get names of subclasses
-            var names = subclasses.Select(t => t.Name);
+            //Gets methods
+            var methods = subclasses.SelectMany(x => x.GetMethods()).Where(y => y.GetCustomAttributes(typeof(Tag), false).Length > 0).ToArray();
+
+            //Gets the names
+            var mNames = methods.Select(t => t.Name);
 
             //declare array of tuples
-            List<Pair<string, string>> pairs = new List<Pair<string, string>>();
-            
+            RequestObject[] requestObjects = new RequestObject[methods.Count()];
 
-            for(int x=0; x<names.Count(); x++)
+            for (int x = 0; x < methods.Length; x++)
             {
-                pairs.Add(new Pair<string, string>("Keepa", names.ElementAt(x)));
+                requestObjects[x] = new RequestObject(mNames.ElementAt(x), ModuleName);
+
+                //Method information
+                var methodInfo = methods[x];
+
+                //Get method parameters
+                var val = methodInfo.GetParameters();
+
+                //Get strings of parameters
+                var j = val.Select(o => o.ParameterType.ToString());
+
+                for (int z = 0; z < j.Count(); z++)
+                {
+                    //assign strings to parameter list
+                    requestObjects[x].ParameterList.Add(new Pair<string, object>(j.ElementAt(z), string.Empty));
+                    
+                }
+
             }
 
+
+
             //add to types collection
-            typesCollection = pairs;
+            typesCollection = requestObjects;
 
             return this.typesCollection;
+        }
+
+        private void WriteToFile(string text)
+        {
+            //File.WriteAllText(@"D:\Wesley\Documents\", text +".txt");
+            File.AppendAllText(@"D:\Wesley\Documents\Test.txt", text + "\n");
         }
     }
 }

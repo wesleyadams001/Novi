@@ -37,7 +37,7 @@
                 <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Requests:" DisplayMemberBinding="{Binding Second}" />
+                            <GridViewColumn Header="Requests:" DisplayMemberBinding="{Binding RequestName}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

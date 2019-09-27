@@ -45,16 +45,12 @@ namespace prism7.ViewModels
         /// Private backing field of connection strings necessary to raise property changed notification
         /// </summary>
         private ObservableConcurrentDictionary<string, string> _connStrings;
-        
+
 
         /// <summary>
         /// Boolean value to indicate whether to use encryption of not
         /// </summary>
-        public bool UseEncryption {
-            get => _useEncryption;
-            set => _useEncryption = value;
-        }
-        private bool _useEncryption;
+        public bool UseEncryption { get; set; }
 
         public ObservableCollection<string> AvailableApis
         {

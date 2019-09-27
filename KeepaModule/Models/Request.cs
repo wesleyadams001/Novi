@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XModule;
 using XModule.Interfaces;
 using XModule.Tools;
 using static XModule.Constants.Enums;
@@ -84,7 +85,7 @@ namespace KeepaModule.Models
     //}
     public class GetTrackingGetRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingGetRequest(object p1)
         {
             var asin = (string)p1;
@@ -100,7 +101,7 @@ namespace KeepaModule.Models
     }
     public class GetTrackingListRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingListRequest(object p1)
         {
             var asinsOnly = (bool)p1;
@@ -118,7 +119,7 @@ namespace KeepaModule.Models
     }
     public class GetTrackingNotificationRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingNotificationRequest(object p1, object p2)
         {
             var since = (int)p1;
@@ -136,7 +137,7 @@ namespace KeepaModule.Models
     }
     public class GetTrackingRemoveRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingRemoveRequest(object p1)
         {
             var asin = (string)p1;
@@ -152,7 +153,7 @@ namespace KeepaModule.Models
     }
     public class GetTrackingRemoveAllRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingRemoveAllRequest()
         {
             KeepaRequest r = new KeepaRequest();
@@ -165,7 +166,7 @@ namespace KeepaModule.Models
     }
     public class GetTrackingWebHookRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTrackingWebHookRequest(object p1)
         {
             var url = (string)p1;
@@ -181,7 +182,7 @@ namespace KeepaModule.Models
     }
     public class GetBestSellersRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getBestSellersRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
@@ -198,7 +199,7 @@ namespace KeepaModule.Models
     }
     public class GetCategoryLookupRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getCategoryLookupRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
@@ -219,7 +220,7 @@ namespace KeepaModule.Models
     }
     public class GetCategorySearchRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getCategorySearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
@@ -241,7 +242,7 @@ namespace KeepaModule.Models
     }
     public class GetSellerRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getSellerRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
@@ -255,6 +256,7 @@ namespace KeepaModule.Models
             r.parameter.Add("seller", Utilities.arrayToCsv(seller));
             return r;
         }
+        [Tag]
         public IRequest getSellerRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
@@ -272,6 +274,7 @@ namespace KeepaModule.Models
                 r.parameter.Add("storefront", "1");
             return r;
         }
+        [Tag]
         public IRequest getSellerRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
@@ -295,7 +298,7 @@ namespace KeepaModule.Models
     }
     public class GetTopSellerRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getTopSellerRequest(object p1)
         {
             var domainId = (AmazonLocale)p1;
@@ -310,7 +313,7 @@ namespace KeepaModule.Models
     }
     public class GetProductSearchRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getProductSearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
@@ -329,6 +332,7 @@ namespace KeepaModule.Models
                 r.parameter.Add("stats", stats.ToString());
             return r;
         }
+        [Tag]
         public IRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
         {
             var domainId = (AmazonLocale)p1;
@@ -357,7 +361,7 @@ namespace KeepaModule.Models
 
     public class GetProductRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getProductRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
@@ -378,6 +382,7 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+        [Tag]
         public IRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
@@ -407,7 +412,7 @@ namespace KeepaModule.Models
     }
     public class GetProductByCodeRequest : KeepaRequest
     {
-
+        [Tag]
         public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
@@ -428,6 +433,7 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+        [Tag]
         public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
@@ -454,6 +460,7 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+        [Tag]
         public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
         {
             var domainId = (AmazonLocale)p1;

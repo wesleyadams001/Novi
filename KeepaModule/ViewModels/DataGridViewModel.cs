@@ -14,7 +14,7 @@ namespace KeepaModule.ViewModels
 {
     public partial class DataGridViewModel : BindableBase
     {
-        private ObservableConcurrentCollection<Pair<string, string>> _requests;
+        private ObservableCollection<RequestObject> _requests;
         private ObservableConcurrentDictionary<string, string> _ApiKeys;
         private ObservableConcurrentDictionary<string, string> _ConnStrings; 
         private IKeyService service;
@@ -26,7 +26,7 @@ namespace KeepaModule.ViewModels
         /// <summary>
         /// The collection of available requests
         /// </summary>
-        public ObservableConcurrentCollection<Pair<string, string>> Requests
+        public ObservableCollection<RequestObject> Requests
         {
             get { return _requests; }
             set { SetProperty(ref _requests, value); OnPropertyChanged("Requests"); }
@@ -54,8 +54,7 @@ namespace KeepaModule.ViewModels
         {
             this.container = container;
             var req = new AvailableRequests();
-            this.Requests = new ObservableConcurrentCollection<Pair<string, string>>();
-            this.Requests.AddFromEnumerable(req.GetRequests());
+            this.Requests = new ObservableCollection<RequestObject>(req.GetRequests());
             this.service = service;
             this.ApiKeys = new ObservableConcurrentDictionary<string, string>();
             this.ConnStrings = new ObservableConcurrentDictionary<string, string>();

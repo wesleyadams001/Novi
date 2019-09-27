@@ -121,11 +121,15 @@
     <Compile Include="Themes\ThemesPath.cs" />
     <Compile Include="ViewModels\DataGridViewModel.Commands.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
+    <Compile Include="ViewModels\InputDiagViewModel.cs" />
     <Compile Include="ViewModels\SettingsAppearanceViewModel.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.Commands.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.cs" />
     <Compile Include="Views\DataGrid.xaml.cs">
       <DependentUpon>DataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputDiagView.xaml.cs">
+      <DependentUpon>InputDiagView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IntroductionView.xaml.cs">
       <DependentUpon>IntroductionView.xaml</DependentUpon>
@@ -205,6 +209,10 @@
     <Page Include="Views\DataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InputDiagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IntroductionView.xaml">
       <Generator>MSBuild:Compile</Generator>

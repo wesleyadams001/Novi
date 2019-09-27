@@ -12,6 +12,6 @@ namespace XModule.Services
 {
     public interface IAvailableRequestsService
     {
-        List<Pair<string, string>> GetRequests();
+        RequestObject[] GetRequests();
     }
 }
