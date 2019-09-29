@@ -24,7 +24,7 @@ namespace prism7.Views
         public InputDiagView()
         {
             InitializeComponent();
-            this.DataContext = new InputDiagViewModel();
+            
         }
     }
 }

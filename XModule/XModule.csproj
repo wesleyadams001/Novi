@@ -145,6 +145,7 @@
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Models\RequestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IActiveRequestsService.cs" />
     <Compile Include="Services\IAvailableRequestsService.cs" />
     <Compile Include="Services\IKeyService.cs" />
     <Compile Include="Services\IPluginService.cs" />

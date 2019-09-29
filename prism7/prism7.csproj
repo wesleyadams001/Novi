@@ -113,6 +113,7 @@
     <Compile Include="Converter\Collections.cs" />
     <Compile Include="Converter\Variables.cs" />
     <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Services\ActiveRequestsService.cs" />
     <Compile Include="Services\KeyService.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Models;
+using XModule.Services;
 
 namespace prism7.ViewModels
 {
@@ -14,8 +15,15 @@ namespace prism7.ViewModels
     /// </summary>
     public class InputDiagViewModel : BindableBase
     {
+        private IActiveRequestsService service;
         public string Input { get; set; }
         private ObservableCollection<RequestObject> _dataCollection;
+
+        public InputDiagViewModel(IActiveRequestsService service)
+        {
+            this.service = service;
+            this.DataCollection = service.GetRequests();
+        }
 
         public ObservableCollection<RequestObject> DataCollection
         {

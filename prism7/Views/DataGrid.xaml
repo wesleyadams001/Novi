@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:XModule.Models;assembly=XModule"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
@@ -12,18 +13,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <Grid HorizontalAlignment="Left" Width="1000" Height="500">
+    <Grid HorizontalAlignment="Left" Width="5000" Height="1000">
 
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-
-
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -31,6 +30,7 @@
         <GroupBox Header="Available Requests" ToolTip="Requests that are available from all plugins." Grid.Row="0" Grid.Column="0" Height="500" Width="400">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -64,7 +64,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Active Requests" ToolTip="Requests that are scheduled to be sent." Grid.Row="0" Grid.Column="1" Margin="1,0,0,0" Height="500" Width="Auto">
+        <GroupBox Header="Active Requests" ToolTip="Requests that are scheduled to be sent." Grid.Row="0" Grid.Column="1" Margin="1,0,0,0" Height="500" Width="400" Grid.RowSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -75,17 +75,38 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid ItemsSource="{Binding ActiveRequests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedActiveRequestItem}" VerticalScrollBarVisibility="Visible">
+                <DataGrid ItemsSource="{Binding ActiveRequests}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" SelectedItem="{Binding SelectedActiveRequestItem}" VerticalScrollBarVisibility="Visible">
+                    
                     <DataGrid.Columns>
                         <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"/>
                         <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}"/>
-                        <DataGridTemplateColumn Header="Input Parameters">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <mui:ModernButton Content="Parameters" Width="80" Height="30" Command="{Binding OpenMenuCommand}" ToolTip="Opens dialog box to input call parameters."/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <GroupBox  Header="Options:" Height="80" Width="250">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <mui:ModernButton Grid.Column="0" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding EditParametersCommand}" FontSize="12" Content="Edit"></mui:ModernButton>
+                            <mui:ModernButton Grid.Column="1" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Add To Queue"></mui:ModernButton>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Parameter Editor" ToolTip="Here you can edit the parameters to use." Grid.Row="0" Grid.Column="2" Margin="1,0,0,0" Height="500" Width="400" Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
+                    <DataGrid.Columns>
+                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}"/>
+                        <mui:DataGridTextColumn Header="Value" Binding="{Binding Second}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

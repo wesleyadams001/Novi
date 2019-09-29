@@ -4,6 +4,9 @@ using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
 using Prism.Commands;
+using Microsoft.Practices.Unity;
+using System.Data;
+using System.Timers;
 
 namespace prism7.ViewModels
 {
@@ -14,6 +17,9 @@ namespace prism7.ViewModels
     {
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<RequestObject> activerequests;
+        private IUnityContainer container;
+        private ObservableCollection<Pair<string, object>> parameters;
+        private Timer aTimer;
 
         /// <summary>
         /// indicates if the request is active
@@ -49,18 +55,32 @@ namespace prism7.ViewModels
         }
 
         /// <summary>
+        /// List of Parameters
+        /// </summary>
+        public ObservableCollection<Pair<string,object>> ParameterList
+        {
+            get { return parameters; }
+            set { SetProperty(ref parameters, value); }
+        }
+
+        /// <summary>
         /// Constructor that takes an instance of AvailableRequestsService
         /// </summary>
         /// <param name="service"></param>
-        public DataGridViewModel(IAvailableRequestsService service)
+        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service)
         {
+            this.container = container;
             this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.AddSelectedItemToActiveCommand = new DelegateCommand(AddSelectedItemToActive);
             this.RemoveSelectedItemFromActiveCommand = new DelegateCommand(RemoveSelectedItemFromActive);
             this.SelectedRequestItem = new RequestObject();
             this.SelectedActiveRequestItem = new RequestObject();
-            //this.Requests.AddRange(service.GetRequests());
+            this.ParameterList = new ObservableCollection<Pair<string, object>>();
+            this.EditParametersCommand = new DelegateCommand(EditParameters);
+
         }
+
+        
     }
 }

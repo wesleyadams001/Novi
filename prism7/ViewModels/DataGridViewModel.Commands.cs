@@ -1,10 +1,17 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using XModule.Models;
+using XModule.Services;
+using Microsoft.Practices.Unity;
+using FirstFloor.ModernUI.Windows.Controls;
+using System.Windows.Threading;
+using System.Data;
 
 namespace prism7.ViewModels
 {
@@ -25,12 +32,45 @@ namespace prism7.ViewModels
         /// </summary>
         public DelegateCommand OpenDialogInputParamsCommand { get; private set; }
 
+        public DelegateCommand EditParametersCommand { get; private set; }
+
         /// <summary>
         /// Method that adds selected item to active list
         /// </summary>
         private void AddSelectedItemToActive()
         {
-            this.ActiveRequests.Add(this.SelectedRequestItem);
+            
+            //if selected request item is not null
+            if(this.SelectedRequestItem != null)
+            {
+                //Add to obs collection
+                this.ActiveRequests.Add(this.SelectedRequestItem);
+
+                //serialize and add to persist
+                var strObj = JsonConvert.SerializeObject(this.SelectedRequestItem);
+                Properties.Settings.Default.ActiveRequests.Add(strObj);
+
+                //save properties
+                Properties.Settings.Default.Save();
+
+                //refresh previously updated properties
+                Properties.Settings.Default.Reload();
+               
+                
+            }
+            
+
+        }
+
+        private void EditParameters()
+        {
+            this.ParameterList.Clear();
+
+            for(int x =0; x< this.SelectedActiveRequestItem.ParameterList.Count; x++)
+            {
+                this.ParameterList.Add(this.SelectedActiveRequestItem.ParameterList.ElementAt(x));
+            }
+            
         }
 
         /// <summary>
@@ -38,12 +78,45 @@ namespace prism7.ViewModels
         /// </summary>
         private void RemoveSelectedItemFromActive()
         {
-            this.ActiveRequests.Remove(this.SelectedActiveRequestItem);
+           //if not null
+            if(this.SelectedActiveRequestItem != null)
+            {
+                //Remove item from observable list
+                this.ActiveRequests.Remove(this.SelectedActiveRequestItem);
+
+                //Remove it from persist
+                var strObj = JsonConvert.SerializeObject(this.SelectedRequestItem);
+                Properties.Settings.Default.ActiveRequests.Remove(strObj);
+
+                //save properties
+                Properties.Settings.Default.Save();
+
+                //refresh previously updated properties
+                Properties.Settings.Default.Reload();
+            }
         }
 
-        private void OpenDialogInputParams()
+        private void EditParameterObject(RequestObject ro)
         {
-            //Open modal
+            //DataTable table = new DataTable();
+            //for(int x = 0; x< ro.ParameterList.Count(); x++)
+            //{
+            //    DataColumn c = new DataColumn();
+            //    c.ColumnName = "Parameter:" + x;
+            //    c.Caption = ro.ParameterList.ElementAt(x).First;
+            //    table.Columns.Add(c);
+               
+            //}
+
+            //var row = table.NewRow();
+            //for(int x =0; x< ro.ParameterList.Count(); x++)
+            //{
+                
+            //    row[x] = ro.ParameterList.ElementAt(x).Second;
+            //}
+
+            //this.DataTable = table;
+            
         }
     }
 }
