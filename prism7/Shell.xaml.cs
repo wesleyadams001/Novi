@@ -56,13 +56,13 @@ namespace prism7
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Modern UI for WPF",
+                DisplayName = "Active Requests",
                 Source = GetUri(typeof(MUIView))
             });
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Data Grid",
+                DisplayName = "Edit Requests",
                 Source = GetUri(typeof(DataGrid))
             });
 

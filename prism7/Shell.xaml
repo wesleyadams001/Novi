@@ -3,12 +3,12 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   xmlns:app="clr-namespace:prism7"
-                  
+                  Icon="Themes\alpha-n-box-outline.png"
                   Title="Novi Demo"
                   IsTitleVisible="True"
                   LogoData="
                   M9,7H11L13,12V7H15V17H13L11,12V17H9V7M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M5,5V19H19V5H5Z" 
-                  Width="1024" Height="700"
+                  Width="1300" Height="700"
                   WindowStartupLocation="CenterScreen"
                   ContentSource="/Views/IntroductionView.xaml">
 

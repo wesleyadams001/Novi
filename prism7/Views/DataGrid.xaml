@@ -48,7 +48,7 @@
                 </DataGrid>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <GroupBox  Header="Options:" Height="80" Width="250">
+                    <GroupBox  Header="Options:" Height="80" Width="350">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -83,14 +83,14 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <GroupBox  Header="Options:" Height="80" Width="250">
+                    <GroupBox  Header="Options:" Height="80" Width="350">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <mui:ModernButton Grid.Column="0" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding EditParametersCommand}" FontSize="12" Content="Edit"></mui:ModernButton>
-                            <mui:ModernButton Grid.Column="1" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Add To Queue"></mui:ModernButton>
+                            <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Add To Queue"></mui:ModernButton>
                         </Grid>
                     </GroupBox>
                 </StackPanel>
@@ -103,6 +103,11 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
                         <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}"/>

@@ -12,6 +12,7 @@ using Microsoft.Practices.Unity;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows.Threading;
 using System.Data;
+using System.Timers;
 
 namespace prism7.ViewModels
 {
@@ -33,6 +34,8 @@ namespace prism7.ViewModels
         public DelegateCommand OpenDialogInputParamsCommand { get; private set; }
 
         public DelegateCommand EditParametersCommand { get; private set; }
+
+        
 
         /// <summary>
         /// Method that adds selected item to active list
@@ -62,6 +65,9 @@ namespace prism7.ViewModels
 
         }
 
+        /// <summary>
+        /// Method that allows the editing of request parameters
+        /// </summary>
         private void EditParameters()
         {
             this.ParameterList.Clear();
@@ -96,27 +102,6 @@ namespace prism7.ViewModels
             }
         }
 
-        private void EditParameterObject(RequestObject ro)
-        {
-            //DataTable table = new DataTable();
-            //for(int x = 0; x< ro.ParameterList.Count(); x++)
-            //{
-            //    DataColumn c = new DataColumn();
-            //    c.ColumnName = "Parameter:" + x;
-            //    c.Caption = ro.ParameterList.ElementAt(x).First;
-            //    table.Columns.Add(c);
-               
-            //}
-
-            //var row = table.NewRow();
-            //for(int x =0; x< ro.ParameterList.Count(); x++)
-            //{
-                
-            //    row[x] = ro.ParameterList.ElementAt(x).Second;
-            //}
-
-            //this.DataTable = table;
-            
-        }
+       
     }
 }

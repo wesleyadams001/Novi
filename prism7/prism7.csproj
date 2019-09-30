@@ -123,6 +123,8 @@
     <Compile Include="ViewModels\DataGridViewModel.Commands.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="ViewModels\InputDiagViewModel.cs" />
+    <Compile Include="ViewModels\MuiViewModel.Commands.cs" />
+    <Compile Include="ViewModels\MuiViewModel.cs" />
     <Compile Include="ViewModels\SettingsAppearanceViewModel.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.Commands.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.cs" />

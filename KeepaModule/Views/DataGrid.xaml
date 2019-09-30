@@ -24,8 +24,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-150,0,4.8,-0.2">
-            <StackPanel Margin="34,0,-0.8,-0.6">
+        <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-180,0,4.8,-0.2">
+            <StackPanel Margin="1,0,-0.8,-0.6">
                 <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500">
                     <ListView.View>
                         <GridView>

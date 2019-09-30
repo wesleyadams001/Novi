@@ -15,11 +15,11 @@ namespace prism7.ViewModels
     /// </summary>
     public partial class DataGridViewModel : BindableBase
     {
+       
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<RequestObject> activerequests;
         private IUnityContainer container;
         private ObservableCollection<Pair<string, object>> parameters;
-        private Timer aTimer;
 
         /// <summary>
         /// indicates if the request is active
@@ -67,18 +67,19 @@ namespace prism7.ViewModels
         /// Constructor that takes an instance of AvailableRequestsService
         /// </summary>
         /// <param name="service"></param>
-        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service)
+        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service, IActiveRequestsService activeReqService)
         {
             this.container = container;
             this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
             this.ActiveRequests = new ObservableCollection<RequestObject>();
+            this.ActiveRequests = activeReqService.GetRequests();
             this.AddSelectedItemToActiveCommand = new DelegateCommand(AddSelectedItemToActive);
             this.RemoveSelectedItemFromActiveCommand = new DelegateCommand(RemoveSelectedItemFromActive);
             this.SelectedRequestItem = new RequestObject();
             this.SelectedActiveRequestItem = new RequestObject();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.EditParametersCommand = new DelegateCommand(EditParameters);
-
+            
         }
 
         
