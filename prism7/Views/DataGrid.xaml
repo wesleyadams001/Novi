@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:XModule.Models;assembly=XModule"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
@@ -110,8 +109,8 @@
                 </Grid.RowDefinitions>
                 <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}"/>
-                        <mui:DataGridTextColumn Header="Value" Binding="{Binding Second}"/>
+                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                        <mui:DataGridTextColumn Header="Value" Binding="{Binding Second, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

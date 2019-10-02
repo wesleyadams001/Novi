@@ -18,9 +18,9 @@ namespace prism7.Views
     /// <summary>
     /// Interaction logic for MUIView.xaml
     /// </summary>
-    public partial class MUIView : UserControl
+    public partial class Mui : UserControl
     {
-        public MUIView()
+        public Mui()
         {
             InitializeComponent();
         }

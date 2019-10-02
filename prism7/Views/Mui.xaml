@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="prism7.Views.MUIView"
+﻿<UserControl x:Class="prism7.Views.Mui"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,9 +35,11 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <DataGrid ItemsSource="{Binding ActiveRequests}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
-
+                            <DataGrid ItemsSource="{Binding ActiveRequests}" Grid.RowSpan="2" SelectedItem="{Binding SelectedActiveRequestItem}" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
+                               
+                                
                                 <DataGrid.Columns>
+                                    
                                     <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"/>
                                     <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}"/>
                                 </DataGrid.Columns>
@@ -56,7 +58,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Parameter Editor" ToolTip="Here you can edit the parameters to use." Grid.Row="0" Grid.Column="2" Margin="1,0,0,0" Height="500" Width="400" Grid.RowSpan="2">
+                    <GroupBox Header="Parameter Editor" ToolTip="Here you can view the parameters that are being used." Grid.Row="0" Grid.Column="2" Margin="1,0,0,0" Height="500" Width="400" Grid.RowSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />

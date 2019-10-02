@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Timers;
 using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
+using XModule.Events;
 
 namespace prism7.ViewModels
 {
@@ -20,7 +22,17 @@ namespace prism7.ViewModels
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<Pair<string, object>> parameters;
         private Timer aTimer;
+        private RequestObject selectedActiveReqItem;
         public RequestObject SelectedRequestItem { get; set; }
+
+        /// <summary>
+        /// The currently selected active request item
+        /// </summary>
+        public RequestObject SelectedActiveRequestItem
+        {
+            get { return selectedActiveReqItem;}
+            set { SetProperty(ref selectedActiveReqItem, value); }
+        }
 
         /// <summary>
         /// List of Parameters
@@ -37,7 +49,7 @@ namespace prism7.ViewModels
         public ObservableCollection<RequestObject> ActiveRequests
         {
             get { return requests; }
-            set { SetProperty(ref requests, value); OnPropertyChanged("ActiveRequests"); }
+            set { SetProperty(ref requests, value); }
         }
 
         /// <summary>
@@ -46,6 +58,7 @@ namespace prism7.ViewModels
         /// <param name="service"></param>
         public MuiViewModel(IUnityContainer container, IActiveRequestsService service)
         {
+            
             this.container = container;
             this.service = service;
             this.ActiveRequests = new ObservableCollection<RequestObject>();

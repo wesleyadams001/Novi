@@ -139,6 +139,7 @@
     <Compile Include="Constants\Enums.Responses.Keepa.cs">
       <DependentUpon>Enums.Responses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Events\SelectionChangedEvent.cs" />
     <Compile Include="Interfaces\IKeepaRequest.cs" />
     <Compile Include="Interfaces\ILinkGroupService.cs" />
     <Compile Include="Interfaces\IPair.cs" />

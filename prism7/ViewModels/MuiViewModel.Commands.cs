@@ -6,6 +6,7 @@ using Microsoft.Practices.Unity;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Services;
+using XModule.Models;
 
 namespace prism7.ViewModels
 {
