@@ -7,6 +7,7 @@ using Prism.Commands;
 using Microsoft.Practices.Unity;
 using System.Data;
 using System.Timers;
+using Prism.Events;
 
 namespace prism7.ViewModels
 {
@@ -67,7 +68,7 @@ namespace prism7.ViewModels
         /// Constructor that takes an instance of AvailableRequestsService
         /// </summary>
         /// <param name="service"></param>
-        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service, IActiveRequestsService activeReqService)
+        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service, IActiveRequestsService activeReqService, IEventAggregator aggregator)
         {
             this.container = container;
             this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
@@ -79,7 +80,7 @@ namespace prism7.ViewModels
             this.SelectedActiveRequestItem = new RequestObject();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.EditParametersCommand = new DelegateCommand(EditParameters);
-            
+            this.SaveParametersCommand = new DelegateCommand(SaveParameters);
         }
 
         

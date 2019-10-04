@@ -23,6 +23,20 @@ namespace XModule.Models
             this.ApiName = apiName;
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
         }
+
+        /// <summary>
+        /// Returns a hash of the request object
+        /// </summary>
+        /// <returns></returns>
+        public int GetHash()
+        {
+            int hash = this.RequestName.GetHashCode() + this.ApiName.GetHashCode();
+            for(int x =0; x<this.ParameterList.Count(); x++)
+            {
+                hash += this.ParameterList.ElementAt(x).First.GetHashCode() + this.ParameterList.ElementAt(x).Second.GetHashCode();
+            }
+            return hash;
+        }
         
         /// <summary>
         /// The name of the request

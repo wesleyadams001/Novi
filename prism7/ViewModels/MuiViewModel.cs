@@ -56,7 +56,7 @@ namespace prism7.ViewModels
         /// The main constructor for MuiViewModel that takes an instance of Active Requests Service
         /// </summary>
         /// <param name="service"></param>
-        public MuiViewModel(IUnityContainer container, IActiveRequestsService service)
+        public MuiViewModel(IUnityContainer container, IActiveRequestsService service, IEventAggregator aggregator)
         {
             
             this.container = container;

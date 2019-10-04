@@ -35,7 +35,7 @@ namespace prism7.ViewModels
 
         public DelegateCommand EditParametersCommand { get; private set; }
 
-        
+        public DelegateCommand SaveParametersCommand { get; private set; }
 
         /// <summary>
         /// Method that adds selected item to active list
@@ -49,17 +49,7 @@ namespace prism7.ViewModels
                 //Add to obs collection
                 this.ActiveRequests.Add(this.SelectedRequestItem);
 
-                //serialize and add to persist
-                var strObj = JsonConvert.SerializeObject(this.SelectedRequestItem);
-                Properties.Settings.Default.ActiveRequests.Add(strObj);
-
-                //save properties
-                Properties.Settings.Default.Save();
-
-                //refresh previously updated properties
-                Properties.Settings.Default.Reload();
-               
-                
+                             
             }
             
 
@@ -78,6 +68,24 @@ namespace prism7.ViewModels
             }
             
         }
+
+        private void SaveParameters()
+        {
+            if(this.SelectedActiveRequestItem != null)
+            {
+                //serialize and add to persist
+                var strObj = JsonConvert.SerializeObject(this.SelectedActiveRequestItem);
+                Properties.Settings.Default.ActiveRequests.Add(strObj);
+
+                //save properties
+                Properties.Settings.Default.Save();
+
+                //refresh previously updated properties
+                Properties.Settings.Default.Reload();
+            }
+           
+        }
+
 
         /// <summary>
         /// Method that removes selected active item from active list
@@ -99,6 +107,8 @@ namespace prism7.ViewModels
 
                 //refresh previously updated properties
                 Properties.Settings.Default.Reload();
+
+                this.ParameterList.Clear();
             }
         }
 
