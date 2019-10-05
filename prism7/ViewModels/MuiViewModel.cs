@@ -19,9 +19,9 @@ namespace prism7.ViewModels
     {
         private IUnityContainer container;
         private IActiveRequestsService service;
+        private IEventAggregator ea;
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<Pair<string, object>> parameters;
-        private Timer aTimer;
         private RequestObject selectedActiveReqItem;
         public RequestObject SelectedRequestItem { get; set; }
 
@@ -31,7 +31,13 @@ namespace prism7.ViewModels
         public RequestObject SelectedActiveRequestItem
         {
             get { return selectedActiveReqItem;}
-            set { SetProperty(ref selectedActiveReqItem, value); }
+            set
+            {
+                SetProperty(ref selectedActiveReqItem, value);
+
+                //publish event to view details/params
+                ea.GetEvent<SelectionChangedEvent>().Publish(selectedActiveReqItem);
+            }
         }
 
         /// <summary>
@@ -58,21 +64,25 @@ namespace prism7.ViewModels
         /// <param name="service"></param>
         public MuiViewModel(IUnityContainer container, IActiveRequestsService service, IEventAggregator aggregator)
         {
-            
+            this.ea = aggregator;
             this.container = container;
             this.service = service;
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
-            this.aTimer = new Timer();
-
-            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 500;
-            aTimer.Enabled = true;
+            this.ActiveRequests = service.GetRequests();
+            this.ea.GetEvent<CollectionChangedEvent>().Subscribe((oc) => 
+            {
+                this.ActiveRequests.Clear();
+                this.ActiveRequests = this.service.GetRequests();
+            }, ThreadOption.UIThread);
+            this.ea.GetEvent<SelectionChangedEvent>().Subscribe((item) => {
+                if (item!=null && item.ParameterList != null)
+                {
+                    this.ParameterList = item.ParameterList;
+                }
+            });
         }
 
-        private void OnTimedEvent(object source, ElapsedEventArgs e)
-        {
-            UpdateServices();
-        }
+       
     }
 }

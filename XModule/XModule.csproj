@@ -109,6 +109,7 @@
       <DependentUpon>Enums.Core.cs</DependentUpon>
     </Compile>
     <Compile Include="Constants\Enums.cs" />
+    <Compile Include="Constants\Enums.Events.cs" />
     <Compile Include="Constants\Enums.Pipeline.cs">
       <DependentUpon>Enums.cs</DependentUpon>
     </Compile>
@@ -139,7 +140,8 @@
     <Compile Include="Constants\Enums.Responses.Keepa.cs">
       <DependentUpon>Enums.Responses.cs</DependentUpon>
     </Compile>
-    <Compile Include="Events\SelectionChangedEvent.cs" />
+    <Compile Include="Events\Events.CollectionChanged.cs" />
+    <Compile Include="Events\Events.SelectionChanged.cs" />
     <Compile Include="Interfaces\IKeepaRequest.cs" />
     <Compile Include="Interfaces\ILinkGroupService.cs" />
     <Compile Include="Interfaces\IPair.cs" />

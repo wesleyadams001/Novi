@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using System.Data;
 using System.Timers;
 using Prism.Events;
+using XModule.Events;
 
 namespace prism7.ViewModels
 {
@@ -16,7 +17,7 @@ namespace prism7.ViewModels
     /// </summary>
     public partial class DataGridViewModel : BindableBase
     {
-       
+        private IEventAggregator ea;
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<RequestObject> activerequests;
         private IUnityContainer container;
@@ -43,7 +44,7 @@ namespace prism7.ViewModels
         public ObservableCollection<RequestObject> Requests
         {
             get { return requests; }
-            set { SetProperty(ref requests, value); OnPropertyChanged("Requests"); }
+            set { SetProperty(ref requests, value); }
         }
 
         /// <summary>
@@ -52,7 +53,10 @@ namespace prism7.ViewModels
         public ObservableCollection<RequestObject> ActiveRequests
         {
             get { return activerequests; }
-            set { SetProperty(ref activerequests, value); }
+            set
+            {
+                SetProperty(ref activerequests, value);
+            }
         }
 
         /// <summary>
@@ -70,6 +74,7 @@ namespace prism7.ViewModels
         /// <param name="service"></param>
         public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service, IActiveRequestsService activeReqService, IEventAggregator aggregator)
         {
+            this.ea = aggregator;
             this.container = container;
             this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
             this.ActiveRequests = new ObservableCollection<RequestObject>();

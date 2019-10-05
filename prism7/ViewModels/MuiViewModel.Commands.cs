@@ -39,10 +39,8 @@ namespace prism7.ViewModels
             //resolve the interface
             this.service = container.Resolve<IActiveRequestsService>();
 
-            var services = this.service.GetRequests();
-
             //get requests
-            this.ActiveRequests.Add()
+            this.ActiveRequests = this.service.GetRequests();
         }
     }
 }

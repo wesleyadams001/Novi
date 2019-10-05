@@ -13,6 +13,7 @@ using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows.Threading;
 using System.Data;
 using System.Timers;
+using XModule.Events;
 
 namespace prism7.ViewModels
 {
@@ -49,7 +50,8 @@ namespace prism7.ViewModels
                 //Add to obs collection
                 this.ActiveRequests.Add(this.SelectedRequestItem);
 
-                             
+                //publish event
+                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
             
 
@@ -82,6 +84,9 @@ namespace prism7.ViewModels
 
                 //refresh previously updated properties
                 Properties.Settings.Default.Reload();
+
+                //publish event
+                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
            
         }
@@ -99,7 +104,7 @@ namespace prism7.ViewModels
                 this.ActiveRequests.Remove(this.SelectedActiveRequestItem);
 
                 //Remove it from persist
-                var strObj = JsonConvert.SerializeObject(this.SelectedRequestItem);
+                var strObj = JsonConvert.SerializeObject(this.SelectedActiveRequestItem);
                 Properties.Settings.Default.ActiveRequests.Remove(strObj);
 
                 //save properties
@@ -109,6 +114,9 @@ namespace prism7.ViewModels
                 Properties.Settings.Default.Reload();
 
                 this.ParameterList.Clear();
+
+                //publish event
+                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
         }
 

@@ -55,7 +55,7 @@ namespace prism7
             base.ConfigureContainer();
             Container.RegisterType<IKeyService, KeyService>();
             Container.RegisterType<IActiveRequestsService, ActiveRequestsService>();
-            Container.RegisterType<IEventAggregator, EventAggregator>(new PerResolveLifetimeManager());
+            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
