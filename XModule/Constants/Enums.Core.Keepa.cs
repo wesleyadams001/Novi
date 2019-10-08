@@ -389,7 +389,20 @@ namespace XModule.Constants
         /// </summary>
         public enum AmazonLocale
         {
-            RESERVED, US, GB, DE, FR, JP, CA, CN, IT, ES, IN, MX, BR, AU
+            RESERVED,
+            US,
+            GB,
+            DE,
+            FR,
+            JP,
+            CA,
+            CN,
+            IT,
+            ES,
+            IN,
+            MX,
+            BR,
+            AU
         }
 
         /// <summary>

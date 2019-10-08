@@ -10,8 +10,8 @@
     <Grid Style="{StaticResource ContentRoot}">
         <mui:ModernTab SelectedSource="/Views/LoremIpsum1.xaml" Layout="List">
             <mui:ModernTab.Links>
-                <mui:Link DisplayName="Option 1" Source="/Views/LoremIpsum1.xaml" />
-                <mui:Link DisplayName="Option 2" Source="/Views/LoremIpsum2.xaml" />
+                <mui:Link DisplayName="Control Panel" Source="/Views/LoremIpsum1.xaml" />
+                <mui:Link DisplayName="Scheduler" Source="/Views/LoremIpsum2.xaml" />
                 <mui:Link DisplayName="Option 3" Source="/Views/LoremIpsum3.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>

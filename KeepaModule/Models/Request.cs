@@ -83,6 +83,18 @@ namespace KeepaModule.Models
     //    }
 
     //}
+
+    //public string GetString()
+    //{
+    //    StringBuilder sb = new StringBuilder();
+    //    sb.Append(this.baseUrl);
+    //    sb.Append(this.path);
+    //    sb.Append("?key=");
+    //    sb.Append(this.accessKey);
+    //    sb.Append("&");
+    //    sb.Append(getQueryString(this.parameter));
+    //    return sb.ToString();
+    //}
     public class GetTrackingGetRequest : KeepaRequest
     {
         [Tag]

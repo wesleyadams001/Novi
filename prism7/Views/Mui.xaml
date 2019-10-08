@@ -37,8 +37,8 @@
                             </Grid.RowDefinitions>
                             <DataGrid ItemsSource="{Binding ActiveRequests}" Grid.RowSpan="2" SelectedItem="{Binding SelectedActiveRequestItem}" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
                                 <DataGrid.Columns>
-                                    <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"/>
-                                    <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}"/>
+                                    <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}" IsReadOnly="True"/>
+                                    <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -57,8 +57,8 @@
                             </Grid.RowDefinitions>
                             <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
                                 <DataGrid.Columns>
-                                    <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}"/>
-                                    <mui:DataGridTextColumn Header="Value" Binding="{Binding Second}"/>
+                                    <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}" IsReadOnly="True"/>
+                                    <mui:DataGridTextColumn Header="Value" Binding="{Binding Second}" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -68,7 +68,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Add To Queue"></mui:ModernButton>
+                                        <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Request"></mui:ModernButton>
                                     </Grid>
                                 </GroupBox>
                             </StackPanel>

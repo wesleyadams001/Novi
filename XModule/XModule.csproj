@@ -78,6 +78,9 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.10.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -110,6 +113,7 @@
     </Compile>
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\Enums.Events.cs" />
+    <Compile Include="Constants\Enums.Factories.cs" />
     <Compile Include="Constants\Enums.Pipeline.cs">
       <DependentUpon>Enums.cs</DependentUpon>
     </Compile>
@@ -142,8 +146,11 @@
     </Compile>
     <Compile Include="Events\Events.CollectionChanged.cs" />
     <Compile Include="Events\Events.SelectionChanged.cs" />
+    <Compile Include="Interfaces\IFacFactory.cs" />
     <Compile Include="Interfaces\IKeepaRequest.cs" />
+    <Compile Include="Interfaces\IKeepaRequestFactory.cs" />
     <Compile Include="Interfaces\ILinkGroupService.cs" />
+    <Compile Include="Interfaces\INoviModule.cs" />
     <Compile Include="Interfaces\IPair.cs" />
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Models\RequestObject.cs" />
@@ -152,7 +159,7 @@
     <Compile Include="Services\IAvailableRequestsService.cs" />
     <Compile Include="Services\IKeyService.cs" />
     <Compile Include="Services\IPluginService.cs" />
-    <Compile Include="Services\IRequestFactoryService.cs" />
+    <Compile Include="Services\IRequestFactory.cs" />
     <Compile Include="Metadata\Tag.cs" />
     <Compile Include="Tools\Pair.cs" />
     <Compile Include="Tools\Utilities.cs" />

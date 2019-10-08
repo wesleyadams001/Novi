@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Interfaces;
+using XModule.Models;
 using static XModule.Constants.Enums;
 
 namespace XModule.Services
@@ -11,12 +12,11 @@ namespace XModule.Services
     /// <summary>
     /// Interface that request factories should implement
     /// </summary>
-    public interface IRequestFactoryService
+    public interface IRequestFactory
     {
         /// <summary>
-        /// Create method
+        /// The factory type
         /// </summary>
-        /// <returns></returns>
-        IRequest Create(ApiSpecificRequestTypes type);
+        FactoryType FactoryType {get;}
     }
 }

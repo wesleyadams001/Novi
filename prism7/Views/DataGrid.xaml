@@ -40,8 +40,8 @@
                 </Grid.RowDefinitions>
                 <DataGrid Grid.Row="0" Grid.RowSpan="2" Height="380" ItemsSource="{Binding Requests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRequestItem}" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"  />
-                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" />
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}" IsReadOnly="True" />
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" IsReadOnly="True" />
                     </DataGrid.Columns>
                     
                 </DataGrid>
@@ -77,8 +77,8 @@
                 <DataGrid ItemsSource="{Binding ActiveRequests}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" SelectedItem="{Binding SelectedActiveRequestItem, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalScrollBarVisibility="Visible">
                     
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}"/>
-                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}"/>
+                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}" IsReadOnly="True"/>
+                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -109,7 +109,7 @@
                 </Grid.RowDefinitions>
                 <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}"/>
+                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}" IsReadOnly="True"/>
                         <mui:DataGridTextColumn Header="Value" Binding="{Binding Second, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -121,7 +121,6 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <mui:ModernButton Grid.Column="0" Width="80" Height="30" Margin="0,0,0,0" Command="{Binding SaveParametersCommand}" FontSize="12" Content="Save"></mui:ModernButton>
-                            <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Add To Queue"></mui:ModernButton>
                         </Grid>
                     </GroupBox>
                 </StackPanel>

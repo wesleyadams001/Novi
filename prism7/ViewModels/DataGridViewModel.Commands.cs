@@ -34,8 +34,14 @@ namespace prism7.ViewModels
         /// </summary>
         public DelegateCommand OpenDialogInputParamsCommand { get; private set; }
 
+        /// <summary>
+        /// Delegate command that points at the edit parameters method
+        /// </summary>
         public DelegateCommand EditParametersCommand { get; private set; }
 
+        /// <summary>
+        /// Save command that points at the save parameters method
+        /// </summary>
         public DelegateCommand SaveParametersCommand { get; private set; }
 
         /// <summary>
@@ -71,6 +77,9 @@ namespace prism7.ViewModels
             
         }
 
+        /// <summary>
+        /// Method to save parameters to persist
+        /// </summary>
         private void SaveParameters()
         {
             if(this.SelectedActiveRequestItem != null)

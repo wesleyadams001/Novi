@@ -12,12 +12,13 @@ using XModule.Tools;
 using XModule.Models;
 using System.IO;
 using XModule;
+using static XModule.Constants.Enums;
 
 namespace KeepaModule.Services
 {
     public class AvailableRequests : IAvailableRequestsService
     {
-        private const string ModuleName = "Keepa";
+        private const RequestTypes ModuleName = RequestTypes.Keepa;
         private RequestObject[] typesCollection;
 
         public RequestObject[] GetRequests()
@@ -37,7 +38,7 @@ namespace KeepaModule.Services
 
             //Gets methods
             var methods = subclasses.SelectMany(x => x.GetMethods()).Where(y => y.GetCustomAttributes(typeof(Tag), false).Length > 0).ToArray();
-
+            
             //Gets the names
             var mNames = methods.Select(t => t.Name);
 
@@ -55,7 +56,7 @@ namespace KeepaModule.Services
                 var val = methodInfo.GetParameters();
 
                 //Get strings of parameters
-                var j = val.Select(o => o.ParameterType.ToString());
+                var j = val.Select(o => o.ParameterType.Name.ToString());
 
                 for (int z = 0; z < j.Count(); z++)
                 {

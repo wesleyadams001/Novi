@@ -21,4 +21,32 @@ namespace XModule.Interfaces
 
 
     }
+
+    //public interface IRequest
+    //{
+
+    //    /// <summary>
+    //    /// The Record type that represents the
+    //    /// API that it came from
+    //    /// </summary>
+    //    RequestTypes RequestType { get; set; }
+
+    //    /// <summary>
+    //    /// Override of the To string method that each record should have
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    ApiSpecificRequestTypes KeepaRequestType { get; set; }
+
+    //    /// <summary>
+    //    /// Create method of an IRequest
+    //    /// </summary>
+    //    /// <param name="parameters"></param>
+    //    /// <returns></returns>
+    //    void Create(List<Pair<string, object>> parameters);
+
+    //    /// <summary>
+    //    /// Reqeust String
+    //    /// </summary>
+    //    string RequestString { get; set; }
+    //}
 }

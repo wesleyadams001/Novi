@@ -1,0 +1,28 @@
+﻿using Prism.Modularity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
+using XModule.Models;
+
+namespace XModule.Interfaces
+{
+    public interface INoviModule
+    {
+        /// <summary>
+        /// Method that processes Request objects and divests them to appropriate dlls
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="outblock"></param>
+        void Process(BufferBlock<RequestObject> buffer, out BufferBlock<string> outblock);//buffer of strings are insert statements
+
+        /// <summary>
+        /// Gets the appropriate schema based on request object
+        /// </summary>
+        /// <param name="ro"></param>
+        /// <returns></returns>
+        string GetSchema(RequestObject ro); //schema as string SQL
+    }
+}

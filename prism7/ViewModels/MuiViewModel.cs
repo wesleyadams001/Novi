@@ -23,6 +23,7 @@ namespace prism7.ViewModels
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<Pair<string, object>> parameters;
         private RequestObject selectedActiveReqItem;
+        private Pipeline.Pipe Pipe;
         public RequestObject SelectedRequestItem { get; set; }
 
         /// <summary>
@@ -70,11 +71,14 @@ namespace prism7.ViewModels
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.ActiveRequests = service.GetRequests();
+            this.Pipe = new Pipeline.Pipe(this.container);
+
             this.ea.GetEvent<CollectionChangedEvent>().Subscribe((oc) => 
             {
                 this.ActiveRequests.Clear();
                 this.ActiveRequests = this.service.GetRequests();
             }, ThreadOption.UIThread);
+
             this.ea.GetEvent<SelectionChangedEvent>().Subscribe((item) => {
                 if (item!=null && item.ParameterList != null)
                 {

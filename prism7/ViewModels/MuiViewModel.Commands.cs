@@ -14,6 +14,11 @@ namespace prism7.ViewModels
     {
        
         /// <summary>
+        /// Delegate command that points to the request method
+        /// </summary>
+        public DelegateCommand MakeRequestCommand { get; private set; }
+
+        /// <summary>
         /// Delegate command that points to the viewing parameters function
         /// </summary>
         public DelegateCommand ViewParametersCommand { get; private set; }
@@ -23,10 +28,12 @@ namespace prism7.ViewModels
         /// </summary>
         private void ViewParameters()
         {
+            //clear the list 
             this.ParameterList.Clear();
 
             for (int x = 0; x < this.SelectedRequestItem.ParameterList.Count; x++)
             {
+                //Add item to parameter list
                 this.ParameterList.Add(this.SelectedRequestItem.ParameterList.ElementAt(x));
             }
         }
@@ -41,6 +48,17 @@ namespace prism7.ViewModels
 
             //get requests
             this.ActiveRequests = this.service.GetRequests();
+        }
+
+        /// <summary>
+        /// Method that drops a request on the request pipeline
+        /// </summary>
+        /// <param name="ro"></param>
+        private void MakeRequest(RequestObject ro)
+        {
+            //Post to the pipeline
+            this.Pipe.Post(ro);
+
         }
     }
 }

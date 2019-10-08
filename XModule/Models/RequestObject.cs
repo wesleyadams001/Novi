@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Tools;
+using static XModule.Constants.Enums;
 
 namespace XModule.Models
 {
@@ -16,8 +17,10 @@ namespace XModule.Models
         {
 
         }
+
         private ObservableCollection<Pair<string, object>> list;
-        public RequestObject(string requestName, string apiName)
+
+        public RequestObject(string requestName, RequestTypes apiName)
         {
             this.RequestName = requestName;
             this.ApiName = apiName;
@@ -46,7 +49,7 @@ namespace XModule.Models
         /// <summary>
         /// The name of the API to which the request belongs
         /// </summary>
-        public string ApiName { get; set; }
+        public RequestTypes ApiName { get; set; }
 
         /// <summary>
         /// The list of parameters that belong to a method with their associated types

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static XModule.Constants.Enums;
+using XModule.Models;
+using XModule.Services;
 
 namespace XModule.Interfaces
 {
-    public interface IKeepaRequest : IRequest
+    public interface IFacFactory
     {
         /// <summary>
-        /// Override of the To string method that each record should have
+        /// The factory that creates factories
         /// </summary>
+        /// <param name="ro"></param>
         /// <returns></returns>
-        ApiSpecificRequestTypes KeepaRequestType { get; set; }
-
+        IRequestFactory Create(RequestObject ro);
     }
 }

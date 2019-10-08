@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Constants;
 using XModule.Interfaces;
+using XModule.Models;
 using XModule.Services;
+using XModule.Tools;
 
 namespace KeepaModule.Factories
 {
-    public class KeepaRequestFactory : IRequestFactoryService
+    public class KeepaRequestFactory : IKeepaRequestFactory
     {
-        
-        readonly Func<Enums.ApiSpecificRequestTypes, IRequest> factoryFactory;
+        public Enums.FactoryType FactoryType => Enums.FactoryType.Keepa;
 
-        public KeepaRequestFactory(Func<Enums.ApiSpecificRequestTypes, IRequest> factoryFactory)
+        readonly Func<RequestObject, IRequest> factoryFactory;
+
+        public KeepaRequestFactory(Func<RequestObject, IRequest> factoryFactory)
         {
             this.factoryFactory = factoryFactory;
         }
 
-        public IRequest Create(Enums.ApiSpecificRequestTypes requestType)
+        public IRequest Create(RequestObject requestObject)
         {
-            return factoryFactory(requestType);
+            return factoryFactory(requestObject);
         }
         
     }
