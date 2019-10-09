@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule;
 using XModule.Interfaces;
-using XModule.Tools;
+using KeepaModule.Tools;
 using static XModule.Constants.Enums;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using XModule.Tools;
 
 namespace KeepaModule.Models
 {
@@ -16,9 +19,14 @@ namespace KeepaModule.Models
     /// </summary>
     public class KeepaRequest : IKeepaRequest
     {
-        public string postData;
-        public string path;
+        protected string accessKey;
+        protected string baseUrl;
+        protected string postData;
+        protected string path;
         public Dictionary<string, string> parameter;
+        protected ObservableCollection<Pair<string, object>> list { get; set; }
+        protected KeepaRequest request { get; set; }
+        protected string requestString { get; set; }
 
         /// <summary>
         /// Default constructor
@@ -31,20 +39,36 @@ namespace KeepaModule.Models
         public ApiSpecificRequestTypes KeepaRequestType { get; set; }
         public RequestTypes RequestType { get; set; }
 
-        public string GetName()
+        protected KeepaRequest GetBaseRequest(ApiSpecificRequestTypes reqType, string path)
         {
-            var type = this.GetType();
-            string x = type.Name;
-            return x;
+            KeepaRequest r = new KeepaRequest();
+            r.RequestType = RequestTypes.Keepa;
+            r.KeepaRequestType = reqType;
+            r.path = path;
+            return r;
         }
-        /// <summary>
-        /// Request to string method
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+
+        protected void AddParams(ObservableCollection<Pair<string,object>> paramsList)
         {
-            return JsonConvert.SerializeObject(this);
+            this.list = paramsList;
         }
+
+        public virtual string CreateRequest()
+        {
+            return null;
+        }
+
+        protected virtual StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.baseUrl);
+            sb.Append(this.path);
+            sb.Append("?key=");
+            sb.Append(this.accessKey);
+            sb.Append("&"); 
+            return sb;
+        }
+ 
     }
 
     //public class GetDealsRequest : KeepaRequest
@@ -84,144 +108,262 @@ namespace KeepaModule.Models
 
     //}
 
-    //public string GetString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
-    //    sb.Append(this.baseUrl);
-    //    sb.Append(this.path);
-    //    sb.Append("?key=");
-    //    sb.Append(this.accessKey);
-    //    sb.Append("&");
-    //    sb.Append(getQueryString(this.parameter));
-    //    return sb.ToString();
-    //}
     public class GetTrackingGetRequest : KeepaRequest
     {
+        public GetTrackingGetRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingGetRequest(this.list.ElementAt(numValues-1));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTrackingGetRequest(object p1)
+        private KeepaRequest getTrackingGetRequest(object p1)
         {
             var asin = (string)p1;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_GET;
-            r.path = "tracking";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
             r.parameter.Add("type", "get");
             r.parameter.Add("asin", asin);
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetTrackingListRequest : KeepaRequest
     {
+        public GetTrackingListRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingListRequest(this.list.ElementAt(numValues - 1));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTrackingListRequest(object p1)
+        private KeepaRequest getTrackingListRequest(object p1)
         {
             var asinsOnly = (bool)p1;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_LIST;
-            r.path = "tracking";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
             r.parameter.Add("type", "list");
             if (asinsOnly)
                 r.parameter.Add("asins-only", "1");
             return r;
         }
 
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
+
     }
     public class GetTrackingNotificationRequest : KeepaRequest
     {
+        public GetTrackingNotificationRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingNotificationRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues -2));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTrackingNotificationRequest(object p1, object p2)
+        private KeepaRequest getTrackingNotificationRequest(object p1, object p2)
         {
             var since = (int)p1;
             var revise = (bool)p2;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION;
-            r.path = "tracking";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION, "tracking");
             r.parameter.Add("since", since.ToString());
             r.parameter.Add("revise", revise ? "1" : "0");
             r.parameter.Add("type", "notification");
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetTrackingRemoveRequest : KeepaRequest
     {
+        public GetTrackingRemoveRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingRemoveRequest(this.list.ElementAt(numValues - 1));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTrackingRemoveRequest(object p1)
+        private KeepaRequest getTrackingRemoveRequest(object p1)
         {
             var asin = (string)p1;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE;
-            r.path = "tracking";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
             r.parameter.Add("type", "remove");
             r.parameter.Add("asin", asin);
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetTrackingRemoveAllRequest : KeepaRequest
     {
-        [Tag]
-        public IRequest getTrackingRemoveAllRequest()
+        public GetTrackingRemoveAllRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL;
-            r.path = "tracking";
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingRemoveAllRequest();
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
+        [Tag]
+        private KeepaRequest getTrackingRemoveAllRequest()
+        {
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL, "tracking");
             r.parameter.Add("type", "removeAll");
             return r;
+        }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
         }
     }
     public class GetTrackingWebHookRequest : KeepaRequest
     {
+        public GetTrackingWebHookRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getTrackingWebHookRequest(this.list.ElementAt(numValues - 1));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTrackingWebHookRequest(object p1)
+        private KeepaRequest getTrackingWebHookRequest(object p1)
         {
             var url = (string)p1;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK;
-            r.path = "tracking";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK, "tracking");
             r.parameter.Add("type", "webhook");
             r.parameter.Add("url", url);
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetBestSellersRequest : KeepaRequest
     {
+        public GetBestSellersRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getBestSellersRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getBestSellersRequest(object p1, object p2)
+        private KeepaRequest getBestSellersRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
             var productGroup = (string)p2;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_BEST_SELLERS;
-            r.path = "bestsellers";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_BEST_SELLERS, "bestsellers");
             r.parameter.Add("category", productGroup);
             r.parameter.Add("domain", domainId.ToString("D"));
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetCategoryLookupRequest : KeepaRequest
     {
+        public GetCategoryLookupRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getCategoryLookupRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getCategoryLookupRequest(object p1, object p2, object p3)
+        private KeepaRequest getCategoryLookupRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var parents = (bool)p2;
             var category = (long)p3;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP;
-            r.path = "category";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP, "category");
             r.parameter.Add("category", category.ToString());
             r.parameter.Add("domain", domainId.ToString("D"));
 
@@ -229,20 +371,37 @@ namespace KeepaModule.Models
                 r.parameter.Add("parents", "1");
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetCategorySearchRequest : KeepaRequest
     {
+        public GetCategorySearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            this.request = getCategorySearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getCategorySearchRequest(object p1, object p2, object p3)
+        private KeepaRequest getCategorySearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var term = (string)p2;
             var parents = (bool)p3;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH;
-            r.path = "search";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("type", "category");
             r.parameter.Add("term", term);
@@ -251,34 +410,63 @@ namespace KeepaModule.Models
                 r.parameter.Add("parents", "1");
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetSellerRequest : KeepaRequest
     {
+        public GetSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            switch (numValues)
+            {
+                case 2:
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
+                    break;
+                case 3:
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+                    break;
+                case 4:
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4));
+
+                    break;
+            }
+            
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getSellerRequest(object p1, object p2)
+        private KeepaRequest getSellerRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string[])p2;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_SELLER;
-            r.path = "seller";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("seller", Utilities.arrayToCsv(seller));
+            r.parameter.Add("seller", Tools.Utilities.arrayToCsv(seller));
             return r;
         }
+
+        
         [Tag]
-        public IRequest getSellerRequest(object p1, object p2, object p3)
+        private KeepaRequest getSellerRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string)p2;
             var storefront = (bool)p3;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_SELLER;
-            r.path = "seller";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("seller", seller);
 
@@ -286,18 +474,16 @@ namespace KeepaModule.Models
                 r.parameter.Add("storefront", "1");
             return r;
         }
+
         [Tag]
-        public IRequest getSellerRequest(object p1, object p2, object p3, object p4)
+        private KeepaRequest getSellerRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string)p2;
             var storefront = (bool)p3;
             var update = (int)p4;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_SELLER;
-            r.path = "seller";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("seller", seller);
             if (update >= 0)
@@ -307,35 +493,86 @@ namespace KeepaModule.Models
                 r.parameter.Add("storefront", "1");
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetTopSellerRequest : KeepaRequest
     {
+        public GetTopSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            switch (numValues)
+            {
+                case 1:
+                    this.request = getTopSellerRequest(this.list.ElementAt(numValues - 1));
+                    break;
+               
+            }
+
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getTopSellerRequest(object p1)
+        private KeepaRequest getTopSellerRequest(object p1)
         {
             var domainId = (AmazonLocale)p1;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_TOP_SELLER;
-            r.path = "topseller";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TOP_SELLER, "topseller");
             r.parameter.Add("domain", domainId.ToString("D"));
             return r;
+        }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
         }
     }
     public class GetProductSearchRequest : KeepaRequest
     {
+        public GetProductSearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            switch (numValues)
+            {
+                case 3:
+                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+                    break;
+                case 6:
+                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6));
+                    break;
+
+            }
+
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getProductSearchRequest(object p1, object p2, object p3)
+        private KeepaRequest getProductSearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var term = (string)p2;
             var stats = (int?)p3;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH;
-            r.path = "search";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("type", "product");
             r.parameter.Add("term", term);
@@ -344,8 +581,9 @@ namespace KeepaModule.Models
                 r.parameter.Add("stats", stats.ToString());
             return r;
         }
+
         [Tag]
-        public IRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
+        private KeepaRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
         {
             var domainId = (AmazonLocale)p1;
             var term = (string)p2;
@@ -354,10 +592,7 @@ namespace KeepaModule.Models
             var history = (bool)p5;
             var asinsOnly = (bool)p6;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH;
-            r.path = "search";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("type", "product");
             r.parameter.Add("term", term);
@@ -369,24 +604,51 @@ namespace KeepaModule.Models
                 r.parameter.Add("stats", stats.ToString());
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
 
     public class GetProductRequest : KeepaRequest
     {
+        public GetProductRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            switch (numValues)
+            {
+                case 4:
+                    this.request = getProductRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4));
+                    break;
+                case 7:
+                    this.request = getProductRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 7));
+                    break;
+
+            }
+
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getProductRequest(object p1, object p2, object p3, object p4)
+        private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var asins = (string[])p4;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT;
-            r.path = "product";
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
             r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("asin", Utilities.arrayToCsv(asins));
+            r.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
             if (stats != null && stats > 0)
                 r.parameter.Add("stats", stats.ToString());
 
@@ -394,8 +656,9 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+
         [Tag]
-        public IRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
+        private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
             var offers = (int?)p2;
@@ -405,11 +668,8 @@ namespace KeepaModule.Models
             var history = (bool)p6;
             var asins = (string[])p7;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT;
-            r.path = "product";
-            r.parameter.Add("asin", Utilities.arrayToCsv(asins));
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
+            r.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("update", update.ToString());
             r.parameter.Add("history", history ? "1" : "0");
@@ -421,22 +681,53 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
+        }
     }
     public class GetProductByCodeRequest : KeepaRequest
     {
+        public GetProductByCodeRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        {
+        }
+
+        public override string CreateRequest()
+        {
+            var numValues = this.list.Count;
+            switch (numValues)
+            {
+                case 4:
+                    this.request = getProductByCodeRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4));
+                    break;
+                case 7:
+                    this.request = getProductByCodeRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 7));
+                    break;
+                case 11:
+                    this.request = getProductByCodeRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 7), this.list.ElementAt(numValues - 8), this.list.ElementAt(numValues - 9), this.list.ElementAt(numValues - 9), this.list.ElementAt(numValues - 10));
+                    break;
+
+            }
+
+            var sb = GetStringBuilder();
+            this.requestString = sb.ToString();
+            return this.requestString;
+        }
+
         [Tag]
-        public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
+        [Description("getProductByCodeRequest")]
+        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var codes = (string[])p4;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE;
-            r.path = "product";
-            r.parameter.Add("code", Utilities.arrayToCsv(codes));
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             r.parameter.Add("domain", domainId.ToString("D"));
             if (stats != null && stats > 0)
                 r.parameter.Add("stats", stats.ToString());
@@ -445,8 +736,10 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+
         [Tag]
-        public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
+        [Description("getProductByCodeRequest")]
+        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
             var offers = (int?)p2;
@@ -456,11 +749,8 @@ namespace KeepaModule.Models
             var history = (bool)p6;
             var codes = (string[])p7;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE;
-            r.path = "product";
-            r.parameter.Add("code", Utilities.arrayToCsv(codes));
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("update", update.ToString());
             r.parameter.Add("history", history ? "1" : "0");
@@ -472,8 +762,9 @@ namespace KeepaModule.Models
                 r.parameter.Add("offers", offers.ToString());
             return r;
         }
+
         [Tag]
-        public IRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
+        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
         {
             var domainId = (AmazonLocale)p1;
             var offers = (int?)p2;
@@ -487,11 +778,8 @@ namespace KeepaModule.Models
             var fbafees = (bool)p10;
             var codes = (string[])p11;
 
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE;
-            r.path = "product";
-            r.parameter.Add("code", Utilities.arrayToCsv(codes));
+            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("update", update.ToString());
             r.parameter.Add("history", history ? "1" : "0");
@@ -506,6 +794,13 @@ namespace KeepaModule.Models
             if (offers != null && offers > 0)
                 r.parameter.Add("offers", offers.ToString());
             return r;
+        }
+
+        protected override StringBuilder GetStringBuilder()
+        {
+            StringBuilder sb = base.GetStringBuilder();
+            sb.Append(Tools.Utilities.getQueryString(this.parameter));
+            return sb;
         }
     }
 }

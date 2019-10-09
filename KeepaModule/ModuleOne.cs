@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks.Dataflow;
+using KeepaModule.Factories;
 using KeepaModule.Services;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using XModule.Interfaces;
 using XModule.Models;
 using XModule.Services;
+using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
@@ -58,6 +60,27 @@ namespace KeepaModule
         /// <param name="outblock"></param>
         public void Process(BufferBlock<RequestObject> buffer, out BufferBlock<string> outblock)
         {
+            //create a recieving bufferblock
+            var bufferblock = new BufferBlock<RequestObject>();
+
+            //create a request factory instance
+            var fac = new KeepaRequestFactory("");
+
+            //transform Request objects into request strings
+            var Transblock = new TransformBlock<RequestObject, string>(x => {
+                
+                var requestString = fac.Create(x.RequestName, x.ParameterList);
+                
+                return requestString;
+            });
+
+            //filter out non relevant items
+            Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
+
+            buffer.LinkTo(bufferblock, new DataflowLinkOptions { PropagateCompletion = true }, RequestFilter);
+
+            //Filter(bufferblock, out BufferBlock<Student> outBlock, out BufferBlock<Grades> outBlock2, out BufferBlock<Guardians> outBlock3, out BufferBlock<SchoolClasses> outBlock4);
+
             throw new NotImplementedException();
         }
     }

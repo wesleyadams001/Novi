@@ -103,6 +103,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\KeepaFilter.cs" />
     <Compile Include="Factories\KeepaRequestFactory.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Services\AvailableRequests.cs" />
@@ -172,9 +173,7 @@
       <Name>XModule</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)modules\" /y</PostBuildEvent>
