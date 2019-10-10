@@ -39,6 +39,12 @@ namespace KeepaModule.Models
         public ApiSpecificRequestTypes KeepaRequestType { get; set; }
         public RequestTypes RequestType { get; set; }
 
+        /// <summary>
+        /// The base of the Request class
+        /// </summary>
+        /// <param name="reqType"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         protected KeepaRequest GetBaseRequest(ApiSpecificRequestTypes reqType, string path)
         {
             KeepaRequest r = new KeepaRequest();
@@ -48,16 +54,28 @@ namespace KeepaModule.Models
             return r;
         }
 
+        /// <summary>
+        /// Adds Parameters to a request
+        /// </summary>
+        /// <param name="paramsList"></param>
         protected void AddParams(ObservableCollection<Pair<string,object>> paramsList)
         {
             this.list = paramsList;
         }
 
+        /// <summary>
+        /// Creates a request 
+        /// </summary>
+        /// <returns></returns>
         public virtual string CreateRequest()
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the string builder 
+        /// </summary>
+        /// <returns></returns>
         protected virtual StringBuilder GetStringBuilder()
         {
             StringBuilder sb = new StringBuilder();
@@ -108,10 +126,15 @@ namespace KeepaModule.Models
 
     //}
 
+    /// <summary>
+    /// A Get Tracking Get Request Object
+    /// </summary>
     public class GetTrackingGetRequest : KeepaRequest
     {
         public GetTrackingGetRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -141,10 +164,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Tracking List Request Object
+    /// </summary>
     public class GetTrackingListRequest : KeepaRequest
     {
         public GetTrackingListRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -176,10 +205,16 @@ namespace KeepaModule.Models
         }
 
     }
+
+    /// <summary>
+    /// A Get Tracking Notification Request Object
+    /// </summary>
     public class GetTrackingNotificationRequest : KeepaRequest
     {
         public GetTrackingNotificationRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -211,10 +246,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Tracking Remove Request object
+    /// </summary>
     public class GetTrackingRemoveRequest : KeepaRequest
     {
         public GetTrackingRemoveRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -244,10 +285,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Tracking Remove all Request object
+    /// </summary>
     public class GetTrackingRemoveAllRequest : KeepaRequest
     {
         public GetTrackingRemoveAllRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -274,10 +321,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Tracking WebHook Request object
+    /// </summary>
     public class GetTrackingWebHookRequest : KeepaRequest
     {
         public GetTrackingWebHookRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -307,10 +360,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get best sellers request object
+    /// </summary>
     public class GetBestSellersRequest : KeepaRequest
     {
         public GetBestSellersRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -341,10 +400,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A get category lookup request object
+    /// </summary>
     public class GetCategoryLookupRequest : KeepaRequest
     {
         public GetCategoryLookupRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -379,10 +444,17 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+
+    /// <summary>
+    /// A get category search request object
+    /// </summary>
     public class GetCategorySearchRequest : KeepaRequest
     {
         public GetCategorySearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -418,10 +490,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A get seller request object
+    /// </summary>
     public class GetSellerRequest : KeepaRequest
     {
         public GetSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -501,10 +579,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A get top seller request object
+    /// </summary>
     public class GetTopSellerRequest : KeepaRequest
     {
         public GetTopSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -540,10 +624,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Product search request 
+    /// </summary>
     public class GetProductSearchRequest : KeepaRequest
     {
         public GetProductSearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -613,10 +703,15 @@ namespace KeepaModule.Models
         }
     }
 
+    /// <summary>
+    /// A Get product request 
+    /// </summary>
     public class GetProductRequest : KeepaRequest
     {
         public GetProductRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -689,10 +784,16 @@ namespace KeepaModule.Models
             return sb;
         }
     }
+
+    /// <summary>
+    /// A Get Product by Code Request
+    /// </summary>
     public class GetProductByCodeRequest : KeepaRequest
     {
         public GetProductByCodeRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
         {
+            this.accessKey = accessKey;
+            this.list = listParams;
         }
 
         public override string CreateRequest()
@@ -718,7 +819,6 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        [Description("getProductByCodeRequest")]
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
@@ -738,7 +838,6 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        [Description("getProductByCodeRequest")]
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
@@ -796,6 +895,10 @@ namespace KeepaModule.Models
             return r;
         }
 
+        /// <summary>
+        /// Gets the String builder
+        /// </summary>
+        /// <returns></returns>
         protected override StringBuilder GetStringBuilder()
         {
             StringBuilder sb = base.GetStringBuilder();

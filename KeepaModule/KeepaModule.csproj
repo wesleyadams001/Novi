@@ -105,8 +105,22 @@
   <ItemGroup>
     <Compile Include="DataAccess\KeepaFilter.cs" />
     <Compile Include="Factories\KeepaRequestFactory.cs" />
+    <Compile Include="Models\BestSeller.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Deal.cs" />
+    <Compile Include="Models\DealRequest.cs" />
+    <Compile Include="Models\DealResponse.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Offer.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Request.cs" />
+    <Compile Include="Models\RequestError.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Seller.cs" />
+    <Compile Include="Models\Stats.cs" />
+    <Compile Include="Models\Tracking.cs" />
     <Compile Include="Services\AvailableRequests.cs" />
+    <Compile Include="Tools\Client.cs" />
     <Compile Include="Tools\Utilities.cs" />
     <Compile Include="ViewModels\DataGridViewModel.Commands.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />

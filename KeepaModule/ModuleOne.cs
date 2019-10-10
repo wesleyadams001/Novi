@@ -74,6 +74,17 @@ namespace KeepaModule
                 return requestString;
             });
 
+            //var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip });
+
+
+            //Sends request to API
+            //var RequestBlock = new TransformBlock<string, string>( async x =>
+            //{
+
+            //    await 
+
+            //});
+
             //filter out non relevant items
             Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
 

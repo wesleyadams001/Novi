@@ -15,9 +15,19 @@ namespace KeepaModule.Factories
 {
     public class KeepaRequestFactory
     {
+        /// <summary>
+        /// The access key to be used by a request factory
+        /// </summary>
         private static string accessKey { get; set; }
+
+        /// <summary>
+        /// A Parameter list
+        /// </summary>
         private static ObservableCollection<Pair<string, object>> paramList {get;set;}
 
+        /// <summary>
+        /// A dictionary that maps strings to fire methods
+        /// </summary>
         public static Dictionary<string, Func<KeepaRequest>> objects =
         new Dictionary<string, Func<KeepaRequest>>
         {
@@ -37,11 +47,21 @@ namespace KeepaModule.Factories
                     {"getProductByCodeRequest", () => new GetProductByCodeRequest(accessKey, paramList)},
         };  
 
+        /// <summary>
+        /// Constructs a new Keepa Request factory
+        /// </summary>
+        /// <param name="key"></param>
         public KeepaRequestFactory(string key)
         {
             accessKey = key;
         }
 
+        /// <summary>
+        /// Creates a new request based on the name and a list of parameters
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="listParams"></param>
+        /// <returns></returns>
         public string Create(string name, ObservableCollection<Pair<string, object>> listParams)
         {
             paramList = listParams;
