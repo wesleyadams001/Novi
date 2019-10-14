@@ -18,7 +18,7 @@ namespace XModule.Tools
         /// Get current time (Seconds)
         /// </summary>
         /// <returns></returns>
-        public static long getUnixTime()
+        public static long GetUnixTime()
         {
             Instant accNow = SystemClock.Instance.GetCurrentInstant();
             var now = accNow.ToUnixTimeSeconds();
@@ -29,7 +29,7 @@ namespace XModule.Tools
         /// Get current time (Milliseconds)
         /// </summary>
         /// <returns></returns>
-        public static long getUnixTime(int x)
+        public static long GetUnixTime(int x)
         {
             Instant accNow = SystemClock.Instance.GetCurrentInstant();
             var now = accNow.ToUnixTimeMilliseconds();
@@ -41,7 +41,7 @@ namespace XModule.Tools
         /// </summary>
         /// <param name="keepaTime"></param>
         /// <returns></returns>
-        public static long getUnixTimeFromKeepaTime(int keepaTime)
+        public static long GetUnixTimeFromKeepaTime(int keepaTime)
         {
             var newkeepa = (long)keepaTime;
             long unixTime = (newkeepa + 21564000) * 60;
@@ -53,7 +53,7 @@ namespace XModule.Tools
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public static string getStringOfArray(int[][] array)
+        public static string GetStringOfArray(int[][] array)
         {
             //check for null condition
             if (array != null)
@@ -139,7 +139,7 @@ namespace XModule.Tools
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
-        public static string getStringOfArray(int[] array)
+        public static string GetStringOfArray(int[] array)
         {
             var str = $@"{JsonConvert.SerializeObject(array).Trim('[', ']').Replace("[", "{").Replace("]", "}")}";
             return str;
@@ -150,7 +150,7 @@ namespace XModule.Tools
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
-        public static string getStringOfArray(string[] array)
+        public static string GetStringOfArray(string[] array)
         {
             var str = $@"{JsonConvert.SerializeObject(array).Trim('[', ']').Replace("[", "{").Replace("]", "}")}";
             return str;

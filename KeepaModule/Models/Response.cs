@@ -17,7 +17,7 @@ namespace KeepaModule.Models
         /// <summary>
 	    /// Server time when response was sent.
 	    /// </summary>
-        public long timestamp = Utilities.getUnixTime();
+        public long timestamp = Utilities.GetUnixTime();
 
         /// <summary>
         /// States how many ASINs may be requested before the assigned API contingent is depleted.

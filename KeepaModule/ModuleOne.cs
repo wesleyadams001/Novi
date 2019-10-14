@@ -1,7 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
+using KeepaModule.DataAccess;
+using KeepaModule.DataAccess.Entities;
+using KeepaModule.DataAccess.Entities.Actions;
+using KeepaModule.DataAccess.Records;
 using KeepaModule.Factories;
+using KeepaModule.Models;
 using KeepaModule.Services;
+using KeepaModule.Tools;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using XModule.Interfaces;
@@ -60,6 +68,14 @@ namespace KeepaModule
         /// <param name="outblock"></param>
         public void Process(BufferBlock<RequestObject> buffer, out BufferBlock<string> outblock)
         {
+            //filter out non relevant items
+            Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
+
+            var linkops = new DataflowLinkOptions
+            {
+                PropagateCompletion = true
+            };
+
             //create a recieving bufferblock
             var bufferblock = new BufferBlock<RequestObject>();
 
@@ -74,25 +90,55 @@ namespace KeepaModule
                 return requestString;
             });
 
-            //var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip });
-
+            var client = new Client();
 
             //Sends request to API
-            //var RequestBlock = new TransformBlock<string, string>( async x =>
-            //{
+            var RequestBlock = new TransformBlock<string, Task<string>>(async x =>
+            {
 
-            //    await 
+               string response = await client.DownloadAsync(x);
+               return response;
 
-            //});
+            });
 
-            //filter out non relevant items
-            Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
+            //Transforms response string to response object
+            var ResponseBlock = new TransformBlock<Task<string>, Response>(x =>
+            {
+                Task<Response> response = KeepaResponseFactory.Create(x);
+                return response;
+            });
 
-            buffer.LinkTo(bufferblock, new DataflowLinkOptions { PropagateCompletion = true }, RequestFilter);
+            //Transforms responses to Record blocks
+            var RecordBlock = new TransformBlock<Response, List<IRecord>>(x => {
+                KeepaRecordFactory recordFactory = new KeepaRecordFactory();
+                var list = recordFactory.Create(x);
+                return list;
+            });
 
-            //Filter(bufferblock, out BufferBlock<Student> outBlock, out BufferBlock<Grades> outBlock2, out BufferBlock<Guardians> outBlock3, out BufferBlock<SchoolClasses> outBlock4);
+            //Expand enumerable to individual
+            var ExpandedBlock = new TransformManyBlock<List<IRecord>, IRecord>(array => array);
+            var StagingBlock = new BufferBlock<IRecord>();
 
-            throw new NotImplementedException();
+            //Filter IRecords into appropriate tables
+            KeepaFilter filter = new KeepaFilter();
+            filter.Allocate(StagingBlock);
+
+            using (var context = new KeepaContext()) {
+                Operations.Insert(filter.bestSellerBlock, context);
+                
+
+            }
+           
+
+            buffer.LinkTo(bufferblock, linkops, RequestFilter);
+            bufferblock.LinkTo(Transblock, linkops);
+            Transblock.LinkTo(RequestBlock, linkops);
+            RequestBlock.LinkTo(ResponseBlock, linkops);
+            ResponseBlock.LinkTo(RecordBlock, linkops);
+            RecordBlock.LinkTo(ExpandedBlock, linkops);
+            ExpandedBlock.LinkTo(StagingBlock, linkops);
+
+           
         }
     }
 }

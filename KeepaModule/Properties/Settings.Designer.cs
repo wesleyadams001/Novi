@@ -22,5 +22,17 @@ namespace KeepaModule.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ulong IncNumber {
+            get {
+                return ((ulong)(this["IncNumber"]));
+            }
+            set {
+                this["IncNumber"] = value;
+            }
+        }
     }
 }

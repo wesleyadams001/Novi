@@ -29,7 +29,7 @@ namespace KeepaModule.Tools
 
         /// <summary>
         /// Initializes the custom httpclient with automatic decompression with Deflate or Gzip
-        /// Utilizing json
+        /// accepting json format
         /// </summary>
         public Client()
         {

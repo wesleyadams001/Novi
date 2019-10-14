@@ -146,12 +146,14 @@
     </Compile>
     <Compile Include="Events\Events.CollectionChanged.cs" />
     <Compile Include="Events\Events.SelectionChanged.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IFacFactory.cs" />
     <Compile Include="Interfaces\IKeepaRequest.cs" />
     <Compile Include="Interfaces\IKeepaRequestFactory.cs" />
     <Compile Include="Interfaces\ILinkGroupService.cs" />
     <Compile Include="Interfaces\INoviModule.cs" />
     <Compile Include="Interfaces\IPair.cs" />
+    <Compile Include="Interfaces\IRecord.cs" />
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Models\RequestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
