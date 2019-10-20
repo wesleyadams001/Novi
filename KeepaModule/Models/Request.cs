@@ -58,7 +58,7 @@ namespace KeepaModule.Models
         /// Adds Parameters to a request
         /// </summary>
         /// <param name="paramsList"></param>
-        protected void AddParams(ObservableCollection<Pair<string,object>> paramsList)
+        protected void AddParams(ObservableCollection<Pair<string, object>> paramsList)
         {
             this.list = paramsList;
         }
@@ -83,10 +83,10 @@ namespace KeepaModule.Models
             sb.Append(this.path);
             sb.Append("?key=");
             sb.Append(this.accessKey);
-            sb.Append("&"); 
+            sb.Append("&");
             return sb;
         }
- 
+
     }
 
     //public class GetDealsRequest : KeepaRequest
@@ -140,17 +140,22 @@ namespace KeepaModule.Models
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getTrackingGetRequest(this.list.ElementAt(numValues-1));
+            this.request = getTrackingGetRequest(this.list.ElementAt(numValues - 1));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getTrackingGetRequest(object p1)
         {
             var asin = (string)p1;
+            var r = getTrackingGetRequest(asin);
+            return r;
+        }
 
+        [Tag]
+        private KeepaRequest getTrackingGetRequest(string asin)
+        {
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
             r.parameter.Add("type", "get");
             r.parameter.Add("asin", asin);
@@ -185,11 +190,17 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
+
         private KeepaRequest getTrackingListRequest(object p1)
         {
             var asinsOnly = (bool)p1;
+            var r = getTrackingListRequest(asinsOnly);
+            return r;
+        }
 
+        [Tag]
+        private KeepaRequest getTrackingListRequest(bool asinsOnly)
+        {
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
             r.parameter.Add("type", "list");
             if (asinsOnly)
@@ -220,17 +231,24 @@ namespace KeepaModule.Models
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getTrackingNotificationRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues -2));
+            this.request = getTrackingNotificationRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getTrackingNotificationRequest(object p1, object p2)
         {
             var since = (int)p1;
             var revise = (bool)p2;
+
+            var r = getTrackingNotificationRequest(since, revise);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getTrackingNotificationRequest(int since, bool revise)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION, "tracking");
             r.parameter.Add("since", since.ToString());
@@ -267,11 +285,17 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
+
         private KeepaRequest getTrackingRemoveRequest(object p1)
         {
             var asin = (string)p1;
+            var r = getTrackingRemoveRequest(asin);
+            return r;
+        }
 
+        [Tag]
+        private KeepaRequest getTrackingRemoveRequest(string asin)
+        {
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
             r.parameter.Add("type", "remove");
             r.parameter.Add("asin", asin);
@@ -342,10 +366,17 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
+
         private KeepaRequest getTrackingWebHookRequest(object p1)
         {
             var url = (string)p1;
+            var r = getTrackingWebHookRequest(url);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getTrackingWebHookRequest(string url)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK, "tracking");
             r.parameter.Add("type", "webhook");
@@ -381,12 +412,18 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getBestSellersRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
             var productGroup = (string)p2;
 
+            var r = getBestSellersRequest(domainId, productGroup);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getBestSellersRequest(AmazonLocale domainId, string productGroup)
+        {
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_BEST_SELLERS, "bestsellers");
             r.parameter.Add("category", productGroup);
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -421,12 +458,19 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getCategoryLookupRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var parents = (bool)p2;
             var category = (long)p3;
+
+            var r = getCategoryLookupRequest(domainId, parents, category);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getCategoryLookupRequest(AmazonLocale domainId, bool parents, long category)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP, "category");
             r.parameter.Add("category", category.ToString());
@@ -466,12 +510,19 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getCategorySearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var term = (string)p2;
             var parents = (bool)p3;
+
+            var r = getCategorySearchRequest(domainId, term, parents);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getCategorySearchRequest(AmazonLocale domainId, string term, bool parents)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -518,31 +569,43 @@ namespace KeepaModule.Models
 
                     break;
             }
-            
+
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getSellerRequest(object p1, object p2)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string[])p2;
 
+            var r = getSellerRequest(domainId, seller);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getSellerRequest(AmazonLocale domainId, string[] seller)
+        {
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
             r.parameter.Add("seller", Tools.Utilities.arrayToCsv(seller));
             return r;
         }
 
-        
-        [Tag]
         private KeepaRequest getSellerRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string)p2;
             var storefront = (bool)p3;
+
+            var r = getSellerRequest(domainId, seller, storefront);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -553,13 +616,20 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getSellerRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var seller = (string)p2;
             var storefront = (bool)p3;
             var update = (int)p4;
+
+            var r = getSellerRequest(domainId, seller, storefront, update);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront, int update)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -599,7 +669,7 @@ namespace KeepaModule.Models
                 case 1:
                     this.request = getTopSellerRequest(this.list.ElementAt(numValues - 1));
                     break;
-               
+
             }
 
             var sb = GetStringBuilder();
@@ -607,10 +677,17 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getTopSellerRequest(object p1)
         {
             var domainId = (AmazonLocale)p1;
+
+            var r = getTopSellerRequest(domainId);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getTopSellerRequest(AmazonLocale domainId)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TOP_SELLER, "topseller");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -655,12 +732,20 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
+
         private KeepaRequest getProductSearchRequest(object p1, object p2, object p3)
         {
             var domainId = (AmazonLocale)p1;
             var term = (string)p2;
             var stats = (int?)p3;
+
+            var r = getProductSearchRequest(domainId, term, stats);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -672,7 +757,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
         {
             var domainId = (AmazonLocale)p1;
@@ -681,6 +765,14 @@ namespace KeepaModule.Models
             var update = (int?)p4;
             var history = (bool)p5;
             var asinsOnly = (bool)p6;
+
+            var r = getProductSearchRequest(domainId, term, stats, update, history, asinsOnly);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats, int? update, bool history, bool asinsOnly)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -733,13 +825,20 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var asins = (string[])p4;
+
+            var r = getProductRequest(domainId, stats, offers, asins);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductRequest(AmazonLocale domainId, int? stats, int? offers, string[] asins)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
             r.parameter.Add("domain", domainId.ToString("D"));
@@ -752,7 +851,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
@@ -762,6 +860,14 @@ namespace KeepaModule.Models
             var update = (int)p5;
             var history = (bool)p6;
             var asins = (string[])p7;
+
+            var r = getProductRequest(domainId, offers, statsStartDate, statsEndDate, update, history, asins);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] asins)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
             r.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
@@ -818,13 +924,20 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
             var domainId = (AmazonLocale)p1;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var codes = (string[])p4;
+
+            var r = getProductByCodeRequest(domainId, stats, offers, codes);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? stats, int? offers, string[] codes)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
             r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
@@ -837,7 +950,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             var domainId = (AmazonLocale)p1;
@@ -847,6 +959,14 @@ namespace KeepaModule.Models
             var update = (int)p5;
             var history = (bool)p6;
             var codes = (string[])p7;
+
+            var r = getProductByCodeRequest(domainId, offers, statsStartDate, statsEndDate, update, history, codes);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] codes)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
             r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
@@ -862,7 +982,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
         {
             var domainId = (AmazonLocale)p1;
@@ -876,6 +995,14 @@ namespace KeepaModule.Models
             var rating = (bool)p9;
             var fbafees = (bool)p10;
             var codes = (string[])p11;
+
+            var r = getProductByCodeRequest(domainId, offers, statsStartDate, statsEndDate, update, history, stock, rental, rating, fbafees, codes);
+            return r;
+        }
+
+        [Tag]
+        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, bool stock, bool rental, bool rating, bool fbafees, string[] codes)
+        {
 
             KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
             r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));

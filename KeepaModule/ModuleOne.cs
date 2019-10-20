@@ -19,7 +19,7 @@ using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
-    public class ModuleOne : INoviModule, IModule
+    public class ModuleOne : IModule//INoviModule,
     {
         private readonly IUnityContainer _container;
         
@@ -58,7 +58,7 @@ namespace KeepaModule
             _container.RegisterType<IAvailableRequestsService, AvailableRequests>(new ContainerControlledLifetimeManager());
 
             //Register data processing components
-            _container.RegisterType<INoviModule, ModuleOne>();
+            //_container.RegisterType<INoviModule, ModuleOne>();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace KeepaModule
         /// </summary>
         /// <param name="buffer"></param>
         /// <param name="outblock"></param>
-        public void Process(BufferBlock<RequestObject> buffer, out BufferBlock<string> outblock)
+        public void Process(BufferBlock<RequestObject> buffer)//, out BufferBlock<string> outblock
         {
             //filter out non relevant items
             Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };

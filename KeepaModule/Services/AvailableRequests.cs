@@ -47,6 +47,7 @@ namespace KeepaModule.Services
 
             for (int x = 0; x < methods.Length; x++)
             {
+                //Something
                 requestObjects[x] = new RequestObject(mNames.ElementAt(x), ModuleName);
 
                 //Method information
