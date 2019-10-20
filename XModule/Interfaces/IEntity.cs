@@ -8,6 +8,7 @@ namespace XModule.Interfaces
 {
     public interface IEntity
     {
+        int Primary_key { get; }
 
     }
 }

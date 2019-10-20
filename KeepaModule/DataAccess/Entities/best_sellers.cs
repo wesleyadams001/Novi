@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.best_sellers")]
-    public partial class best_sellers
+    public partial class best_sellers : IEntity
     {
         public best_sellers(int? domain_id, int? last_update, long? category_id, string asin_list, long? time_stamp)
         {
@@ -20,7 +21,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int best_sellers_id { get; set; }
+        public int Primary_key { get; set; }
 
         public int? domain_id { get; set; }
 

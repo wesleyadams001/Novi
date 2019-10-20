@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.category")]
-    public partial class category
+    public partial class category : IEntity
     {
         public category(ulong? product_id, long? amzn_category_id, long? time_stamp)
         {
@@ -18,7 +19,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int category_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

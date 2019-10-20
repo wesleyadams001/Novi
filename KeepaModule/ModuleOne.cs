@@ -55,7 +55,7 @@ namespace KeepaModule
             System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
             
             //Register available requestservice
-            _container.RegisterType<IAvailableRequestsService, AvailableRequests>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IAvailableRequestsService, AvailableRequests>();
 
             //Register data processing components
             //_container.RegisterType<INoviModule, ModuleOne>();
@@ -124,12 +124,29 @@ namespace KeepaModule
             filter.Allocate(StagingBlock);
 
             using (var context = new KeepaContext()) {
-                Operations.Insert(filter.bestSellerBlock, context);
-                
 
+                //Insert over DbContext
+                Operations.Insert(filter.bestSellerBlock, context);
+                Operations.Insert(filter.categoryBlock, context);
+                Operations.Insert(filter.eanBlock, context);
+                Operations.Insert(filter.fbaFeesBlock, context);
+                Operations.Insert(filter.featuresBlock, context);
+                Operations.Insert(filter.freqBoughtBlock, context);
+                Operations.Insert(filter.languagesBlock, context);
+                Operations.Insert(filter.mostRatedSellerBlock, context);
+                Operations.Insert(filter.priceHistoryBlock, context);
+                Operations.Insert(filter.productBlock, context);
+                Operations.Insert(filter.sellerBlock, context);
+                Operations.Insert(filter.sellerItemBlock, context);
+                Operations.Insert(filter.statisticsBlock, context);
+                Operations.Insert(filter.upcBlock, context);
+                Operations.Insert(filter.variationBlock, context);
+
+                //save changes
+                context.SaveChanges();
             }
            
-
+            //Links
             buffer.LinkTo(bufferblock, linkops, RequestFilter);
             bufferblock.LinkTo(Transblock, linkops);
             Transblock.LinkTo(RequestBlock, linkops);

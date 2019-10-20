@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.variations")]
-    public partial class variation
+    public partial class variation : IEntity
     {
         public variation(ulong? product_id, string variation_asin, string variation_dimension, string variation_value, long? time_stamp)
         {
@@ -21,7 +22,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int product_variation_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

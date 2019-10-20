@@ -112,6 +112,7 @@
       <DependentUpon>Enums.Core.cs</DependentUpon>
     </Compile>
     <Compile Include="Constants\Enums.cs" />
+    <Compile Include="Constants\Enums.DataAccess.Api.cs" />
     <Compile Include="Constants\Enums.Events.cs" />
     <Compile Include="Constants\Enums.Factories.cs" />
     <Compile Include="Constants\Enums.Pipeline.cs">
@@ -154,6 +155,7 @@
     <Compile Include="Interfaces\INoviModule.cs" />
     <Compile Include="Interfaces\IPair.cs" />
     <Compile Include="Interfaces\IRecord.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Models\RequestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

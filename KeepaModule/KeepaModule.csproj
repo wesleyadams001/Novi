@@ -142,6 +142,8 @@
     <Compile Include="DataAccess\Records\TopSellersRecord.cs" />
     <Compile Include="DataAccess\Records\UpcRecord.cs" />
     <Compile Include="DataAccess\Records\VariationRecord.cs" />
+    <Compile Include="DataAccess\Repositories\BestSellerRepo.cs" />
+    <Compile Include="DataAccess\Repositories\CategoryRepo.cs" />
     <Compile Include="Factories\KeepaRecordFactory.cs" />
     <Compile Include="Factories\KeepaRequestFactory.cs" />
     <Compile Include="Factories\KeepaResponseFactory.cs" />

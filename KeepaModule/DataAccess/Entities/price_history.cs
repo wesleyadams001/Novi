@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.price_history")]
-    public partial class price_history
+    public partial class price_history : IEntity
     {
         public price_history(ulong? product_id, int? ob_history_type, decimal? ob_date, decimal? ob_price, decimal? ob_shipping, decimal? time_stamp)
         {
@@ -21,7 +22,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int product_history_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

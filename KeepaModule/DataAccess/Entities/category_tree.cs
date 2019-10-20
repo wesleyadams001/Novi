@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.category_tree")]
-    public partial class category_tree
+    public partial class category_tree : IEntity
     {
         public category_tree(ulong? product_id, decimal? amzn_cat_id, string amzn_cat_name)
         {
@@ -18,7 +19,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int cat_tree_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

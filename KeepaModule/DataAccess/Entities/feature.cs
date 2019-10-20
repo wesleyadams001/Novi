@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.features")]
-    public partial class feature
+    public partial class feature : IEntity
     {
         public feature(ulong? product_id, string features, long? time_stamp)
         {
@@ -18,7 +19,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int features_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

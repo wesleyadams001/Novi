@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.fba_fees")]
-    public partial class fba_fees
+    public partial class fba_fees : IEntity
     {
         public fba_fees(ulong? product_id, int? pick_pack_fee, int? pick_pack_fee_tax, int? storage_fee, int? storage_fee_tax, long? time_stamp)
         {
@@ -21,7 +22,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int fba_fees_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong? product_id { get; set; }
 

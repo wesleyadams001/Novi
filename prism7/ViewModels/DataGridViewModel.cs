@@ -76,8 +76,8 @@ namespace prism7.ViewModels
         {
             this.ea = aggregator;
             this.container = container;
-            this.Requests = new ObservableCollection<RequestObject>();
-            this.Requests.AddRange(service.GetRequests());
+            this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
+            
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ActiveRequests = activeReqService.GetRequests();
             this.AddSelectedItemToActiveCommand = new DelegateCommand(AddSelectedItemToActive);

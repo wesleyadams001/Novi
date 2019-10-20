@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.sellers")]
-    public partial class seller
+    public partial class seller : IEntity
     {
         public seller(ulong seller_id, int? domain_id, int? tracking_since, int? last_update, string amzn_seller_id, string seller_name, bool? is_scammer, bool? has_fba, int? total_store_front_rec_time, int? total_store_front_asins, int? rating, int? rating_time, int? rating_count, long? rating_count_time, long? time_stamp)
         {
@@ -30,7 +31,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int t_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong seller_id { get; set; }
 

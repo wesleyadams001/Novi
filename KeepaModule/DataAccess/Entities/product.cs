@@ -5,9 +5,10 @@ namespace KeepaModule.DataAccess.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using XModule.Interfaces;
 
     [Table("public.products")]
-    public partial class product
+    public partial class product : IEntity
     {
         public product(ulong product_id, string product_type, string asin, long? domain_id, string title, long? tracking_since, long? listed_sinceint, long? last_update, long? last_rating_update, long? last_price_change, long? last_ebay_update, string images_csv, decimal? root_category, string parent_asin, string variation_csv, string mpn, bool? has_reviews, string type, string manufacturer, string brand, string label, string department, string publisher, string product_group, string part_number, string author, string binding, long? number_of_items, long? number_of_pages, long? publication_date, long? release_date, string studio, string genre, string model, string color, string size, string edition, string platform, string format, string description, long? hazardous_material_type, long? package_height, long? package_length, long? package_width, long? package_weight, long? package_quantity, long? availability_amazon, bool? is_adult_product, bool? new_price_is_map, bool? is_eligible_for_trade_in, bool? is_eligible_for_super_saver_shipping, bool? is_redirect_asin, bool? is_sns, bool? offers_successful, long? time_stamp)
         {
@@ -70,7 +71,7 @@ namespace KeepaModule.DataAccess.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int p_id { get; set; }
+        public int Primary_key { get; set; }
 
         public ulong product_id { get; set; }
 
