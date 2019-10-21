@@ -19,9 +19,10 @@ using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
-    public class ModuleOne : IModule//INoviModule,
+    public class ModuleOne : INoviModule, IModule//
     {
         private readonly IUnityContainer _container;
+        
         
         /// <summary>
         /// Entry point for the module to insert unity container
@@ -58,7 +59,7 @@ namespace KeepaModule
             _container.RegisterType<IAvailableRequestsService, AvailableRequests>();
 
             //Register data processing components
-            //_container.RegisterType<INoviModule, ModuleOne>();
+            _container.RegisterType<INoviModule, ModuleOne>();
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace KeepaModule
         /// </summary>
         /// <param name="buffer"></param>
         /// <param name="outblock"></param>
-        public void Process(BufferBlock<RequestObject> buffer)//, out BufferBlock<string> outblock
+        public void Process(BufferBlock<RequestObject> buffer)
         {
             //filter out non relevant items
             Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
@@ -80,7 +81,7 @@ namespace KeepaModule
             var bufferblock = new BufferBlock<RequestObject>();
 
             //create a request factory instance
-            var fac = new KeepaRequestFactory("");
+            var fac = new KeepaRequestFactory(Properties.Settings.Default.CurrentKey);
 
             //transform Request objects into request strings
             var Transblock = new TransformBlock<RequestObject, string>(x => {

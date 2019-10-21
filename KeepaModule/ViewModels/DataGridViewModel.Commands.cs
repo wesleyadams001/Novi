@@ -11,6 +11,7 @@ namespace KeepaModule.ViewModels
 {
     public partial class DataGridViewModel
     {
+
         /// <summary>
         /// Command to add a key to a plugin from the list of keys available
         /// </summary>
@@ -36,8 +37,27 @@ namespace KeepaModule.ViewModels
         /// Method corresponding to command to set the plugins API Key
         /// </summary>
         private void AddKeyToPlugin()
+        { 
+            //store selected item in the current key persistence
+            Properties.Settings.Default.CurrentKey = this.SelectedItemKey;
+
+            //Save the selected item in the key persistence
+            Properties.Settings.Default.Save();
+
+            //reload the persistene for access elsewhere
+            Properties.Settings.Default.Reload();
+        }
+
+        /// <summary>
+        /// Method corresponding to command to set the plugins connstring
+        /// </summary>
+        private void AddConnToPlugin()
         {
-            this.ApiKey = this.SelectedItemKey;
+            Properties.Settings.Default.CurrentConnString = this.itemConnectionString;
+
+            Properties.Settings.Default.Save();
+
+            Properties.Settings.Default.Reload();
         }
     }
 }

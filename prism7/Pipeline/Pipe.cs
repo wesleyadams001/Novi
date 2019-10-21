@@ -30,21 +30,26 @@ namespace prism7.Pipeline
         /// <param name="request"></param>
         public void Post(RequestObject request)
         {
-            
-            //var startBlock = new BufferBlock<RequestObject>();
 
-            //var broadcastBlock = new BufferBlock<RequestObject>();
+            var startBlock = new BufferBlock<RequestObject>();
+
+            var broadcastBlock = new BufferBlock<RequestObject>();
 
             //var outBlock = new BufferBlock<string>();
 
-            ////resolve consumers to enumerable
-            //var modules = this.container.Resolve<IEnumerable<INoviModule>>();
+            //resolve consumers to enumerable
+            var modules = this.container.Resolve<IEnumerable<INoviModule>>();
 
-            //for(int x = 0; x< modules.Count(); x++)
-            //{
-            //    //call each to process from the block
-            //    modules.ElementAt(x).Process(broadcastBlock, out outBlock);
-            //}
+            for (int x = 0; x < modules.Count(); x++)
+            {
+                //call each to process from the block
+                modules.ElementAt(x).Process(broadcastBlock);
+            }
+
+            startBlock.LinkTo(broadcastBlock, new DataflowLinkOptions { PropagateCompletion = true });
+
+            //post request
+            startBlock.Post(request);
         }
 
         

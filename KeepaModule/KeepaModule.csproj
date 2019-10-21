@@ -104,6 +104,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\DictionaryValueConverter.cs" />
     <Compile Include="DataAccess\Entities\Actions\Operations.cs" />
     <Compile Include="DataAccess\Entities\best_sellers.cs" />
     <Compile Include="DataAccess\Entities\category.cs" />
@@ -162,6 +163,8 @@
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Models\Tracking.cs" />
     <Compile Include="Services\AvailableRequests.cs" />
+    <Compile Include="Services\IModuleKeyService.cs" />
+    <Compile Include="Services\ModuleKeyService.cs" />
     <Compile Include="Tools\Client.cs" />
     <Compile Include="Tools\IncNumberGenerator.cs" />
     <Compile Include="Tools\Utilities.cs" />

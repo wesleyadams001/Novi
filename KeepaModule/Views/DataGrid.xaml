@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:KeepaModule.ViewModels"
+             xmlns:converter="clr-namespace:KeepaModule.Converters"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:XModule.Models;assembly=XModule"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
@@ -11,22 +13,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" Width="410.127">
 
-    <Grid Width="411" HorizontalAlignment="Left" Margin="10,0,-10.6,0">
+    <Control.Resources>
+        <ObjectDataProvider x:Key="myDataSource" ObjectType="{x:Type src:DataGridViewModel}"/>
+        <converter:DictionaryValueConverter x:Key="dictConvert"></converter:DictionaryValueConverter>
+    </Control.Resources>
+   
+    <Grid Width="411" HorizontalAlignment="Left" Margin="-20,0,-10.6,0"> <!--"left,top,right,bottom"-->
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="100" />
-
-
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Plugin Requests" Grid.RowSpan="2" Margin="-180,0,4.8,-0.2">
+        <GroupBox Header="Plugin Requests" Grid.RowSpan="4" Margin="-150,0,4.8,-0.2">
             <StackPanel Margin="1,0,-0.8,-0.6">
-                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500">
+                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Requests}" Height="500" Focusable="False" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Requests:" DisplayMemberBinding="{Binding RequestName}" />
@@ -36,10 +45,24 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Api and Associated Key" Height="200" Grid.Column="1" Grid.Row="0" Margin="0.2,0,-203.4,1" >
-            <StackPanel Grid.Column="0" Margin="10,0,12.2,-0.4" Height="Auto">
+        <GroupBox Header="Current Key" Height="60" Grid.Column="1" Grid.Row="0" Margin="0.2,0,-203.4,-10">
+            <StackPanel Grid.Column="0" Margin="10,0,12.2,0" Height="Auto">
+                <TextBlock Text="{Binding Path=SelectedItemKey}">
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Current Connection" Height="60" Grid.Column="1" Grid.Row="1" Margin="0.2,0,-203.4,-10">
+            <StackPanel Grid.Column="0" Margin="10,0,12.2,0" Height="Auto">
+                <TextBlock Text="{Binding Path=SelectedConnString}">
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Api and Associated Key" Height="200" Grid.Column="1" Grid.Row="2" Margin="0.2,0,-203.4,1" >
+            <StackPanel Grid.Column="0" Margin="10,0,12.2,0" Height="Auto">
                 <ListBox Height="125" RenderTransformOrigin="0.496,0.538" Margin="0,0,-10.8,0">
-                    <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding SelectedItemKey}">
+                    <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding Path = SelectedItemKey, Converter={StaticResource ResourceKey=dictConvert}, Mode=TwoWay}">
                         <ListView.View >
                             <GridView>
                                 <GridViewColumn Header="Api:"
@@ -53,10 +76,10 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Api and Connection String" Height="200" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.193,0.32" Margin="0.2,1,-203.4,1">
+        <GroupBox Header="Api and Connection String" Height="200" Grid.Column="1" Grid.Row="3" RenderTransformOrigin="0.193,0.32" Margin="0.2,1,-203.4,1">
             <StackPanel Grid.Column="0" Margin="10,0,18.2,0" Height="Auto">
                 <ListBox Height="125" RenderTransformOrigin="0.496,0.538" Margin="0,0,-14.8,0">
-                    <ListView ItemsSource="{Binding ConnStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding SelectedItemKey}">
+                    <ListView ItemsSource="{Binding ConnStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Width="300" SelectedItem="{Binding Path = SelectedConnString, Converter={StaticResource ResourceKey=dictConvert}, Mode=TwoWay}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Api:"

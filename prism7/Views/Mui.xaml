@@ -68,7 +68,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding AddToActiveQueueCommand}" FontSize="12" Content="Request"></mui:ModernButton>
+                                        <mui:ModernButton Grid.Column="1" Width="120" Height="30" Margin="0,0,0,0" Command="{Binding MakeRequestCommand}" FontSize="12" Content="Request"></mui:ModernButton>
                                     </Grid>
                                 </GroupBox>
                             </StackPanel>

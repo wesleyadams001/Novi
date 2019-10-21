@@ -34,5 +34,29 @@ namespace KeepaModule.Properties {
                 this["IncNumber"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string CurrentKey {
+            get {
+                return ((string)(this["CurrentKey"]));
+            }
+            set {
+                this["CurrentKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string CurrentConnString {
+            get {
+                return ((string)(this["CurrentConnString"]));
+            }
+            set {
+                this["CurrentConnString"] = value;
+            }
+        }
     }
 }

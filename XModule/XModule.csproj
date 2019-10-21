@@ -145,6 +145,8 @@
     <Compile Include="Constants\Enums.Responses.Keepa.cs">
       <DependentUpon>Enums.Responses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Events\Events.AddKeepaConn.cs" />
+    <Compile Include="Events\Events.AddKeepaKey.cs" />
     <Compile Include="Events\Events.CollectionChanged.cs" />
     <Compile Include="Events\Events.SelectionChanged.cs" />
     <Compile Include="Interfaces\IEntity.cs" />

@@ -54,10 +54,14 @@ namespace prism7.ViewModels
         /// Method that drops a request on the request pipeline
         /// </summary>
         /// <param name="ro"></param>
-        private void MakeRequest(RequestObject ro)
+        private void MakeRequest()
         {
-            //Post to the pipeline
-            this.Pipe.Post(ro);
+            for(int x = 0; x< this.requests.Count; x++)
+            {
+                //Post to the pipeline
+                this.Pipe.Post(this.requests.ElementAt(x));
+            }
+            
 
         }
     }

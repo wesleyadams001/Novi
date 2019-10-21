@@ -16,7 +16,7 @@ namespace XModule.Interfaces
         /// </summary>
         /// <param name="buffer"></param>
         /// <param name="outblock"></param>
-        void Process(BufferBlock<RequestObject> buffer, out BufferBlock<string> outblock);//buffer of strings are insert statements
+        void Process(BufferBlock<RequestObject> buffer);//buffer of strings are insert statements , out BufferBlock<string> outblock
 
         /// <summary>
         /// Gets the appropriate schema based on request object
