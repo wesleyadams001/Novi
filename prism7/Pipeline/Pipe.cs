@@ -18,9 +18,11 @@ namespace prism7.Pipeline
     public class Pipe
     {
         private IUnityContainer container;
-
-        public Pipe(IUnityContainer container)
+        private ILogger logger;
+        public Pipe(IUnityContainer container, ILoggerFactory logger)
         {
+            this.logger = logger.Create<Pipe>();
+            this.logger.Debug("Created Pipeline");
             this.container = container;
         }
 
@@ -37,18 +39,22 @@ namespace prism7.Pipeline
 
             //var outBlock = new BufferBlock<string>();
 
+            this.logger.Debug("Attempted Resolution of each " + typeof(INoviModule));
             //resolve consumers to enumerable
             var modules = this.container.Resolve<IEnumerable<INoviModule>>();
-
+            int count = modules.Count();
             for (int x = 0; x < modules.Count(); x++)
             {
                 //call each to process from the block
                 modules.ElementAt(x).Process(broadcastBlock);
             }
 
+            //modules.Process(broadcastBlock);
+
             startBlock.LinkTo(broadcastBlock, new DataflowLinkOptions { PropagateCompletion = true });
 
             //post request
+            this.logger.Debug("Posted message to Pipeline" + request.RequestName);
             startBlock.Post(request);
         }
 

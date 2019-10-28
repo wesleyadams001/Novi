@@ -53,6 +53,7 @@ namespace KeepaModule.ViewModels
         /// </summary>
         private void AddConnToPlugin()
         {
+            //this.logger.
             Properties.Settings.Default.CurrentConnString = this.itemConnectionString;
 
             Properties.Settings.Default.Save();

@@ -54,6 +54,7 @@ namespace KeepaModule.Factories
         public KeepaRequestFactory(string key)
         {
             accessKey = key;
+            System.Windows.MessageBox.Show(accessKey);
         }
 
         /// <summary>
@@ -73,7 +74,9 @@ namespace KeepaModule.Factories
             Func<KeepaRequest> objectCtor = null;
             objects.TryGetValue(name, out objectCtor);
 
-            return objectCtor != null ? objectCtor().CreateRequest() : null;
+            var x = objectCtor != null ? objectCtor().CreateRequest() : null;
+            System.Windows.MessageBox.Show(x);
+            return x;
         }
 
     }

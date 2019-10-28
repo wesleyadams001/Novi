@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using XModule.Services;
 using prism7.Services;
 using Prism.Events;
+using prism7.Factory;
 
 namespace prism7
 {
@@ -56,6 +57,8 @@ namespace prism7
             Container.RegisterType<IKeyService, KeyService>();
             Container.RegisterType<IActiveRequestsService, ActiveRequestsService>();
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ILoggerFactory, LoggerFactory>();
+            //Container.RegisterType<ILogger, Logger>();
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

@@ -12,6 +12,7 @@ using XModule.Events;
 using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
+using NLog;
 
 namespace KeepaModule.ViewModels
 {
@@ -23,6 +24,7 @@ namespace KeepaModule.ViewModels
         private IKeyService service;
         private IUnityContainer container;
         private IEventAggregator ea;
+        private ILogger logger;
         private Timer aTimer;
         private string itemConnectionString;
         private string itemKey;
@@ -86,10 +88,11 @@ namespace KeepaModule.ViewModels
             set { SetProperty(ref _ConnStrings, value); OnPropertyChanged("ConnStrings"); }
         }
 
-        public DataGridViewModel(IUnityContainer container, IKeyService service, IEventAggregator eventAggregator)
+        public DataGridViewModel(IUnityContainer container, IKeyService service, IEventAggregator eventAggregator, ILogger logger)
         {
             this.ea = eventAggregator;
             this.container = container;
+            this.logger = logger;
             var req = new AvailableRequests();
             this.Requests = new ObservableCollection<RequestObject>(req.GetRequests());
             this.service = service;

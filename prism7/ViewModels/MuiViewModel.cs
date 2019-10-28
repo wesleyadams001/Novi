@@ -9,6 +9,7 @@ using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
 using XModule.Events;
+using XModule.Interfaces;
 
 namespace prism7.ViewModels
 {
@@ -17,6 +18,7 @@ namespace prism7.ViewModels
         private IUnityContainer container;
         private IActiveRequestsService service;
         private IEventAggregator ea;
+        private ILogger logger;
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<Pair<string, object>> parameters;
         private RequestObject selectedActiveReqItem;
@@ -60,15 +62,16 @@ namespace prism7.ViewModels
         /// The main constructor for MuiViewModel that takes an instance of Active Requests Service
         /// </summary>
         /// <param name="service"></param>
-        public MuiViewModel(IUnityContainer container, IActiveRequestsService service, IEventAggregator aggregator)
+        public MuiViewModel(IUnityContainer container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
         {
             this.ea = aggregator;
+            this.logger = loggerFactory.Create<MuiViewModel>();
             this.container = container;
             this.service = service;
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.ActiveRequests = service.GetRequests();
-            this.Pipe = new Pipeline.Pipe(this.container);
+            this.Pipe = new Pipeline.Pipe(this.container, loggerFactory);
             this.MakeRequestCommand = new DelegateCommand(MakeRequest);
 
             this.ea.GetEvent<CollectionChangedEvent>().Subscribe((oc) => 

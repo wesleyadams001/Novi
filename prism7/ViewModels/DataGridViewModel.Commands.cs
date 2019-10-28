@@ -87,7 +87,7 @@ namespace prism7.ViewModels
                 //serialize and add to persist
                 var strObj = JsonConvert.SerializeObject(this.SelectedActiveRequestItem);
                 Properties.Settings.Default.ActiveRequests.Add(strObj);
-
+                
                 //save properties
                 Properties.Settings.Default.Save();
 

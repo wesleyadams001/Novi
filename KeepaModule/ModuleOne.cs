@@ -22,20 +22,57 @@ namespace KeepaModule
     public class ModuleOne : INoviModule, IModule//
     {
         private readonly IUnityContainer _container;
-        
+        private readonly ILogger _logger;
+        private KeepaRequestFactory _reqFactory;
+        private Client _keepaReqClient;
         
         /// <summary>
         /// Entry point for the module to insert unity container
         /// </summary>
         /// <param name="container"></param>
-        public ModuleOne(IUnityContainer container)
+        public ModuleOne(IUnityContainer container, ILoggerFactory loggerFactory)
         {
             if (container == null)
             {
-                throw new ArgumentNullException($"{nameof(container)}");
+                this._logger.Error("Container is null");
+            }
+            _logger = loggerFactory.Create<ModuleOne>();
+            try
+            {
+                _container = container;
+            }
+            catch(Exception e)
+            {
+                this._logger.Error("Failed to assign container");
+            }
+            
+            this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
+            this._reqFactory = new KeepaRequestFactory(Properties.Settings.Default.CurrentKey);
+            this._logger.Debug("Created new Client of type:" + typeof(Client));
+            this._keepaReqClient = new Client();
+
+            try
+            {
+                //Register available requestservice
+                _container.RegisterType<IAvailableRequestsService, AvailableRequests>();
+            }
+            catch (Exception e)
+            {
+                this._logger.Error("Failed to register " + typeof(IAvailableRequestsService) + " as " + typeof(AvailableRequests) + " with error: " + e.Message);
             }
 
-            _container = container;
+
+
+            try
+            {
+                //Register data processing components
+                _container.RegisterType<INoviModule, ModuleOne>();
+
+            }
+            catch (Exception e)
+            {
+                this._logger.Error("Failed to register " + typeof(INoviModule) + " with error: " + e.Message);
+            }
         }
 
         /// <summary>
@@ -53,13 +90,10 @@ namespace KeepaModule
         /// </summary>
         public void Initialize()
         {
-            System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
-            
-            //Register available requestservice
-            _container.RegisterType<IAvailableRequestsService, AvailableRequests>();
+            //System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
+            this._logger.Debug("Initilized Method of: " +typeof(ModuleOne));
 
-            //Register data processing components
-            _container.RegisterType<INoviModule, ModuleOne>();
+
         }
 
         /// <summary>
@@ -80,24 +114,19 @@ namespace KeepaModule
             //create a recieving bufferblock
             var bufferblock = new BufferBlock<RequestObject>();
 
-            //create a request factory instance
-            var fac = new KeepaRequestFactory(Properties.Settings.Default.CurrentKey);
-
             //transform Request objects into request strings
             var Transblock = new TransformBlock<RequestObject, string>(x => {
                 
-                var requestString = fac.Create(x.RequestName, x.ParameterList);
-                
+                var requestString = this._reqFactory.Create(x.RequestName, x.ParameterList);
+                this._logger.Debug("Created" + requestString);
                 return requestString;
             });
-
-            var client = new Client();
 
             //Sends request to API
             var RequestBlock = new TransformBlock<string, Task<string>>(async x =>
             {
 
-               string response = await client.DownloadAsync(x);
+               string response = await this._keepaReqClient.DownloadAsync(x);
                return response;
 
             });
