@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Timers;
 using KeepaModule.Services;
-using Microsoft.Practices.Unity;
+using Autofac;
+using Autofac.Core;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -12,7 +13,7 @@ using XModule.Events;
 using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
-using NLog;
+using XModule.Interfaces;
 
 namespace KeepaModule.ViewModels
 {
@@ -22,7 +23,7 @@ namespace KeepaModule.ViewModels
         private ObservableConcurrentDictionary<string, string> _ApiKeys;
         private ObservableConcurrentDictionary<string, string> _ConnStrings; 
         private IKeyService service;
-        private IUnityContainer container;
+        private IComponentContext container;
         private IEventAggregator ea;
         private ILogger logger;
         private Timer aTimer;
@@ -88,11 +89,11 @@ namespace KeepaModule.ViewModels
             set { SetProperty(ref _ConnStrings, value); OnPropertyChanged("ConnStrings"); }
         }
 
-        public DataGridViewModel(IUnityContainer container, IKeyService service, IEventAggregator eventAggregator, ILogger logger)
+        public DataGridViewModel(IComponentContext container, IKeyService service, IEventAggregator eventAggregator, ILoggerFactory loggerfac)
         {
             this.ea = eventAggregator;
             this.container = container;
-            this.logger = logger;
+            this.logger = loggerfac.Create<DataGridViewModel>();
             var req = new AvailableRequests();
             this.Requests = new ObservableCollection<RequestObject>(req.GetRequests());
             this.service = service;

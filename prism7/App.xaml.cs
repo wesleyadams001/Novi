@@ -23,6 +23,7 @@ namespace prism7
 
             Bootstrapper bootstrapper = new Bootstrapper();
             bootstrapper.Run();
+            
         }
         
     }

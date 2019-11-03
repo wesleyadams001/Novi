@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
+using Autofac;
 using KeepaModule.DataAccess;
 using KeepaModule.DataAccess.Entities;
 using KeepaModule.DataAccess.Entities.Actions;
@@ -19,60 +20,32 @@ using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
-    public class ModuleOne : INoviModule, IModule//
+    public class ModuleOne : Module, INoviModule, IModule
     {
-        private readonly IUnityContainer _container;
-        private readonly ILogger _logger;
+        private ILoggerFactory _loggerFac;
+        private ILogger _logger;
         private KeepaRequestFactory _reqFactory;
+        private KeepaRecordFactory _recordFactory;
         private Client _keepaReqClient;
-        
+        private const string baseUrl = "https://api.keepa.com/";
+
         /// <summary>
         /// Entry point for the module to insert unity container
         /// </summary>
         /// <param name="container"></param>
-        public ModuleOne(IUnityContainer container, ILoggerFactory loggerFactory)
+        public ModuleOne()
         {
-            if (container == null)
-            {
-                this._logger.Error("Container is null");
-            }
-            _logger = loggerFactory.Create<ModuleOne>();
-            try
-            {
-                _container = container;
-            }
-            catch(Exception e)
-            {
-                this._logger.Error("Failed to assign container");
-            }
-            
-            this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
-            this._reqFactory = new KeepaRequestFactory(Properties.Settings.Default.CurrentKey);
-            this._logger.Debug("Created new Client of type:" + typeof(Client));
+            //Creates the logger factory and resolves a logger
+            //this._loggerFac = context.Resolve<ILoggerFactory>();
+            //this._logger = this._loggerFac.Create<ModuleOne>();
+
+            //Builds a request factory with the associated key
+            //this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
+            this._reqFactory = new KeepaRequestFactory(baseUrl);
+            this._recordFactory = new KeepaRecordFactory();
+            //creates a new client
+            //this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
-
-            try
-            {
-                //Register available requestservice
-                _container.RegisterType<IAvailableRequestsService, AvailableRequests>();
-            }
-            catch (Exception e)
-            {
-                this._logger.Error("Failed to register " + typeof(IAvailableRequestsService) + " as " + typeof(AvailableRequests) + " with error: " + e.Message);
-            }
-
-
-
-            try
-            {
-                //Register data processing components
-                _container.RegisterType<INoviModule, ModuleOne>();
-
-            }
-            catch (Exception e)
-            {
-                this._logger.Error("Failed to register " + typeof(INoviModule) + " with error: " + e.Message);
-            }
         }
 
         /// <summary>
@@ -86,14 +59,16 @@ namespace KeepaModule
         }
 
         /// <summary>
-        /// Initializes the module and registers relevant types
+        /// Load method of Autofac Module
         /// </summary>
-        public void Initialize()
+        /// <param name="builder"></param>
+        protected override void Load(ContainerBuilder builder)
         {
-            //System.Windows.MessageBox.Show($"{nameof(ModuleOne)} has been initialized");
-            this._logger.Debug("Initilized Method of: " +typeof(ModuleOne));
-
-
+                //Register available requestservice
+                builder.RegisterType<AvailableRequests>().As<IAvailableRequestsService>();
+           
+                builder.RegisterType<ModuleOne>().As<INoviModule>();
+          
         }
 
         /// <summary>
@@ -118,7 +93,7 @@ namespace KeepaModule
             var Transblock = new TransformBlock<RequestObject, string>(x => {
                 
                 var requestString = this._reqFactory.Create(x.RequestName, x.ParameterList);
-                this._logger.Debug("Created" + requestString);
+                //this._logger.Debug("Created" + requestString);
                 return requestString;
             });
 
@@ -140,8 +115,8 @@ namespace KeepaModule
 
             //Transforms responses to Record blocks
             var RecordBlock = new TransformBlock<Response, List<IRecord>>(x => {
-                KeepaRecordFactory recordFactory = new KeepaRecordFactory();
-                var list = recordFactory.Create(x);
+               
+                var list = this._recordFactory.Create(x);
                 return list;
             });
 
@@ -186,6 +161,11 @@ namespace KeepaModule
             ExpandedBlock.LinkTo(StagingBlock, linkops);
 
            
+        }
+
+        public void Initialize()
+        {
+            
         }
     }
 }

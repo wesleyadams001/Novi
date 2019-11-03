@@ -16,6 +16,11 @@ namespace KeepaModule.Factories
     public class KeepaRequestFactory
     {
         /// <summary>
+        /// The base URL for Keepa requests
+        /// </summary>
+        private static string baseUrl { get; set; }
+
+        /// <summary>
         /// The access key to be used by a request factory
         /// </summary>
         private static string accessKey { get; set; }
@@ -31,30 +36,29 @@ namespace KeepaModule.Factories
         public static Dictionary<string, Func<KeepaRequest>> objects =
         new Dictionary<string, Func<KeepaRequest>>
         {
-                    {"getTrackingGetRequest", () => new GetTrackingGetRequest(accessKey, paramList)},
-                    {"getTrackingListRequest", () => new GetTrackingListRequest(accessKey, paramList)},
-                    {"getTrackingNotificationRequest", () => new GetTrackingNotificationRequest(accessKey, paramList)},
-                    {"getTrackingRemoveRequest", () => new GetTrackingRemoveRequest(accessKey, paramList)},
-                    {"getTrackingRemoveAllRequest", () => new GetTrackingRemoveAllRequest(accessKey, paramList)},
-                    {"getTrackingWebHookRequest", () => new GetTrackingWebHookRequest(accessKey, paramList)},
-                    {"getBestSellersRequest", () => new GetBestSellersRequest(accessKey, paramList)},
-                    {"getCategoryLookupRequest", () => new GetCategoryLookupRequest(accessKey, paramList)},
-                    {"getCategorySearchRequest", () => new GetCategorySearchRequest(accessKey, paramList)},
-                    {"getSellerRequest", () => new GetSellerRequest(accessKey, paramList)},
-                    {"getTopSellerRequest", () => new GetTopSellerRequest(accessKey, paramList)},
-                    {"getProductSearchRequest", () => new GetProductSearchRequest(accessKey, paramList)},
-                    {"getProductRequest", () => new GetProductRequest(accessKey, paramList)},
-                    {"getProductByCodeRequest", () => new GetProductByCodeRequest(accessKey, paramList)},
+                    {"getTrackingGetRequest", () => new GetTrackingGetRequest(accessKey, paramList, baseUrl)},
+                    {"getTrackingListRequest", () => new GetTrackingListRequest(accessKey, paramList, baseUrl)},
+                    {"getTrackingNotificationRequest", () => new GetTrackingNotificationRequest(accessKey, paramList, baseUrl)},
+                    {"getTrackingRemoveRequest", () => new GetTrackingRemoveRequest(accessKey, paramList, baseUrl)},
+                    {"getTrackingRemoveAllRequest", () => new GetTrackingRemoveAllRequest(accessKey, paramList, baseUrl)},
+                    {"getTrackingWebHookRequest", () => new GetTrackingWebHookRequest(accessKey, paramList, baseUrl)},
+                    {"getBestSellersRequest", () => new GetBestSellersRequest(accessKey, paramList, baseUrl)},
+                    {"getCategoryLookupRequest", () => new GetCategoryLookupRequest(accessKey, paramList, baseUrl)},
+                    {"getCategorySearchRequest", () => new GetCategorySearchRequest(accessKey, paramList, baseUrl)},
+                    {"getSellerRequest", () => new GetSellerRequest(accessKey, paramList, baseUrl)},
+                    {"getTopSellerRequest", () => new GetTopSellerRequest(accessKey, paramList, baseUrl)},
+                    {"getProductSearchRequest", () => new GetProductSearchRequest(accessKey, paramList, baseUrl)},
+                    {"getProductRequest", () => new GetProductRequest(accessKey, paramList, baseUrl)},
+                    {"getProductByCodeRequest", () => new GetProductByCodeRequest(accessKey, paramList, baseUrl)},
         };  
 
         /// <summary>
         /// Constructs a new Keepa Request factory
         /// </summary>
         /// <param name="key"></param>
-        public KeepaRequestFactory(string key)
+        public KeepaRequestFactory(string url)
         {
-            accessKey = key;
-            System.Windows.MessageBox.Show(accessKey);
+            baseUrl = url;
         }
 
         /// <summary>
@@ -75,7 +79,7 @@ namespace KeepaModule.Factories
             objects.TryGetValue(name, out objectCtor);
 
             var x = objectCtor != null ? objectCtor().CreateRequest() : null;
-            System.Windows.MessageBox.Show(x);
+            //System.Windows.MessageBox.Show(x);
             return x;
         }
 

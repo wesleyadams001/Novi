@@ -10,12 +10,13 @@ using XModule.Services;
 using XModule.Tools;
 using XModule.Events;
 using XModule.Interfaces;
+using Autofac;
 
 namespace prism7.ViewModels
 {
     public partial class MuiViewModel : BindableBase
     {
-        private IUnityContainer container;
+        private IComponentContext container;
         private IActiveRequestsService service;
         private IEventAggregator ea;
         private ILogger logger;
@@ -62,7 +63,7 @@ namespace prism7.ViewModels
         /// The main constructor for MuiViewModel that takes an instance of Active Requests Service
         /// </summary>
         /// <param name="service"></param>
-        public MuiViewModel(IUnityContainer container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
+        public MuiViewModel(IComponentContext container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
         {
             this.ea = aggregator;
             this.logger = loggerFactory.Create<MuiViewModel>();

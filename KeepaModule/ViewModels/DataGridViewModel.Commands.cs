@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Autofac;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,7 @@ namespace KeepaModule.ViewModels
         /// </summary>
         private void UpdateServices()
         {
+           
             this.service = container.Resolve<IKeyService>();
             this.ApiKeys = this.service.GetKeys();
             this.ConnStrings = this.service.GetConnections();

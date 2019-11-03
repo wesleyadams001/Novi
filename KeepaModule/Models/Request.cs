@@ -24,7 +24,7 @@ namespace KeepaModule.Models
         protected string postData;
         protected string path;
         public Dictionary<string, string> parameter;
-        protected ObservableCollection<Pair<string, object>> list { get; set; }
+        protected List<object> list { get; set; }
         protected KeepaRequest request { get; set; }
         protected string requestString { get; set; }
 
@@ -33,7 +33,8 @@ namespace KeepaModule.Models
         /// </summary>
         public KeepaRequest()
         {
-            parameter = new Dictionary<string, string>(20);
+            this.parameter = new Dictionary<string, string>(20);
+            
         }
 
         public ApiSpecificRequestTypes KeepaRequestType { get; set; }
@@ -47,11 +48,24 @@ namespace KeepaModule.Models
         /// <returns></returns>
         protected KeepaRequest GetBaseRequest(ApiSpecificRequestTypes reqType, string path)
         {
-            KeepaRequest r = new KeepaRequest();
-            r.RequestType = RequestTypes.Keepa;
-            r.KeepaRequestType = reqType;
-            r.path = path;
-            return r;
+            //KeepaRequest r = new KeepaRequest();
+            this.RequestType = RequestTypes.Keepa;
+            this.KeepaRequestType = reqType;
+            this.path = path;
+            return this;
+        }
+
+        /// <summary>
+        /// Strips out objects from the parameter list into a list of the appropriate parameters
+        /// </summary>
+        /// <param name="obsList"></param>
+        protected void StripObjects(ObservableCollection<Pair<string, object>> obsList)
+        {
+            this.list = new List<object>();
+            for(int x= 0; x< obsList.Count; x++)
+            {
+                this.list.Add(obsList.ElementAt(x).Second);
+            }
         }
 
         /// <summary>
@@ -60,7 +74,7 @@ namespace KeepaModule.Models
         /// <param name="paramsList"></param>
         protected void AddParams(ObservableCollection<Pair<string, object>> paramsList)
         {
-            this.list = paramsList;
+            this.list = paramsList.Select(x=>x.Second).ToList();
         }
 
         /// <summary>
@@ -131,10 +145,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingGetRequest : KeepaRequest
     {
-        public GetTrackingGetRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingGetRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -156,10 +172,10 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getTrackingGetRequest(string asin)
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
-            r.parameter.Add("type", "get");
-            r.parameter.Add("asin", asin);
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
+            this.parameter.Add("type", "get");
+            this.parameter.Add("asin", asin);
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -175,10 +191,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingListRequest : KeepaRequest
     {
-        public GetTrackingListRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingListRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -201,11 +219,11 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getTrackingListRequest(bool asinsOnly)
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
-            r.parameter.Add("type", "list");
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
+            this.parameter.Add("type", "list");
             if (asinsOnly)
-                r.parameter.Add("asins-only", "1");
-            return r;
+                this.parameter.Add("asins-only", "1");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -222,16 +240,18 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingNotificationRequest : KeepaRequest
     {
-        public GetTrackingNotificationRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingNotificationRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getTrackingNotificationRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
+            this.request = getTrackingNotificationRequest(this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
@@ -250,11 +270,11 @@ namespace KeepaModule.Models
         private KeepaRequest getTrackingNotificationRequest(int since, bool revise)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION, "tracking");
-            r.parameter.Add("since", since.ToString());
-            r.parameter.Add("revise", revise ? "1" : "0");
-            r.parameter.Add("type", "notification");
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION, "tracking");
+            this.parameter.Add("since", since.ToString());
+            this.parameter.Add("revise", revise ? "1" : "0");
+            this.parameter.Add("type", "notification");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -270,10 +290,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingRemoveRequest : KeepaRequest
     {
-        public GetTrackingRemoveRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingRemoveRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -296,10 +318,10 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getTrackingRemoveRequest(string asin)
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
-            r.parameter.Add("type", "remove");
-            r.parameter.Add("asin", asin);
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
+            this.parameter.Add("type", "remove");
+            this.parameter.Add("asin", asin);
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -315,10 +337,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingRemoveAllRequest : KeepaRequest
     {
-        public GetTrackingRemoveAllRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingRemoveAllRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -333,9 +357,9 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getTrackingRemoveAllRequest()
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL, "tracking");
-            r.parameter.Add("type", "removeAll");
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL, "tracking");
+            this.parameter.Add("type", "removeAll");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -351,10 +375,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTrackingWebHookRequest : KeepaRequest
     {
-        public GetTrackingWebHookRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTrackingWebHookRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -378,10 +404,10 @@ namespace KeepaModule.Models
         private KeepaRequest getTrackingWebHookRequest(string url)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK, "tracking");
-            r.parameter.Add("type", "webhook");
-            r.parameter.Add("url", url);
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK, "tracking");
+            this.parameter.Add("type", "webhook");
+            this.parameter.Add("url", url);
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -397,16 +423,18 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetBestSellersRequest : KeepaRequest
     {
-        public GetBestSellersRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetBestSellersRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getBestSellersRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
+            this.request = getBestSellersRequest(this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
@@ -414,7 +442,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getBestSellersRequest(object p1, object p2)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var productGroup = (string)p2;
 
             var r = getBestSellersRequest(domainId, productGroup);
@@ -424,10 +453,10 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getBestSellersRequest(AmazonLocale domainId, string productGroup)
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_BEST_SELLERS, "bestsellers");
-            r.parameter.Add("category", productGroup);
-            r.parameter.Add("domain", domainId.ToString("D"));
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_BEST_SELLERS, "bestsellers");
+            this.parameter.Add("category", productGroup);
+            this.parameter.Add("domain", domainId.ToString("D"));
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -443,16 +472,18 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetCategoryLookupRequest : KeepaRequest
     {
-        public GetCategoryLookupRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetCategoryLookupRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getCategoryLookupRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+            this.request = getCategoryLookupRequest(this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
@@ -460,7 +491,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getCategoryLookupRequest(object p1, object p2, object p3)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var parents = (bool)p2;
             var category = (long)p3;
 
@@ -472,13 +504,13 @@ namespace KeepaModule.Models
         private KeepaRequest getCategoryLookupRequest(AmazonLocale domainId, bool parents, long category)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP, "category");
-            r.parameter.Add("category", category.ToString());
-            r.parameter.Add("domain", domainId.ToString("D"));
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP, "category");
+            this.parameter.Add("category", category.ToString());
+            this.parameter.Add("domain", domainId.ToString("D"));
 
             if (parents)
-                r.parameter.Add("parents", "1");
-            return r;
+                this.parameter.Add("parents", "1");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -495,16 +527,18 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetCategorySearchRequest : KeepaRequest
     {
-        public GetCategorySearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetCategorySearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
         {
             var numValues = this.list.Count;
-            this.request = getCategorySearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+            this.request = getCategorySearchRequest(this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
             var sb = GetStringBuilder();
             this.requestString = sb.ToString();
             return this.requestString;
@@ -512,7 +546,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getCategorySearchRequest(object p1, object p2, object p3)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var term = (string)p2;
             var parents = (bool)p3;
 
@@ -524,14 +559,14 @@ namespace KeepaModule.Models
         private KeepaRequest getCategorySearchRequest(AmazonLocale domainId, string term, bool parents)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH, "search");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("type", "category");
-            r.parameter.Add("term", term);
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH, "search");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("type", "category");
+            this.parameter.Add("term", term);
 
             if (parents)
-                r.parameter.Add("parents", "1");
-            return r;
+                this.parameter.Add("parents", "1");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -547,10 +582,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetSellerRequest : KeepaRequest
     {
-        public GetSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -559,13 +596,13 @@ namespace KeepaModule.Models
             switch (numValues)
             {
                 case 2:
-                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2));
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
                 case 3:
-                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
                 case 4:
-                    this.request = getSellerRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4));
+                    this.request = getSellerRequest(this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
 
                     break;
             }
@@ -577,7 +614,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getSellerRequest(object p1, object p2)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var seller = (string[])p2;
 
             var r = getSellerRequest(domainId, seller);
@@ -587,15 +625,16 @@ namespace KeepaModule.Models
         [Tag]
         private KeepaRequest getSellerRequest(AmazonLocale domainId, string[] seller)
         {
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("seller", Tools.Utilities.arrayToCsv(seller));
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("seller", Tools.Utilities.arrayToCsv(seller));
+            return this;
         }
 
         private KeepaRequest getSellerRequest(object p1, object p2, object p3)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var seller = (string)p2;
             var storefront = (bool)p3;
 
@@ -607,18 +646,19 @@ namespace KeepaModule.Models
         private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("seller", seller);
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("seller", seller);
 
             if (storefront)
-                r.parameter.Add("storefront", "1");
-            return r;
+                this.parameter.Add("storefront", "1");
+            return this;
         }
 
         private KeepaRequest getSellerRequest(object p1, object p2, object p3, object p4)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var seller = (string)p2;
             var storefront = (bool)p3;
             var update = (int)p4;
@@ -631,15 +671,15 @@ namespace KeepaModule.Models
         private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront, int update)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("seller", seller);
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("seller", seller);
             if (update >= 0)
-                r.parameter.Add("update", update.ToString());
+                this.parameter.Add("update", update.ToString());
 
             if (storefront || update >= 0)
-                r.parameter.Add("storefront", "1");
-            return r;
+                this.parameter.Add("storefront", "1");
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -655,10 +695,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetTopSellerRequest : KeepaRequest
     {
-        public GetTopSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetTopSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -679,7 +721,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getTopSellerRequest(object p1)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
 
             var r = getTopSellerRequest(domainId);
             return r;
@@ -689,9 +732,9 @@ namespace KeepaModule.Models
         private KeepaRequest getTopSellerRequest(AmazonLocale domainId)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TOP_SELLER, "topseller");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            return r;
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TOP_SELLER, "topseller");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -707,10 +750,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetProductSearchRequest : KeepaRequest
     {
-        public GetProductSearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetProductSearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -719,10 +764,10 @@ namespace KeepaModule.Models
             switch (numValues)
             {
                 case 3:
-                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3));
+                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
                 case 6:
-                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6));
+                    this.request = getProductSearchRequest(this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
 
             }
@@ -735,7 +780,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getProductSearchRequest(object p1, object p2, object p3)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var term = (string)p2;
             var stats = (int?)p3;
 
@@ -747,19 +793,20 @@ namespace KeepaModule.Models
         private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("type", "product");
-            r.parameter.Add("term", term);
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("type", "product");
+            this.parameter.Add("term", term);
 
             if (stats != null && stats > 0)
-                r.parameter.Add("stats", stats.ToString());
-            return r;
+                this.parameter.Add("stats", stats.ToString());
+            return this;
         }
 
         private KeepaRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var term = (string)p2;
             var stats = (int?)p3;
             var update = (int?)p4;
@@ -774,17 +821,17 @@ namespace KeepaModule.Models
         private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats, int? update, bool history, bool asinsOnly)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("type", "product");
-            r.parameter.Add("term", term);
-            r.parameter.Add("update", update.ToString());
-            r.parameter.Add("history", history ? "1" : "0");
-            r.parameter.Add("asins-only", asinsOnly ? "1" : "0");
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("type", "product");
+            this.parameter.Add("term", term);
+            this.parameter.Add("update", update.ToString());
+            this.parameter.Add("history", history ? "1" : "0");
+            this.parameter.Add("asins-only", asinsOnly ? "1" : "0");
 
             if (stats != null && stats > 0)
-                r.parameter.Add("stats", stats.ToString());
-            return r;
+                this.parameter.Add("stats", stats.ToString());
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -800,10 +847,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetProductRequest : KeepaRequest
     {
-        public GetProductRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetProductRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -812,10 +861,10 @@ namespace KeepaModule.Models
             switch (numValues)
             {
                 case 4:
-                    this.request = getProductRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4));
+                    this.request = getProductRequest(this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
                 case 7:
-                    this.request = getProductRequest(this.list.ElementAt(numValues - 1), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 7));
+                    this.request = getProductRequest(this.list.ElementAt(numValues - 7), this.list.ElementAt(numValues - 6), this.list.ElementAt(numValues - 5), this.list.ElementAt(numValues - 4), this.list.ElementAt(numValues - 3), this.list.ElementAt(numValues - 2), this.list.ElementAt(numValues - 1));
                     break;
 
             }
@@ -827,7 +876,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var asins = (string[])p4;
@@ -840,20 +890,21 @@ namespace KeepaModule.Models
         private KeepaRequest getProductRequest(AmazonLocale domainId, int? stats, int? offers, string[] asins)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
             if (stats != null && stats > 0)
-                r.parameter.Add("stats", stats.ToString());
+                this.parameter.Add("stats", stats.ToString());
 
             if (offers != null && offers > 0)
-                r.parameter.Add("offers", offers.ToString());
-            return r;
+                this.parameter.Add("offers", offers.ToString());
+            return this;
         }
 
         private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var offers = (int?)p2;
             var statsStartDate = (string)p3;
             var statsEndDate = (string)p4;
@@ -869,18 +920,18 @@ namespace KeepaModule.Models
         private KeepaRequest getProductRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] asins)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
-            r.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("update", update.ToString());
-            r.parameter.Add("history", history ? "1" : "0");
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
+            this.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("update", update.ToString());
+            this.parameter.Add("history", history ? "1" : "0");
 
             if (statsStartDate != null && statsEndDate != null)
-                r.parameter.Add("stats", statsStartDate + "," + statsEndDate);
+                this.parameter.Add("stats", statsStartDate + "," + statsEndDate);
 
             if (offers != null && offers > 0)
-                r.parameter.Add("offers", offers.ToString());
-            return r;
+                this.parameter.Add("offers", offers.ToString());
+            return this;
         }
 
         protected override StringBuilder GetStringBuilder()
@@ -896,10 +947,12 @@ namespace KeepaModule.Models
     /// </summary>
     public class GetProductByCodeRequest : KeepaRequest
     {
-        public GetProductByCodeRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams)
+        public GetProductByCodeRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
+            this.baseUrl = url;
             this.accessKey = accessKey;
-            this.list = listParams;
+            this.list = listParams.Select(x => x.Second).ToList();
+            this.accessKey = Properties.Settings.Default.CurrentKey;
         }
 
         public override string CreateRequest()
@@ -926,7 +979,8 @@ namespace KeepaModule.Models
 
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var stats = (int?)p2;
             var offers = (int?)p3;
             var codes = (string[])p4;
@@ -939,20 +993,21 @@ namespace KeepaModule.Models
         private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? stats, int? offers, string[] codes)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
-            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
-            r.parameter.Add("domain", domainId.ToString("D"));
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
+            this.parameter.Add("domain", domainId.ToString("D"));
             if (stats != null && stats > 0)
-                r.parameter.Add("stats", stats.ToString());
+                this.parameter.Add("stats", stats.ToString());
 
             if (offers != null && offers > 0)
-                r.parameter.Add("offers", offers.ToString());
-            return r;
+                this.parameter.Add("offers", offers.ToString());
+            return this;
         }
 
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var offers = (int?)p2;
             var statsStartDate = (string)p3;
             var statsEndDate = (string)p4;
@@ -968,23 +1023,24 @@ namespace KeepaModule.Models
         private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] codes)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
-            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("update", update.ToString());
-            r.parameter.Add("history", history ? "1" : "0");
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("update", update.ToString());
+            this.parameter.Add("history", history ? "1" : "0");
 
             if (statsStartDate != null && statsEndDate != null)
-                r.parameter.Add("stats", statsStartDate + "," + statsEndDate);
+                this.parameter.Add("stats", statsStartDate + "," + statsEndDate);
 
             if (offers != null && offers > 0)
-                r.parameter.Add("offers", offers.ToString());
-            return r;
+                this.parameter.Add("offers", offers.ToString());
+            return this;
         }
 
         private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
         {
-            var domainId = (AmazonLocale)p1;
+            Enum.TryParse(p1.ToString(), out AmazonLocale locale);
+            var domainId = locale;
             var offers = (int?)p2;
             var statsStartDate = (string)p3;
             var statsEndDate = (string)p4;
@@ -1004,22 +1060,22 @@ namespace KeepaModule.Models
         private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, bool stock, bool rental, bool rating, bool fbafees, string[] codes)
         {
 
-            KeepaRequest r = base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
-            r.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
-            r.parameter.Add("domain", domainId.ToString("D"));
-            r.parameter.Add("update", update.ToString());
-            r.parameter.Add("history", history ? "1" : "0");
-            r.parameter.Add("stock", stock ? "1" : "0");
-            r.parameter.Add("rental", rental ? "1" : "0");
-            r.parameter.Add("rating", rating ? "1" : "0");
-            r.parameter.Add("fbafees", fbafees ? "1" : "0");
+            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
+            this.parameter.Add("domain", domainId.ToString("D"));
+            this.parameter.Add("update", update.ToString());
+            this.parameter.Add("history", history ? "1" : "0");
+            this.parameter.Add("stock", stock ? "1" : "0");
+            this.parameter.Add("rental", rental ? "1" : "0");
+            this.parameter.Add("rating", rating ? "1" : "0");
+            this.parameter.Add("fbafees", fbafees ? "1" : "0");
 
             if (statsStartDate != null && statsEndDate != null)
-                r.parameter.Add("stats", statsStartDate + "," + statsEndDate);
+                this.parameter.Add("stats", statsStartDate + "," + statsEndDate);
 
             if (offers != null && offers > 0)
-                r.parameter.Add("offers", offers.ToString());
-            return r;
+                this.parameter.Add("offers", offers.ToString());
+            return this;
         }
 
         /// <summary>

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using System.Text;
 using System.Threading.Tasks;
 using XModule.Services;
 using XModule.Models;
+using Autofac;
 
 namespace prism7.ViewModels
 {
@@ -44,7 +44,9 @@ namespace prism7.ViewModels
         private void UpdateServices()
         {
             //resolve the interface
-            this.service = container.Resolve<IActiveRequestsService>();
+          
+            this.service = this.container.Resolve<IActiveRequestsService>();
+            
 
             //get requests
             this.ActiveRequests = this.service.GetRequests();

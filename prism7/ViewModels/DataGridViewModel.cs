@@ -10,6 +10,8 @@ using System.Timers;
 using Prism.Events;
 using XModule.Events;
 using XModule.Interfaces;
+using Prism.Autofac;
+using Autofac;
 
 namespace prism7.ViewModels
 {
@@ -22,7 +24,7 @@ namespace prism7.ViewModels
         private IEventAggregator ea;
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<RequestObject> activerequests;
-        private IUnityContainer container;
+        private IComponentContext container;
         private ObservableCollection<Pair<string, object>> parameters;
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace prism7.ViewModels
         /// Constructor that takes an instance of AvailableRequestsService
         /// </summary>
         /// <param name="service"></param>
-        public DataGridViewModel(IUnityContainer container, IAvailableRequestsService service, IActiveRequestsService activeReqService, IEventAggregator aggregator, ILoggerFactory logFactory)
+        public DataGridViewModel(IComponentContext container, IAvailableRequestsService service, IActiveRequestsService activeReqService, IEventAggregator aggregator, ILoggerFactory logFactory)
         {
             this.logger = logFactory.Create<DataGridViewModel>(); 
             logger.Debug("Initialized " + typeof(DataGridViewModel));

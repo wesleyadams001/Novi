@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Practices.Unity;
 using System.Windows;
 using XModule.Interfaces;
 using Newtonsoft.Json;
@@ -13,14 +12,20 @@ using XModule.Services;
 using prism7.Services;
 using Prism.Events;
 using prism7.Factory;
+using System.IO;
+using Prism.Autofac;
+using Autofac;
+using Autofac.Core;
+using IModule = Autofac.Core.IModule;
 
 namespace prism7
 {
 
-    class Bootstrapper : UnityBootstrapper
+    class Bootstrapper : AutofacBootstrapper
     {
         private const string MODULES_PATH = @".\modules";
         private LinkGroupCollection linkGroupCollection = null;
+        public static ContainerBuilder Builder = null;
 
         protected override DependencyObject CreateShell()
         {
@@ -51,15 +56,45 @@ namespace prism7
             App.Current.MainWindow.Show();
         }
 
-        protected override void ConfigureContainer()
+        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
-            base.ConfigureContainer();
-            Container.RegisterType<IKeyService, KeyService>();
-            Container.RegisterType<IActiveRequestsService, ActiveRequestsService>();
-            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ILoggerFactory, LoggerFactory>();
-            //Container.RegisterType<ILogger, Logger>();
+            base.ConfigureContainerBuilder(builder);
+            builder.RegisterType<KeyService>().As<IKeyService>();
+            builder.RegisterType<ActiveRequestsService>().As<IActiveRequestsService>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
+            builder.RegisterType<LoggerFactory>().As<ILoggerFactory>();
+
+            var pathOfAsm = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path = System.IO.Path.GetDirectoryName(pathOfAsm) + "\\Debug\\modules";
+
+            if (String.IsNullOrWhiteSpace(path))
+            {
+                return;
+            }
+
+            //  Gets all compiled assemblies.
+            var assemblies = Directory.GetFiles(path, "*Module.dll", SearchOption.AllDirectories).Select(Assembly.LoadFrom).Where(x => !x.FullName.StartsWith("X"));
+
+
+            foreach (var assembly in assemblies)
+            {
+                //  Gets the all modules from each assembly to be registered.
+                //  Make sure that each module **MUST** have a parameterless constructor.
+                var modules = assembly.GetTypes()
+                                      .Where(p => typeof(IModule).IsAssignableFrom(p)
+                                                  && !p.IsAbstract)
+                                      .Select(p => (IModule)Activator.CreateInstance(p));
+
+                //  Regsiters each module.
+                foreach (var module in modules)
+                {
+                    builder.RegisterModule(module);
+
+                }
+            }
+            Builder = builder;
         }
+        
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
@@ -100,6 +135,8 @@ namespace prism7
                         linkGroupCollection.Add(linkGroup);
                     }
                 }
+
+                
             }
 
             // The XModule is defined in the code so as to always be loaded
@@ -111,5 +148,6 @@ namespace prism7
         {
             return typeObj.ToString() == criteriaObj.ToString();
         }
+
     }
 }

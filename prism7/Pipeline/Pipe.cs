@@ -9,6 +9,9 @@ using Microsoft.Practices.Unity;
 using prism7.Factory;
 using XModule.Constants;
 using XModule.Interfaces;
+using System.IO;
+using System.Reflection;
+using Autofac;
 
 namespace prism7.Pipeline
 {
@@ -17,13 +20,17 @@ namespace prism7.Pipeline
     /// </summary>
     public class Pipe
     {
-        private IUnityContainer container;
+        private IComponentContext _container;
+        private ILoggerFactory logFac;
         private ILogger logger;
-        public Pipe(IUnityContainer container, ILoggerFactory logger)
+
+        public Pipe(IComponentContext container, ILoggerFactory logger)
         {
+            this._container = container;
+            this.logFac = logger;
             this.logger = logger.Create<Pipe>();
             this.logger.Debug("Created Pipeline");
-            this.container = container;
+         
         }
 
         /// <summary>
@@ -36,20 +43,19 @@ namespace prism7.Pipeline
             var startBlock = new BufferBlock<RequestObject>();
 
             var broadcastBlock = new BufferBlock<RequestObject>();
-
-            //var outBlock = new BufferBlock<string>();
-
-            this.logger.Debug("Attempted Resolution of each " + typeof(INoviModule));
-            //resolve consumers to enumerable
-            var modules = this.container.Resolve<IEnumerable<INoviModule>>();
-            int count = modules.Count();
-            for (int x = 0; x < modules.Count(); x++)
+            
+            var t = Task.Run(() =>
             {
-                //call each to process from the block
-                modules.ElementAt(x).Process(broadcastBlock);
-            }
+                var components = this._container.Resolve<IEnumerable<INoviModule>>();
 
-            //modules.Process(broadcastBlock);
+                for(int x=0; x< components.Count(); x++)
+                {
+                    //call each to process from the block
+                    components.ElementAt(x).Process(broadcastBlock);
+                }
+                    
+            });
+            
 
             startBlock.LinkTo(broadcastBlock, new DataflowLinkOptions { PropagateCompletion = true });
 
@@ -58,6 +64,8 @@ namespace prism7.Pipeline
             startBlock.Post(request);
         }
 
-        
+       
+
+
     }
 }
