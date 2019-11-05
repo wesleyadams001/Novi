@@ -7,7 +7,8 @@ namespace KeepaModule.DataAccess.Entities
 
     public partial class KeepaContext : DbContext
     {
-        public KeepaContext() : base(nameOrConnectionString: "sKeepaContext")
+        
+        public KeepaContext() : base(nameOrConnectionString: Properties.Settings.Default.CurrentConnString)
         {
             Database.SetInitializer(new DropCreateDatabaseAlways<KeepaContext>());
         }

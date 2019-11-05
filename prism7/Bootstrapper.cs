@@ -83,7 +83,7 @@ namespace prism7
                 var modules = assembly.GetTypes()
                                       .Where(p => typeof(IModule).IsAssignableFrom(p)
                                                   && !p.IsAbstract)
-                                      .Select(p => (IModule)Activator.CreateInstance(p));
+                                      .Select(p => (IModule)Activator.CreateInstance(p, new LoggerFactory()));
 
                 //  Regsiters each module.
                 foreach (var module in modules)

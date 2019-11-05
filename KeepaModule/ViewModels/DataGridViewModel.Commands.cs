@@ -2,6 +2,7 @@
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,10 @@ namespace KeepaModule.ViewModels
         /// </summary>
         public DelegateCommand UpdateServicesCommand { get; private set; }
 
+        /// <summary>
+        /// Command to ping the database using the CheckConnection method
+        /// </summary>
+        public DelegateCommand PingDatabaseCommand { get; private set; }
 
         /// <summary>
         /// Method corresponding to command to update services
@@ -60,6 +65,38 @@ namespace KeepaModule.ViewModels
             Properties.Settings.Default.Save();
 
             Properties.Settings.Default.Reload();
+        }
+
+        /// <summary>
+        /// Checks a connection to the current modules target connection string
+        /// </summary>
+        private void CheckConnection()
+        {
+            try
+            {
+                var str = Properties.Settings.Default.CurrentConnString;
+                this.logger.Debug("Connecting to: " + str);
+                using (var connection = new SqlConnection(str))
+                {
+                    var query = "select 1";
+                    this.logger.Debug("Executing: " + query);
+
+                    var command = new SqlCommand(query, connection);
+
+                    connection.Open();
+                    this.logger.Debug("SQL Connection successful.");
+
+                    command.ExecuteScalar();
+                    this.logger.Debug("SQL Query execution successful.");
+
+                    this.Validity = "Valid";
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.Debug("Failure: " + ex.Message);
+                this.Validity = "Invalid";
+            }
         }
     }
 }

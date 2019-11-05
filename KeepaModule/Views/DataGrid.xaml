@@ -52,9 +52,12 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Current Connection" Height="60" Grid.Column="1" Grid.Row="1" Margin="0.2,0,-203.4,-10">
+        <GroupBox Header="Current Connection" Height="80" Grid.Column="1" Grid.Row="1" Margin="0.2,0,-203.4,-10">
             <StackPanel Grid.Column="0" Margin="10,0,12.2,0" Height="Auto">
                 <TextBlock Text="{Binding Path=SelectedConnString}">
+                </TextBlock>
+                <mui:ModernButton Grid.Column="1" Width="220" Height="30" Margin="0,0,0,0" Command="{Binding PingDatabaseCommand}" FontSize="12" Content="Test Connection"></mui:ModernButton>
+                <TextBlock Text="{Binding Path=Validity}">
                 </TextBlock>
             </StackPanel>
         </GroupBox>

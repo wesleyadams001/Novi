@@ -33,18 +33,18 @@ namespace KeepaModule
         /// Entry point for the module to insert unity container
         /// </summary>
         /// <param name="container"></param>
-        public ModuleOne()
+        public ModuleOne(ILoggerFactory loggerFac)
         {
             //Creates the logger factory and resolves a logger
-            //this._loggerFac = context.Resolve<ILoggerFactory>();
-            //this._logger = this._loggerFac.Create<ModuleOne>();
+            this._loggerFac = loggerFac;
+            this._logger = this._loggerFac.Create<ModuleOne>();
 
             //Builds a request factory with the associated key
-            //this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
+            this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
             this._reqFactory = new KeepaRequestFactory(baseUrl);
             this._recordFactory = new KeepaRecordFactory();
             //creates a new client
-            //this._logger.Debug("Created new Client of type:" + typeof(Client));
+            this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
         }
 
@@ -93,7 +93,7 @@ namespace KeepaModule
             var Transblock = new TransformBlock<RequestObject, string>(x => {
                 
                 var requestString = this._reqFactory.Create(x.RequestName, x.ParameterList);
-                //this._logger.Debug("Created" + requestString);
+                this._logger.Debug("Created" + requestString);
                 return requestString;
             });
 
@@ -148,7 +148,17 @@ namespace KeepaModule
                 Operations.Insert(filter.variationBlock, context);
 
                 //save changes
-                context.SaveChanges();
+                try
+                {
+                    var x = 0;
+                    x = context.SaveChanges();
+                    this._logger.Debug("Saved changes to database with: " + x + " changes.");
+                }
+                catch(Exception e)
+                {
+                    this._logger.Debug("Failed to save changes.");
+                }
+                
             }
            
             //Links

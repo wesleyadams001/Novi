@@ -31,4 +31,6 @@ namespace prism7.ViewModels
             set { _dataCollection = value; OnPropertyChanged("DataCollection"); }
         }
     }
+
+
 }

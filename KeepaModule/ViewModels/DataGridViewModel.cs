@@ -29,6 +29,18 @@ namespace KeepaModule.ViewModels
         private Timer aTimer;
         private string itemConnectionString;
         private string itemKey;
+        private string validity;
+
+        /// <summary>
+        /// The validity of the current connection string
+        /// </summary>
+        public string Validity { 
+            get { return validity; }
+            set
+            {
+                SetProperty(ref validity, value);
+            }
+        }
 
         /// <summary>
         /// The currently selected Api key
@@ -103,9 +115,11 @@ namespace KeepaModule.ViewModels
             this.ConnStrings = service.GetConnections();
             this.UpdateServicesCommand = new DelegateCommand(UpdateServices);
             this.AddKeyToPluginCommand = new DelegateCommand(AddKeyToPlugin);
+            this.PingDatabaseCommand = new DelegateCommand(CheckConnection);
             this.aTimer = new Timer();
             this.SelectedItemKey = Properties.Settings.Default.CurrentKey;
             this.SelectedConnString = Properties.Settings.Default.CurrentConnString;
+            this.Validity = "Untested";
 
             //subsccribes to the add keepa key event
             this.ea.GetEvent<AddKeepaKeyEvent>().Subscribe((oc) =>
