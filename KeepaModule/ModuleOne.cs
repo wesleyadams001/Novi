@@ -20,14 +20,17 @@ using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
-    public class ModuleOne : Module, INoviModule, IModule
+    public class ModuleOne : Module, INoviModule
     {
         private ILoggerFactory _loggerFac;
         private ILogger _logger;
         private KeepaRequestFactory _reqFactory;
         private KeepaRecordFactory _recordFactory;
         private Client _keepaReqClient;
+        private KeepaFilter _keepaFilter;
+        private KeepaContext _context;
         private const string baseUrl = "https://api.keepa.com/";
+        private const int BATCH_SIZE = 10000;
 
         /// <summary>
         /// Entry point for the module to insert unity container
@@ -47,6 +50,16 @@ namespace KeepaModule
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
+
+            //Create the records filter
+            this._logger.Debug("Created new KeepaFilter.");
+            this._keepaFilter = new KeepaFilter();
+
+            //Create a DbContext
+            this._logger.Debug("Created new DbContext");
+            this._context = new KeepaContext();
+            this._logger.Debug("Set AutoDetectChanges to false");
+            this._context.Configuration.AutoDetectChangesEnabled = false;
         }
 
         /// <summary>
@@ -126,43 +139,47 @@ namespace KeepaModule
             //Expand enumerable to individual
             var ExpandedBlock = new TransformManyBlock<List<IRecord>, IRecord>(array => array);
             var StagingBlock = new BufferBlock<IRecord>();
+            var BatchRecBlock = new BatchBlock<IRecord>(BATCH_SIZE);
 
             //Filter IRecords into appropriate tables
-            KeepaFilter filter = new KeepaFilter();
-            filter.Allocate(StagingBlock);
-
-            using (var context = new KeepaContext()) {
+            //Keep the active Context Graph small by using a new context for each Unit of Work
+            var insertBlock = new ActionBlock<IRecord[]>((a) =>
+            {
+                this._keepaFilter.Allocate(a);
 
                 //Insert over DbContext
-                Operations.Insert(filter.bestSellerBlock, context);
-                Operations.Insert(filter.categoryBlock, context);
-                Operations.Insert(filter.eanBlock, context);
-                Operations.Insert(filter.fbaFeesBlock, context);
-                Operations.Insert(filter.featuresBlock, context);
-                Operations.Insert(filter.freqBoughtBlock, context);
-                Operations.Insert(filter.languagesBlock, context);
-                Operations.Insert(filter.mostRatedSellerBlock, context);
-                Operations.Insert(filter.priceHistoryBlock, context);
-                Operations.Insert(filter.productBlock, context);
-                Operations.Insert(filter.sellerBlock, context);
-                Operations.Insert(filter.sellerItemBlock, context);
-                Operations.Insert(filter.statisticsBlock, context);
-                Operations.Insert(filter.upcBlock, context);
-                Operations.Insert(filter.variationBlock, context);
+                Operations.Insert(this._keepaFilter.bestSellerBlock, this._context);
+                Operations.Insert(this._keepaFilter.categoryBlock, this._context);
+                Operations.Insert(this._keepaFilter.eanBlock, this._context);
+                Operations.Insert(this._keepaFilter.fbaFeesBlock, this._context);
+                Operations.Insert(this._keepaFilter.featuresBlock, this._context);
+                Operations.Insert(this._keepaFilter.freqBoughtBlock, this._context);
+                Operations.Insert(this._keepaFilter.languagesBlock, this._context);
+                Operations.Insert(this._keepaFilter.mostRatedSellerBlock, this._context);
+                Operations.Insert(this._keepaFilter.priceHistoryBlock, this._context);
+                Operations.Insert(this._keepaFilter.productBlock, this._context);
+                Operations.Insert(this._keepaFilter.sellerBlock, this._context);
+                Operations.Insert(this._keepaFilter.sellerItemBlock, this._context);
+                Operations.Insert(this._keepaFilter.statisticsBlock, this._context);
+                Operations.Insert(this._keepaFilter.upcBlock, this._context);
+                Operations.Insert(this._keepaFilter.variationBlock, this._context);
+            });
 
+            //logs the results of the requests
+            var logAction = new ActionBlock<string>((a) =>
+            {
                 //save changes
                 try
                 {
                     var x = 0;
-                    x = context.SaveChanges();
+                    x = this._context.SaveChanges();
                     this._logger.Debug("Saved changes to database with: " + x + " changes.");
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this._logger.Debug("Failed to save changes. With errors message: " + e.Message);
                 }
-                
-            }
+            }); 
            
             //Links
             buffer.LinkTo(bufferblock, linkops, RequestFilter);
@@ -172,7 +189,9 @@ namespace KeepaModule
             ResponseBlock.LinkTo(RecordBlock, linkops);
             RecordBlock.LinkTo(ExpandedBlock, linkops);
             ExpandedBlock.LinkTo(StagingBlock, linkops);
-
+            StagingBlock.LinkTo(BatchRecBlock, linkops);
+            BatchRecBlock.LinkTo(insertBlock, linkops);
+            insertBlock.Completion.ContinueWith(delegate { logAction.Complete(); });
            
         }
 

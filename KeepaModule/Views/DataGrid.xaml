@@ -22,10 +22,7 @@
                 <ResourceDictionary Source="pack://application:,,,/XModule;component/Resources/ResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
-        <converter:BoolValueConverter x:Key="boolConnect"/>
-        
-       
+
     </Control.Resources>
    
     <Grid Width="411" HorizontalAlignment="Left" Margin="-20,0,-10.6,0"> <!--"left,top,right,bottom"-->
