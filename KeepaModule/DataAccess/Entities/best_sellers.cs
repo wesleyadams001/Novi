@@ -4,6 +4,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
@@ -32,5 +33,7 @@ namespace KeepaModule.DataAccess.Entities
         public string asin_list { get; set; }
 
         public long? time_stamp { get; set; }
+
+      
     }
 }

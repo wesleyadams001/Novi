@@ -31,7 +31,7 @@ namespace KeepaModule.Factories
         private static ObservableCollection<Pair<string, object>> paramList {get;set;}
 
         /// <summary>
-        /// A dictionary that maps strings to fire methods
+        /// A dictionary that maps strings to create objects
         /// </summary>
         public static Dictionary<string, Func<KeepaRequest>> objects =
         new Dictionary<string, Func<KeepaRequest>>

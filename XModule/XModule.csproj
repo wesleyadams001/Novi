@@ -11,6 +11,7 @@
     <AssemblyName>XModule</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -67,6 +68,8 @@
     <Reference Include="ParallelExtensionsExtras, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MSFT.ParallelExtensionsExtras.1.2.0\lib\ParallelExtensionsExtras.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -109,6 +112,7 @@
     <Reference Include="Unity.Container, Version=5.10.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Container.5.10.3\lib\net46\Unity.Container.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CModule.cs" />
@@ -161,6 +165,7 @@
     <Compile Include="Events\Events.AddKeepaConn.cs" />
     <Compile Include="Events\Events.AddKeepaKey.cs" />
     <Compile Include="Events\Events.CollectionChanged.cs" />
+    <Compile Include="Events\Events.ConnectionImageChanged.cs" />
     <Compile Include="Events\Events.SelectionChanged.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IFacFactory.cs" />
@@ -191,7 +196,140 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\icons8-validation-80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons8-wrong-pincode-80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons8-connect-96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons8-add-database-100.png" />
+    <Resource Include="Resources\icons8-add-database-50.png" />
+    <Resource Include="Resources\icons8-area-chart-100.png" />
+    <Resource Include="Resources\icons8-area-chart-50.png" />
+    <Resource Include="Resources\icons8-bar-chart-100.png" />
+    <Resource Include="Resources\icons8-bar-chart-50.png" />
+    <Resource Include="Resources\icons8-bookmark-100.png" />
+    <Resource Include="Resources\icons8-bookmark-50.png" />
+    <Resource Include="Resources\icons8-compare-100.png" />
+    <Resource Include="Resources\icons8-compare-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons8-copy-100.png" />
+    <Resource Include="Resources\icons8-copy-50.png" />
+    <Resource Include="Resources\icons8-copy-to-clipboard-100.png" />
+    <Resource Include="Resources\icons8-copy-to-clipboard-50.png" />
+    <Resource Include="Resources\icons8-data-backup-100.png" />
+    <Resource Include="Resources\icons8-data-backup-50.png" />
+    <Resource Include="Resources\icons8-data-encryption-100.png" />
+    <Resource Include="Resources\icons8-data-encryption-50.png" />
+    <Resource Include="Resources\icons8-data-recovery-100.png" />
+    <Resource Include="Resources\icons8-data-recovery-50.png" />
+    <Resource Include="Resources\icons8-data-transfer-100.png" />
+    <Resource Include="Resources\icons8-data-transfer-50.png" />
+    <Resource Include="Resources\icons8-database-administrator-100.png" />
+    <Resource Include="Resources\icons8-database-administrator-50.png" />
+    <Resource Include="Resources\icons8-database-view-100.png" />
+    <Resource Include="Resources\icons8-database-view-50.png" />
+    <Resource Include="Resources\icons8-delete-100.png" />
+    <Resource Include="Resources\icons8-delete-50.png" />
+    <Resource Include="Resources\icons8-delete-database-100-2.png" />
+    <Resource Include="Resources\icons8-delete-database-100.png" />
+    <Resource Include="Resources\icons8-delete-database-50-2.png" />
+    <Resource Include="Resources\icons8-delete-database-50.png" />
+    <Resource Include="Resources\icons8-document-100.png" />
+    <Resource Include="Resources\icons8-document-50.png" />
+    <Resource Include="Resources\icons8-doughnut-chart-100.png" />
+    <Resource Include="Resources\icons8-doughnut-chart-50.png" />
+    <Resource Include="Resources\icons8-download-from-the-cloud-100.png" />
+    <Resource Include="Resources\icons8-download-from-the-cloud-50.png" />
+    <Resource Include="Resources\icons8-edit-100.png" />
+    <Resource Include="Resources\icons8-edit-50.png" />
+    <Resource Include="Resources\icons8-file-100.png" />
+    <Resource Include="Resources\icons8-file-50.png" />
+    <Resource Include="Resources\icons8-flow-chart-100.png" />
+    <Resource Include="Resources\icons8-flow-chart-50.png" />
+    <Resource Include="Resources\icons8-folder-100.png" />
+    <Resource Include="Resources\icons8-folder-50.png" />
+    <Resource Include="Resources\icons8-full-image-100.png" />
+    <Resource Include="Resources\icons8-full-image-50.png" />
+    <Resource Include="Resources\icons8-genealogy-100.png" />
+    <Resource Include="Resources\icons8-genealogy-50.png" />
+    <Resource Include="Resources\icons8-heat-map-100.png" />
+    <Resource Include="Resources\icons8-heat-map-50.png" />
+    <Resource Include="Resources\icons8-line-chart-100.png" />
+    <Resource Include="Resources\icons8-line-chart-50.png" />
+    <Resource Include="Resources\icons8-menu-50.png" />
+    <Resource Include="Resources\icons8-mind-map-100.png" />
+    <Resource Include="Resources\icons8-mind-map-50.png" />
+    <Resource Include="Resources\icons8-normal-distribution-histogram-100.png" />
+    <Resource Include="Resources\icons8-normal-distribution-histogram-50.png" />
+    <Resource Include="Resources\icons8-opened-folder-100.png" />
+    <Resource Include="Resources\icons8-opened-folder-50.png" />
+    <Resource Include="Resources\icons8-paste-100.png" />
+    <Resource Include="Resources\icons8-paste-50.png" />
+    <Resource Include="Resources\icons8-pie-chart-100.png" />
+    <Resource Include="Resources\icons8-pie-chart-50.png" />
+    <Resource Include="Resources\icons8-plus-100.png" />
+    <Resource Include="Resources\icons8-plus-50.png" />
+    <Resource Include="Resources\icons8-puzzle-100.png" />
+    <Resource Include="Resources\icons8-puzzle-50.png" />
+    <Resource Include="Resources\icons8-query-inner-join-100.png" />
+    <Resource Include="Resources\icons8-query-inner-join-50.png" />
+    <Resource Include="Resources\icons8-query-inner-join-left-100.png" />
+    <Resource Include="Resources\icons8-query-inner-join-left-50.png" />
+    <Resource Include="Resources\icons8-query-inner-join-right-100.png" />
+    <Resource Include="Resources\icons8-query-inner-join-right-50.png" />
+    <Resource Include="Resources\icons8-query-outer-join-100.png" />
+    <Resource Include="Resources\icons8-query-outer-join-50.png" />
+    <Resource Include="Resources\icons8-query-outer-join-left-100.png" />
+    <Resource Include="Resources\icons8-query-outer-join-left-50.png" />
+    <Resource Include="Resources\icons8-query-outer-join-right-100.png" />
+    <Resource Include="Resources\icons8-query-outer-join-right-50.png" />
+    <Resource Include="Resources\icons8-radar-plot-100.png" />
+    <Resource Include="Resources\icons8-radar-plot-50.png" />
+    <Resource Include="Resources\icons8-redo-100.png" />
+    <Resource Include="Resources\icons8-redo-50.png" />
+    <Resource Include="Resources\icons8-refresh-100.png" />
+    <Resource Include="Resources\icons8-refresh-50.png" />
+    <Resource Include="Resources\icons8-restart-100.png" />
+    <Resource Include="Resources\icons8-restart-50.png" />
+    <Resource Include="Resources\icons8-scatter-plot-100.png" />
+    <Resource Include="Resources\icons8-scatter-plot-50.png" />
+    <Resource Include="Resources\icons8-screenshot-100.png" />
+    <Resource Include="Resources\icons8-screenshot-50.png" />
+    <Resource Include="Resources\icons8-search-100.png" />
+    <Resource Include="Resources\icons8-search-50.png" />
+    <Resource Include="Resources\icons8-settings-100.png" />
+    <Resource Include="Resources\icons8-settings-50.png" />
+    <Resource Include="Resources\icons8-share-100.png" />
+    <Resource Include="Resources\icons8-share-50.png" />
+    <Resource Include="Resources\icons8-support-100.png" />
+    <Resource Include="Resources\icons8-support-50.png" />
+    <Resource Include="Resources\icons8-synchronize-100.png" />
+    <Resource Include="Resources\icons8-synchronize-50.png" />
+    <Resource Include="Resources\icons8-timeline-100.png" />
+    <Resource Include="Resources\icons8-timeline-50.png" />
+    <Resource Include="Resources\icons8-trash-can-100.png" />
+    <Resource Include="Resources\icons8-trash-can-50.png" />
+    <Resource Include="Resources\icons8-undo-100.png" />
+    <Resource Include="Resources\icons8-undo-50.png" />
+    <Resource Include="Resources\icons8-upload-to-the-cloud-100.png" />
+    <Resource Include="Resources\icons8-upload-to-the-cloud-50.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)modules\" /y</PostBuildEvent>

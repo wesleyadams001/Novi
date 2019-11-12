@@ -4,12 +4,14 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Data.Entity.Core.EntityClient;
 
     public partial class KeepaContext : DbContext
     {
         
-        public KeepaContext() : base(nameOrConnectionString: Properties.Settings.Default.CurrentConnString)
-        {
+        public KeepaContext() : base()
+        {  
+            this.Database.Connection.ConnectionString = Properties.Settings.Default.CurrentConnString;
             Database.SetInitializer(new DropCreateDatabaseAlways<KeepaContext>());
         }
 

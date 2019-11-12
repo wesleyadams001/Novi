@@ -15,14 +15,24 @@
 
     <Control.Resources>
         <ObjectDataProvider x:Key="myDataSource" ObjectType="{x:Type src:DataGridViewModel}"/>
-        <converter:DictionaryValueConverter x:Key="dictConvert"></converter:DictionaryValueConverter>
+        <converter:DictionaryValueConverter x:Key="dictConvert"/>
+
+        <ResourceDictionary x:Key="dict">
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="pack://application:,,,/XModule;component/Resources/ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+        <converter:BoolValueConverter x:Key="boolConnect"/>
+        
+       
     </Control.Resources>
    
     <Grid Width="411" HorizontalAlignment="Left" Margin="-20,0,-10.6,0"> <!--"left,top,right,bottom"-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="180" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
@@ -52,13 +62,22 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Current Connection" Height="80" Grid.Column="1" Grid.Row="1" Margin="0.2,0,-203.4,-10">
+        <GroupBox Header="Current Connection" Height="160" Grid.Column="1" Grid.Row="1" Margin="0.2,0,-203.4,-10">
             <StackPanel Grid.Column="0" Margin="10,0,12.2,0" Height="Auto">
                 <TextBlock Text="{Binding Path=SelectedConnString}">
                 </TextBlock>
-                <mui:ModernButton Grid.Column="1" Width="220" Height="30" Margin="0,0,0,0" Command="{Binding PingDatabaseCommand}" FontSize="12" Content="Test Connection"></mui:ModernButton>
-                <TextBlock Text="{Binding Path=Validity}">
-                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <mui:ModernButton Grid.Column="0" Width="240" Height="30" Margin="0,0,0,0" Command="{Binding PingDatabaseCommand}" FontSize="12" Content="Test Connection"></mui:ModernButton>
+                    <Image Grid.Column="1" Source="{Binding ImagePath}" Height="25" Width="25"/>
+                </Grid>
             </StackPanel>
         </GroupBox>
 

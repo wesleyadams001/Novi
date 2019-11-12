@@ -69,7 +69,6 @@ namespace KeepaModule.Services
             }
 
 
-
             //add to types collection
             typesCollection = requestObjects;
 

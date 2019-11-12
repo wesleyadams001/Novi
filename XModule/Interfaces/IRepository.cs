@@ -9,7 +9,6 @@ namespace XModule.Interfaces
 {
     public interface IRepository<T> where T: IEntity 
     { 
-        EntityApi Api { get; }
     
         /// <summary>
         /// Adds an item to the repository

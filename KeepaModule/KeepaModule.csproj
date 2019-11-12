@@ -117,6 +117,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BoolValueConverter.cs" />
     <Compile Include="Converters\DictionaryValueConverter.cs" />
     <Compile Include="DataAccess\Entities\Actions\Operations.cs" />
     <Compile Include="DataAccess\Entities\best_sellers.cs" />
@@ -246,7 +247,6 @@
       <Name>XModule</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)modules\" /y</PostBuildEvent>

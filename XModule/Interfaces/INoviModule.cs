@@ -11,6 +11,7 @@ namespace XModule.Interfaces
 {
     public interface INoviModule
     {
+
         /// <summary>
         /// Method that processes Request objects and divests them to appropriate dlls
         /// </summary>

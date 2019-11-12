@@ -14,6 +14,10 @@ using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
 using XModule.Interfaces;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace KeepaModule.ViewModels
 {
@@ -29,16 +33,32 @@ namespace KeepaModule.ViewModels
         private Timer aTimer;
         private string itemConnectionString;
         private string itemKey;
-        private string validity;
+        private bool validity;
+        private string imagepath;
+        private ResourceDictionary dictionary;
+
+        /// <summary>
+        /// The current connection image path
+        /// </summary>
+        public string ImagePath
+        {
+            get { return imagepath; }
+            set
+            {
+                SetProperty(ref imagepath, value);
+            }
+        }
 
         /// <summary>
         /// The validity of the current connection string
         /// </summary>
-        public string Validity { 
+        public bool Validity { 
             get { return validity; }
             set
             {
                 SetProperty(ref validity, value);
+
+                ea.GetEvent<ConnectionImageChanged>().Publish(validity);
             }
         }
 
@@ -119,7 +139,24 @@ namespace KeepaModule.ViewModels
             this.aTimer = new Timer();
             this.SelectedItemKey = Properties.Settings.Default.CurrentKey;
             this.SelectedConnString = Properties.Settings.Default.CurrentConnString;
-            this.Validity = "Untested";
+            this.Validity = false;
+
+            this.dictionary = new ResourceDictionary();
+            this.dictionary.Source = new Uri("/XModule;component/Resources/ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
+            var value = this.dictionary["idatabackup50"].ToString();
+            this.ImagePath = this.dictionary["idatabackup50"].ToString();
+            
+            this.ea.GetEvent<ConnectionImageChanged>().Subscribe((oc) =>
+            {
+                if (oc)
+                {
+                    this.ImagePath = this.dictionary["idatabaseview50"].ToString();
+                }
+                else
+                {
+                    this.ImagePath = this.dictionary["ideletedatabase50"].ToString();
+                }
+            });
 
             //subsccribes to the add keepa key event
             this.ea.GetEvent<AddKeepaKeyEvent>().Subscribe((oc) =>

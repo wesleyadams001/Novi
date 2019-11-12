@@ -89,13 +89,13 @@ namespace KeepaModule.ViewModels
                     command.ExecuteScalar();
                     this.logger.Debug("SQL Query execution successful.");
 
-                    this.Validity = "Valid";
+                    this.Validity = true;
                 }
             }
             catch (Exception ex)
             {
                 this.logger.Debug("Failure: " + ex.Message);
-                this.Validity = "Invalid";
+                this.Validity = false;
             }
         }
     }

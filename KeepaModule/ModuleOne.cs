@@ -43,6 +43,7 @@ namespace KeepaModule
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
             this._reqFactory = new KeepaRequestFactory(baseUrl);
             this._recordFactory = new KeepaRecordFactory();
+
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
@@ -64,10 +65,12 @@ namespace KeepaModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-                //Register available requestservice
-                builder.RegisterType<AvailableRequests>().As<IAvailableRequestsService>();
+            //Register available requestservice
+            builder.RegisterType<AvailableRequests>().As<IAvailableRequestsService>();
            
-                builder.RegisterType<ModuleOne>().As<INoviModule>();
+            builder.RegisterType<ModuleOne>().As<INoviModule>();
+
+            //builder.RegisterType<KeepaContext>().AsSelf();
           
         }
 
@@ -156,7 +159,7 @@ namespace KeepaModule
                 }
                 catch(Exception e)
                 {
-                    this._logger.Debug("Failed to save changes.");
+                    this._logger.Debug("Failed to save changes. With errors message: " + e.Message);
                 }
                 
             }
