@@ -20,14 +20,14 @@ using static XModule.Constants.Enums;
 
 namespace KeepaModule
 {
-    public class ModuleOne : Module, INoviModule
+    public class ModuleOne : Module, INoviModule, IModule
     {
         private ILoggerFactory _loggerFac;
         private ILogger _logger;
         private KeepaRequestFactory _reqFactory;
         private KeepaRecordFactory _recordFactory;
         private Client _keepaReqClient;
-        private KeepaFilter _keepaFilter;
+        private Allocator _keepaAllocator;
         private KeepaContext _context;
         private const string baseUrl = "https://api.keepa.com/";
         private const int BATCH_SIZE = 10000;
@@ -51,15 +51,17 @@ namespace KeepaModule
             this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
 
-            //Create the records filter
-            this._logger.Debug("Created new KeepaFilter.");
-            this._keepaFilter = new KeepaFilter();
-
             //Create a DbContext
             this._logger.Debug("Created new DbContext");
-            this._context = new KeepaContext();
+            //this._context = new KeepaContext();
             this._logger.Debug("Set AutoDetectChanges to false");
-            this._context.Configuration.AutoDetectChangesEnabled = false;
+            
+
+            //Create the records filter
+            this._logger.Debug("Created new Allocator.");
+            this._keepaAllocator = new Allocator();
+
+            
         }
 
         /// <summary>
@@ -82,8 +84,6 @@ namespace KeepaModule
             builder.RegisterType<AvailableRequests>().As<IAvailableRequestsService>();
            
             builder.RegisterType<ModuleOne>().As<INoviModule>();
-
-            //builder.RegisterType<KeepaContext>().AsSelf();
           
         }
 
@@ -139,30 +139,15 @@ namespace KeepaModule
             //Expand enumerable to individual
             var ExpandedBlock = new TransformManyBlock<List<IRecord>, IRecord>(array => array);
             var StagingBlock = new BufferBlock<IRecord>();
-            var BatchRecBlock = new BatchBlock<IRecord>(BATCH_SIZE);
 
             //Filter IRecords into appropriate tables
             //Keep the active Context Graph small by using a new context for each Unit of Work
-            var insertBlock = new ActionBlock<IRecord[]>((a) =>
+            var insertBlock = new ActionBlock<IRecord>((a) =>
             {
-                this._keepaFilter.Allocate(a);
+                this._logger.Debug("InsertBlock");
+                this._keepaAllocator.Filter(a);
 
-                //Insert over DbContext
-                Operations.Insert(this._keepaFilter.bestSellerBlock, this._context);
-                Operations.Insert(this._keepaFilter.categoryBlock, this._context);
-                Operations.Insert(this._keepaFilter.eanBlock, this._context);
-                Operations.Insert(this._keepaFilter.fbaFeesBlock, this._context);
-                Operations.Insert(this._keepaFilter.featuresBlock, this._context);
-                Operations.Insert(this._keepaFilter.freqBoughtBlock, this._context);
-                Operations.Insert(this._keepaFilter.languagesBlock, this._context);
-                Operations.Insert(this._keepaFilter.mostRatedSellerBlock, this._context);
-                Operations.Insert(this._keepaFilter.priceHistoryBlock, this._context);
-                Operations.Insert(this._keepaFilter.productBlock, this._context);
-                Operations.Insert(this._keepaFilter.sellerBlock, this._context);
-                Operations.Insert(this._keepaFilter.sellerItemBlock, this._context);
-                Operations.Insert(this._keepaFilter.statisticsBlock, this._context);
-                Operations.Insert(this._keepaFilter.upcBlock, this._context);
-                Operations.Insert(this._keepaFilter.variationBlock, this._context);
+                
             });
 
             //logs the results of the requests
@@ -189,8 +174,8 @@ namespace KeepaModule
             ResponseBlock.LinkTo(RecordBlock, linkops);
             RecordBlock.LinkTo(ExpandedBlock, linkops);
             ExpandedBlock.LinkTo(StagingBlock, linkops);
-            StagingBlock.LinkTo(BatchRecBlock, linkops);
-            BatchRecBlock.LinkTo(insertBlock, linkops);
+            StagingBlock.LinkTo(insertBlock, linkops);
+            //BatchRecBlock.LinkTo(insertBlock, linkops);
             insertBlock.Completion.ContinueWith(delegate { logAction.Complete(); });
            
         }

@@ -8,42 +8,193 @@ using System.Threading.Tasks.Dataflow;
 using XModule.Interfaces;
 using static XModule.Constants.Enums;
 using KeepaModule.DataAccess.Entities;
+using KeepaModule.DataAccess.Entities.Actions;
 
 namespace KeepaModule.DataAccess
 {
     /// <summary>
-    /// The Keepa Specific Filter
+    /// The Keepa Specific Allocator
     /// </summary>
-    public class KeepaFilter //: IFilter
+    public class Allocator //: IAllocator
     {
+        private const int BATCH_SIZE = 10000;
         /// <summary>
-        /// Default constructor of KeepaFilter
+        /// Default constructor of Allocator
         /// </summary>
-        public KeepaFilter()
+        public Allocator()
         {
+            
             this.TopBlock = new BufferBlock<IRecord>();
 
             this.LinkOptions = new DataflowLinkOptions { PropagateCompletion = true };
 
-            #region NewEndBlocks
-            this.bestSellerBlock = new BufferBlock<best_sellers>();
-            this.categoryBlock = new BufferBlock<category>();
-            this.categoryTreeBlock = new BufferBlock<CategoryTreeRecord>();
-            this.eanBlock = new BufferBlock<ean>();
-            this.fbaFeesBlock = new BufferBlock<fba_fees>();
-            this.featuresBlock = new BufferBlock<feature>();
-            this.freqBoughtBlock = new BufferBlock<freq_bought_together>();
-            this.languagesBlock = new BufferBlock<language>();
-            this.mostRatedSellerBlock = new BufferBlock<most_rated_sellers>();
-            this.priceHistoryBlock = new BufferBlock<price_history>();
-            this.productBlock = new BufferBlock<product>();
-            this.promotionBlock = new BufferBlock<PromotionRecord>();
-            this.sellerItemBlock = new BufferBlock<sellers_listed_items>();
-            this.sellerBlock = new BufferBlock<seller>();
-            this.statisticsBlock = new BufferBlock<statistic>();
-            this.topSellerBlock = new BufferBlock<TopSellersRecord>();
-            this.upcBlock = new BufferBlock<upc>();
-            this.variationBlock = new BufferBlock<variation>();
+            #region NewInsertBlocks
+            this.InsertBestSellersAction = new ActionBlock<best_sellers[]>(a =>
+            {
+                using(var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.best_sellers.AddRange(a);
+                    context.SaveChanges();
+                }
+                 
+            });
+            this.InsertCategoryAction = new ActionBlock<category[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.categories.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertCategoryTreeAction = new ActionBlock<category_tree[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.category_tree.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertEanAction = new ActionBlock<ean[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.eans.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertFbaFeesAction = new ActionBlock<fba_fees[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.fba_fees.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertFeatureAction = new ActionBlock<feature[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.features.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertFreqBoughtAction = new ActionBlock<freq_bought_together[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.freq_bought_together.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertLanguageAction = new ActionBlock<language[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.languages.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertMostRatedSellersAction = new ActionBlock<most_rated_sellers[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.most_rated_sellers.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertPriceHistoryAction = new ActionBlock<price_history[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.price_history.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertProductAction = new ActionBlock<product[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.products.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertSellerAction = new ActionBlock<seller[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.sellers.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertSellersListedItemsAction = new ActionBlock<sellers_listed_items[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.sellers_listed_items.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertStatisticAction = new ActionBlock<statistic[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.statistics.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertUpcAction = new ActionBlock<upc[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.upcs.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            this.InsertVariationAction = new ActionBlock<variation[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.variations.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+            #endregion
+
+            #region NewBatchBlocks 
+            this.bestSellerBlock = new BatchBlock<best_sellers>(BATCH_SIZE);
+            this.categoryBlock = new BatchBlock<category>(BATCH_SIZE);
+            this.categoryTreeBlock = new BatchBlock<category_tree>(BATCH_SIZE);
+            this.eanBlock = new BatchBlock<ean>(BATCH_SIZE);
+            this.fbaFeesBlock = new BatchBlock<fba_fees>(BATCH_SIZE);
+            this.featuresBlock = new BatchBlock<feature>(BATCH_SIZE);
+            this.freqBoughtBlock = new BatchBlock<freq_bought_together>(BATCH_SIZE);
+            this.languagesBlock = new BatchBlock<language>(BATCH_SIZE);
+            this.mostRatedSellerBlock = new BatchBlock<most_rated_sellers>(BATCH_SIZE);
+            this.priceHistoryBlock = new BatchBlock<price_history>(BATCH_SIZE);
+            this.productBlock = new BatchBlock<product>(BATCH_SIZE);
+            //this.promotionBlock = new BatchBlock<PromotionRecord>(BATCH_SIZE);
+            this.sellerItemBlock = new BatchBlock<sellers_listed_items>(BATCH_SIZE);
+            this.sellerBlock = new BatchBlock<seller>(BATCH_SIZE);
+            this.statisticsBlock = new BatchBlock<statistic>(BATCH_SIZE);
+            //this.topSellerBlock = new BatchBlock<TopSellersRecord>(BATCH_SIZE);
+            this.upcBlock = new BatchBlock<upc>(BATCH_SIZE);
+            this.variationBlock = new BatchBlock<variation>(BATCH_SIZE);
             #endregion
 
             #region NewTransformBlocks
@@ -152,7 +303,7 @@ namespace KeepaModule.DataAccess
             });
             #endregion
 
-            #region newFilters
+            #region NewFilters
             this.BestSellerFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.BestSellerRecord; };
             this.CategoryFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryRecord; };
             this.CategoryTreeFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryTreeRecord; };
@@ -172,6 +323,7 @@ namespace KeepaModule.DataAccess
             this.VariationFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.VariationsRecord; };
             #endregion
 
+            //Dataflow Links
             #region Links
             //set up links using propogate oncompletion and appropriate filters
             #region TopToTransform
@@ -191,23 +343,123 @@ namespace KeepaModule.DataAccess
             this.TopBlock.LinkTo(this.UpcTBlock, this.LinkOptions, this.UpcFilter);
             this.TopBlock.LinkTo(this.VariationTBlock, this.LinkOptions, this.VariationFilter);
             #endregion
-            //attach transforms to buffer
-            #region TransformToEnd
-            this.bestSellerBlock.LinkTo(this.bestSellerBlock, this.LinkOptions);
-            this.categoryBlock.LinkTo(this.categoryBlock, this.LinkOptions);
-            this.eanBlock.LinkTo(this.eanBlock, this.LinkOptions);
-            this.fbaFeesBlock.LinkTo(this.fbaFeesBlock, this.LinkOptions);
-            this.featuresBlock.LinkTo(this.featuresBlock, this.LinkOptions);
-            this.freqBoughtBlock.LinkTo(this.freqBoughtBlock, this.LinkOptions);
-            this.languagesBlock.LinkTo(this.languagesBlock, this.LinkOptions);
-            this.mostRatedSellerBlock.LinkTo(this.mostRatedSellerBlock, this.LinkOptions);
-            this.priceHistoryBlock.LinkTo(this.priceHistoryBlock, this.LinkOptions);
-            this.productBlock.LinkTo(this.productBlock, this.LinkOptions);
-            this.sellerBlock.LinkTo(this.sellerBlock, this.LinkOptions);
-            this.sellerItemBlock.LinkTo(this.sellerItemBlock, this.LinkOptions);
-            this.statisticsBlock.LinkTo(this.statisticsBlock, this.LinkOptions);
-            this.upcBlock.LinkTo(this.upcBlock, this.LinkOptions);
-            this.variationBlock.LinkTo(this.variationBlock, this.LinkOptions);
+            //attach transforms to batch
+            #region TransformToBatch
+            this.BestSellerTBlock.LinkTo(this.bestSellerBlock, this.LinkOptions);
+            this.CategoryTBlock.LinkTo(this.categoryBlock, this.LinkOptions);
+            this.EanTBlock.LinkTo(this.eanBlock, this.LinkOptions);
+            this.FbaFeesTBlock.LinkTo(this.fbaFeesBlock, this.LinkOptions);
+            this.FeatureTBlock.LinkTo(this.featuresBlock, this.LinkOptions);
+            this.FreqBoughtTBlock.LinkTo(this.freqBoughtBlock, this.LinkOptions);
+            this.LanguageTBlock.LinkTo(this.languagesBlock, this.LinkOptions);
+            this.MostRatedSellersTBlock.LinkTo(this.mostRatedSellerBlock, this.LinkOptions);
+            this.PriceHistoryTBlock.LinkTo(this.priceHistoryBlock, this.LinkOptions);
+            this.ProductTBlock.LinkTo(this.productBlock, this.LinkOptions);
+            this.SellerTBlock.LinkTo(this.sellerBlock, this.LinkOptions);
+            this.SellerListedItemsTBlock.LinkTo(this.sellerItemBlock, this.LinkOptions);
+            this.StatisticsTBlock.LinkTo(this.statisticsBlock, this.LinkOptions);
+            this.UpcTBlock.LinkTo(this.upcBlock, this.LinkOptions);
+            this.VariationTBlock.LinkTo(this.variationBlock, this.LinkOptions);
+            #endregion
+            //insert delegate for batches
+            #region BatchToInsert
+            this.bestSellerBlock.LinkTo(InsertBestSellersAction, this.LinkOptions);
+            this.bestSellerBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertBestSellersAction.Complete(); 
+                InsertBestSellersAction.Completion.Wait(); 
+            });
+            this.categoryBlock.LinkTo(InsertCategoryAction, this.LinkOptions);
+            this.categoryBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertCategoryAction.Complete(); 
+                InsertCategoryAction.Completion.Wait(); 
+            });
+            this.categoryTreeBlock.LinkTo(InsertCategoryTreeAction, this.LinkOptions);
+            this.categoryTreeBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertCategoryTreeAction.Complete(); 
+                InsertCategoryTreeAction.Completion.Wait(); 
+            });
+            this.eanBlock.LinkTo(InsertEanAction, this.LinkOptions);
+            this.eanBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertEanAction.Complete(); 
+                InsertEanAction.Completion.Wait(); 
+            });
+            this.fbaFeesBlock.LinkTo(InsertFbaFeesAction, this.LinkOptions);
+            this.fbaFeesBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertFbaFeesAction.Complete(); 
+                InsertFbaFeesAction.Completion.Wait(); 
+            });
+            this.featuresBlock.LinkTo(InsertFeatureAction, this.LinkOptions);
+            this.featuresBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertFeatureAction.Complete(); 
+                InsertFeatureAction.Completion.Wait(); 
+            });
+            this.freqBoughtBlock.LinkTo(InsertFreqBoughtAction, this.LinkOptions);
+            this.freqBoughtBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertFreqBoughtAction.Complete(); 
+                InsertFreqBoughtAction.Completion.Wait(); 
+            });
+            this.languagesBlock.LinkTo(InsertLanguageAction, this.LinkOptions);
+            this.languagesBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertLanguageAction.Complete(); 
+                InsertLanguageAction.Completion.Wait(); 
+            });
+            this.mostRatedSellerBlock.LinkTo(InsertMostRatedSellersAction, this.LinkOptions);
+            this.mostRatedSellerBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertMostRatedSellersAction.Complete(); 
+                InsertMostRatedSellersAction.Completion.Wait(); 
+            });
+            this.priceHistoryBlock.LinkTo(InsertPriceHistoryAction, this.LinkOptions);
+            this.priceHistoryBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertPriceHistoryAction.Complete(); 
+                InsertPriceHistoryAction.Completion.Wait(); 
+            });
+            this.productBlock.LinkTo(InsertProductAction, this.LinkOptions);
+            this.productBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertProductAction.Complete(); 
+                InsertProductAction.Completion.Wait(); 
+            });
+            this.sellerItemBlock.LinkTo(InsertSellersListedItemsAction, this.LinkOptions);
+            this.sellerItemBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertSellersListedItemsAction.Complete(); 
+                InsertSellersListedItemsAction.Completion.Wait(); 
+            });
+            this.sellerBlock.LinkTo(InsertSellerAction, this.LinkOptions);
+            this.sellerBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertSellerAction.Complete(); 
+                InsertSellerAction.Completion.Wait(); 
+            });
+            this.statisticsBlock.LinkTo(InsertStatisticAction, this.LinkOptions);
+            this.statisticsBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertStatisticAction.Complete(); 
+                InsertStatisticAction.Completion.Wait(); 
+            });
+            this.upcBlock.LinkTo(InsertUpcAction, this.LinkOptions);
+            this.upcBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertUpcAction.Complete(); 
+                InsertUpcAction.Completion.Wait(); 
+            });
+            this.variationBlock.LinkTo(InsertVariationAction, this.LinkOptions);
+            this.variationBlock.Completion.ContinueWith(delegate 
+            { 
+                InsertVariationAction.Complete(); 
+                InsertVariationAction.Completion.Wait(); 
+            });
+
             #endregion
             #endregion
         }
@@ -215,25 +467,44 @@ namespace KeepaModule.DataAccess
 
         private DataflowLinkOptions LinkOptions { get; set; }
 
-        #region FinalBlocks
-        public BufferBlock<best_sellers> bestSellerBlock { get; set; }
-        public BufferBlock<category> categoryBlock { get; set; }
-        public BufferBlock<CategoryTreeRecord> categoryTreeBlock { get; set; }
-        public BufferBlock<ean> eanBlock { get; set; }
-        public BufferBlock<fba_fees> fbaFeesBlock { get; set; }
-        public BufferBlock<feature> featuresBlock { get; set; }
-        public BufferBlock<freq_bought_together> freqBoughtBlock { get; set; }
-        public BufferBlock<language> languagesBlock { get; set; }
-        public BufferBlock<most_rated_sellers> mostRatedSellerBlock { get; set; }
-        public BufferBlock<price_history> priceHistoryBlock { get; set; }
-        public BufferBlock<product> productBlock { get; set; }
-        public BufferBlock<PromotionRecord> promotionBlock { get; set; }
-        public BufferBlock<sellers_listed_items> sellerItemBlock { get; set; }
-        public BufferBlock<seller> sellerBlock { get; set; }
-        public BufferBlock<statistic> statisticsBlock { get; set; }
-        public BufferBlock<TopSellersRecord> topSellerBlock { get; set; }
-        public BufferBlock<upc> upcBlock { get; set; }
-        public BufferBlock<variation> variationBlock { get; set; }
+        #region InsertBlocks
+        private ActionBlock<best_sellers[]> InsertBestSellersAction { get; set; }
+        private ActionBlock<category[]> InsertCategoryAction { get; set; }
+        private ActionBlock<category_tree[]> InsertCategoryTreeAction { get; set; }
+        private ActionBlock<ean[]> InsertEanAction { get; set; }
+        private ActionBlock<fba_fees[]> InsertFbaFeesAction { get; set; }
+        private ActionBlock<feature[]> InsertFeatureAction { get; set; }
+        private ActionBlock<freq_bought_together[]> InsertFreqBoughtAction { get; set; }
+        private ActionBlock<language[]> InsertLanguageAction { get; set; }
+        private ActionBlock<most_rated_sellers[]> InsertMostRatedSellersAction { get; set; }
+        private ActionBlock<price_history[]> InsertPriceHistoryAction { get; set; }
+        private ActionBlock<product[]> InsertProductAction { get; set; }
+        private ActionBlock<sellers_listed_items[]> InsertSellersListedItemsAction { get; set; }
+        private ActionBlock<seller[]> InsertSellerAction { get; set; }
+        private ActionBlock<statistic[]> InsertStatisticAction { get; set; }
+        private ActionBlock<upc[]> InsertUpcAction { get; set; }
+        private ActionBlock<variation[]> InsertVariationAction { get; set; }
+        #endregion
+
+        #region BatchBlocks
+        public BatchBlock<best_sellers> bestSellerBlock { get; set; }
+        public BatchBlock<category> categoryBlock { get; set; }
+        public BatchBlock<category_tree> categoryTreeBlock { get; set; }
+        public BatchBlock<ean> eanBlock { get; set; }
+        public BatchBlock<fba_fees> fbaFeesBlock { get; set; }
+        public BatchBlock<feature> featuresBlock { get; set; }
+        public BatchBlock<freq_bought_together> freqBoughtBlock { get; set; }
+        public BatchBlock<language> languagesBlock { get; set; }
+        public BatchBlock<most_rated_sellers> mostRatedSellerBlock { get; set; }
+        public BatchBlock<price_history> priceHistoryBlock { get; set; }
+        public BatchBlock<product> productBlock { get; set; }
+        //public BatchBlock<PromotionRecord> promotionBlock { get; set; }
+        public BatchBlock<sellers_listed_items> sellerItemBlock { get; set; }
+        public BatchBlock<seller> sellerBlock { get; set; }
+        public BatchBlock<statistic> statisticsBlock { get; set; }
+        //public BatchBlock<TopSellersRecord> topSellerBlock { get; set; }
+        public BatchBlock<upc> upcBlock { get; set; }
+        public BatchBlock<variation> variationBlock { get; set; }
         #endregion
 
         #region Filters
@@ -278,15 +549,13 @@ namespace KeepaModule.DataAccess
         /// Allocate IRecords to appropriate queues
         /// </summary>
         /// <param name="broadcast"></param>
-        public void Allocate(IRecord[] broadcast)
+        public void Filter(IRecord broadcast)
         {
 
-            for(int x= 0; x<broadcast.Length; x++)
-            {
-                this.TopBlock.Post(broadcast[x]);
-            }
-            
+            this.TopBlock.Post(broadcast);
+
         }
+
 
     }
 }

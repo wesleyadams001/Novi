@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.features")]
+    //[Table("public.features")]
     public partial class feature : IEntity
     {
         public feature(ulong? product_id, string features, long? time_stamp)

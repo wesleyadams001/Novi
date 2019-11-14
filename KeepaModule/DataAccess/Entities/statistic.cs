@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.statistics")]
+    //[Table("public.statistics")]
     public partial class statistic : IEntity
     {
         public statistic(ulong? product_id, int? stat_type, long? current, long? avg, long? avg_30, long? avg_90, long? avg_180, long? at_interval_start, long? min_price_type, long? min_price_rec_time, long? min_price_value, long? max_price_type, long? max_price_rec_time, long? max_price_value, long? interval_min_price_type, long? interval_min_price_rec_time, long? interval_min_price_value, long? interval_max_price_type, long? interval_max_price_rec_time, long? interval_max_price_value, long? out_of_stock_percentage_ininterval, long? out_of_stock_percentage_30, long? out_of_stock_percentage_90, long? last_offers_update, long? total_offer_count, long? lightning_deal_info, long? retrieved_offer_count, long? buy_box_price, long? buy_box_shipping, bool? buy_box_is_unqualified, bool? buy_box_is_shippable, bool? buy_box_is_preorder, bool? buy_box_is_fba, bool? buy_box_is_amazon, bool? buy_box_is_map, bool? buy_box_is_used, string seller_ids_lowest_fba, string seller_ids_lowest_fbm, long? offer_count_fba, long? offer_count_fbm, long? time_stamp)

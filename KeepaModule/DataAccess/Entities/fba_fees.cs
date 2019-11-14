@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.fba_fees")]
+    //[Table("public.fba_fees")]
     public partial class fba_fees : IEntity
     {
         public fba_fees(ulong? product_id, int? pick_pack_fee, int? pick_pack_fee_tax, int? storage_fee, int? storage_fee_tax, long? time_stamp)

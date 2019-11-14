@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.variations")]
+    //[Table("public.variations")]
     public partial class variation : IEntity
     {
         public variation(ulong? product_id, string variation_asin, string variation_dimension, string variation_value, long? time_stamp)

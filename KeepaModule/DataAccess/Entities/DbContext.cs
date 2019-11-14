@@ -9,10 +9,10 @@ namespace KeepaModule.DataAccess.Entities
     public partial class KeepaContext : DbContext
     {
         
-        public KeepaContext() : base()
-        {  
-            this.Database.Connection.ConnectionString = Properties.Settings.Default.CurrentConnString;
-            Database.SetInitializer(new DropCreateDatabaseAlways<KeepaContext>());
+        public KeepaContext() : base("Keepa")
+        {
+            //this.Database.Connection.ConnectionString = Properties.Settings.Default.CurrentConnString;
+            Database.SetInitializer(new CreateDatabaseIfNotExists<KeepaContext>());
         }
 
         public virtual DbSet<best_sellers> best_sellers { get; set; }
@@ -49,31 +49,9 @@ namespace KeepaModule.DataAccess.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Keepa");
+            modelBuilder.HasDefaultSchema("Novi");
 
-            modelBuilder.Entity<category_tree>()
-                .Property(e => e.amzn_cat_id)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<price_history>()
-                .Property(e => e.ob_date)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<price_history>()
-                .Property(e => e.ob_price)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<price_history>()
-                .Property(e => e.ob_shipping)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<price_history>()
-                .Property(e => e.time_stamp)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<product>()
-                .Property(e => e.root_category)
-                .HasPrecision(19, 4);
+            
         }
 
         

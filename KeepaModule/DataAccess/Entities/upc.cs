@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.upcs")]
+    //[Table("public.upcs")]
     public partial class upc : IEntity
     {
         public upc(ulong? product_id, string upc_number, long? time_stamp)

@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.eans")]
+    //[Table("public.eans")]
     public partial class ean : IEntity
     {
         public ean(ulong? product_id, string ean_number, long? time_stamp)

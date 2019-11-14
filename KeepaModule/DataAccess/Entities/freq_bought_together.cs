@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.freq_bought_together")]
+    //[Table("public.freq_bought_together")]
     public partial class freq_bought_together : IEntity
     {
         public freq_bought_together(ulong? product_id, string associated_asin, long? time_stamp)

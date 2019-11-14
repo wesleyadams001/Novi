@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.languages")]
+    //[Table("public.languages")]
     public partial class language : IEntity
     {
         public language(ulong? product_id, string language_name, string language_type, string audio_format, long? time_stamp)

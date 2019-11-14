@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.price_history")]
+    //[Table("public.price_history")]
     public partial class price_history : IEntity
     {
         public price_history(ulong? product_id, int? ob_history_type, decimal? ob_date, decimal? ob_price, decimal? ob_shipping, decimal? time_stamp)

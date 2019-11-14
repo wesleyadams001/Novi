@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.most_rated_sellers")]
+    //[Table("public.most_rated_sellers")]
     public partial class most_rated_sellers : IEntity
     {
         public most_rated_sellers(string seller, long? time_stamp)

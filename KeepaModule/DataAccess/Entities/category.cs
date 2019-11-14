@@ -7,7 +7,7 @@ namespace KeepaModule.DataAccess.Entities
     using System.Data.Entity.Spatial;
     using XModule.Interfaces;
 
-    [Table("public.category")]
+    //[Table("public.category")]
     public partial class category : IEntity
     {
         public category(ulong? product_id, long? amzn_category_id, long? time_stamp)
