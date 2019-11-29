@@ -12,6 +12,9 @@ using XModule.Events;
 using XModule.Interfaces;
 using Prism.Autofac;
 using Autofac;
+using prism7.Models;
+using System;
+using static XModule.Constants.Enums;
 
 namespace prism7.ViewModels
 {
@@ -22,10 +25,13 @@ namespace prism7.ViewModels
     {
         private ILogger logger;
         private IEventAggregator ea;
-        private ObservableCollection<RequestObject> requests;
+        private ObservableCollection<MenuItem> requests;
         private ObservableCollection<RequestObject> activerequests;
         private IComponentContext container;
         private ObservableCollection<Pair<string, object>> parameters;
+        private string selectedRequestRootName;
+        private string selectedRequestItemName;
+        private MenuItem selectedMenuItemObject;
 
         /// <summary>
         /// indicates if the request is active
@@ -33,10 +39,55 @@ namespace prism7.ViewModels
         public bool isActive;
 
         /// <summary>
+        /// Selected Menu Item object
+        /// </summary>
+        public MenuItem SelectedMenuItemObject
+        {
+            get { return selectedMenuItemObject; }
+            set
+            {
+                SetProperty(ref selectedMenuItemObject, value);
+
+                if (selectedMenuItemObject != null)
+                {
+                    ea.GetEvent<SelectedMenuItemChangedEvent>().Publish(selectedMenuItemObject);
+
+                }
+            }
+        }
+
+        /// <summary>
         /// The currently selected request item
         /// </summary>
-        public RequestObject SelectedRequestItem { get; set; }
+        public string SelectedRequestItemName 
+        {
+            get { return selectedRequestItemName; } 
+            set
+            {
+                SetProperty(ref selectedRequestItemName, value);
+
+               
+            }
+        }
         
+        /// <summary>
+        /// The currently selected request item root
+        /// </summary>
+        public string SelectedRequestRootName 
+        {
+            get { return selectedRequestRootName; }
+            set {
+                SetProperty(ref selectedRequestRootName, value);
+
+                
+            } 
+        }
+
+        /// <summary>
+        /// The current request object 
+        /// </summary>
+        public RequestObject SelectedRequestItem { get; set; }
+
         /// <summary>
         /// The currently selected active request item
         /// </summary>
@@ -45,7 +96,7 @@ namespace prism7.ViewModels
         /// <summary>
         /// List of available requests
         /// </summary>
-        public ObservableCollection<RequestObject> Requests
+        public ObservableCollection<MenuItem> Requests
         {
             get { return requests; }
             set { SetProperty(ref requests, value); }
@@ -83,8 +134,9 @@ namespace prism7.ViewModels
 
             this.ea = aggregator;
             this.container = container;
-            this.Requests = new ObservableCollection<RequestObject>(service.GetRequests());
-            
+            this.Requests = new ObservableCollection<MenuItem>();
+            this.Requests.AddRange(CreateMenuItems());
+
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ActiveRequests = activeReqService.GetRequests();
             this.AddSelectedItemToActiveCommand = new DelegateCommand(AddSelectedItemToActive);
@@ -94,6 +146,19 @@ namespace prism7.ViewModels
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.EditParametersCommand = new DelegateCommand(EditParameters);
             this.SaveParametersCommand = new DelegateCommand(SaveParameters);
+
+            this.ea.GetEvent<SelectedMenuItemChangedEvent>().Subscribe((item) =>
+            {
+               
+                Enum.TryParse(item.Title, out RequestTypes result);
+                this.SelectedRequestItem.ApiName = result;
+                this.SelectedRequestItem.RequestName = item.Title;
+                this.SelectedRequestItem.ParameterList.AddRange(item.ParameterList);
+               
+                
+            });
+
+            
         }
 
         

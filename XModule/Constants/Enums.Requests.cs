@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace XModule.Constants
         public enum RequestTypes
         {
             Default = -1,
+            [Description("Keepa")]
             Keepa =0,
+            [Description("Doba")]
             Doba =1
         }
     }

@@ -5,13 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:XModule.Models;assembly=XModule"
+             xmlns:local="clr-namespace:prism7.Models"
+             xmlns:converter="clr-namespace:prism7.Converter"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:prism="http://prismlibrary.com/" 
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-
+    <UserControl.Resources>
+        <converter:TreeViewValueConverter x:Key="TreeValueConverter"/>
+    </UserControl.Resources>
     <Grid HorizontalAlignment="Left" Width="5000" Height="1000">
 
 
@@ -38,13 +42,21 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Grid.RowSpan="2" Height="380" ItemsSource="{Binding Requests}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRequestItem}" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                    <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Api Name" Binding="{Binding ApiName}" IsReadOnly="True" />
-                        <mui:DataGridTextColumn Header="Request" Binding="{Binding RequestName}" IsReadOnly="True" />
-                    </DataGrid.Columns>
-                    
-                </DataGrid>
+                
+                <StackPanel>
+                    <GroupBox Height="380" Width="350" BorderBrush="White">
+
+                        <local:ExtendedTreeView x:Name="trvMenu" Grid.Row="1" Grid.Column="0" SelectedObject_="{Binding SelectedMenuItemObject, Mode=TwoWay}" SelectedItem_="{Binding SelectedRequestItemName, Mode=TwoWay}" SelectedItemParent_="{Binding SelectedRequestRootName, Mode=TwoWay}" SelectedValuePath="Title" ItemsSource="{Binding Requests}">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type MenuItem}" ItemsSource="{Binding Items}">
+                                    <TextBlock Text="{Binding Path=Title}" />
+
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </local:ExtendedTreeView>
+                            
+                    </GroupBox>
+                </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                     <GroupBox  Header="Options:" Height="80" Width="350">

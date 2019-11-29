@@ -10,7 +10,7 @@ using Autofac;
 
 namespace prism7.ViewModels
 {
-    public partial class MuiViewModel
+    public partial class RequestsViewModel
     {
        
         /// <summary>

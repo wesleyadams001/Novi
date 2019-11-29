@@ -13,13 +13,21 @@ namespace XModule.Models
 {
     public class RequestObject : BindableBase
     {
+        /// <summary>
+        /// Constructor used when not presetting the request name and apiname
+        /// </summary>
         public RequestObject()
         {
-
+            this.ParameterList = new ObservableCollection<Pair<string, object>>();
         }
 
-        private ObservableCollection<Pair<string, object>> list;
+        
 
+        /// <summary>
+        /// Constructor used when initializing with the target requestname and apiname
+        /// </summary>
+        /// <param name="requestName"></param>
+        /// <param name="apiName"></param>
         public RequestObject(string requestName, RequestTypes apiName)
         {
             this.RequestName = requestName;
@@ -50,6 +58,11 @@ namespace XModule.Models
         /// The name of the API to which the request belongs
         /// </summary>
         public RequestTypes ApiName { get; set; }
+
+        /// <summary>
+        /// Backing field of parameter list
+        /// </summary>
+        private ObservableCollection<Pair<string, object>> list;
 
         /// <summary>
         /// The list of parameters that belong to a method with their associated types

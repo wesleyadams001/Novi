@@ -30,7 +30,6 @@ namespace KeepaModule
         private Allocator _keepaAllocator;
         private KeepaContext _context;
         private const string baseUrl = "https://api.keepa.com/";
-        private const int BATCH_SIZE = 10000;
 
         /// <summary>
         /// Entry point for the module to insert unity container

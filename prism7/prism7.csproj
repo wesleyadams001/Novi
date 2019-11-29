@@ -142,9 +142,11 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converter\Collections.cs" />
+    <Compile Include="Converter\TreeViewValueConverter.cs" />
     <Compile Include="Converter\Variables.cs" />
     <Compile Include="Factory\Factory.cs" />
     <Compile Include="Factory\LoggerFactory.cs" />
+    <Compile Include="Models\ExtendedTreeView.cs" />
     <Compile Include="Pipeline\Pipe.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Services\ActiveRequestsService.cs" />
@@ -158,8 +160,8 @@
     <Compile Include="ViewModels\DataGridViewModel.Commands.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="ViewModels\InputDiagViewModel.cs" />
-    <Compile Include="ViewModels\MuiViewModel.Commands.cs" />
-    <Compile Include="ViewModels\MuiViewModel.cs" />
+    <Compile Include="ViewModels\RequestsViewModel.Commands.cs" />
+    <Compile Include="ViewModels\RequestsViewModel.cs" />
     <Compile Include="ViewModels\SettingsAppearanceViewModel.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.Commands.cs" />
     <Compile Include="ViewModels\SettingsConfigurationViewModel.cs" />
@@ -184,8 +186,8 @@
     <Compile Include="Views\LoremIpsumView.xaml.cs">
       <DependentUpon>LoremIpsumView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Mui.xaml.cs">
-      <DependentUpon>Mui.xaml</DependentUpon>
+    <Compile Include="Views\Requests.xaml.cs">
+      <DependentUpon>Requests.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsAppearance.xaml.cs">
       <DependentUpon>SettingsAppearance.xaml</DependentUpon>
@@ -272,7 +274,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Mui.xaml">
+    <Page Include="Views\Requests.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

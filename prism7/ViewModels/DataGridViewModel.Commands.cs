@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Prism.Commands;
+using Prism.Autofac;
+using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using XModule.Models;
 using XModule.Services;
-using Microsoft.Practices.Unity;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows.Threading;
 using System.Data;
 using System.Timers;
 using XModule.Events;
+using prism7.Models;
+using System.Collections.ObjectModel;
 
 namespace prism7.ViewModels
 {
@@ -51,7 +54,7 @@ namespace prism7.ViewModels
         {
             
             //if selected request item is not null
-            if(this.SelectedRequestItem != null)
+            if(this.SelectedRequestItem != null && (this.SelectedRequestItem.RequestName.Equals(this.SelectedRequestItem.ApiName.ToString())==false))
             {
                 //Add to obs collection
                 this.ActiveRequests.Add(this.SelectedRequestItem);
@@ -59,7 +62,6 @@ namespace prism7.ViewModels
                 //publish event
                 this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
-            
 
         }
 
@@ -98,6 +100,48 @@ namespace prism7.ViewModels
                 this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
            
+        }
+
+        /// <summary>
+        /// Creates DataGrid menu items that populate the tree view
+        /// </summary>
+        /// <returns></returns>
+        private List<MenuItem> CreateMenuItems()
+        {
+            //Create menu items
+            List<MenuItem> MenuItems = new List<MenuItem>();
+
+            //Resolve Request Services
+            var availableRequests = this.container.Resolve<IEnumerable<IAvailableRequestsService>>();
+            for(int x = 0; x< availableRequests.Count(); x++)
+            {
+                //Gets associated requests in each service
+                var RequestObjects = availableRequests.ElementAt(x).GetRequests();
+                string[] namesArr = new string[RequestObjects.Length];
+                MenuItem item = new MenuItem(RequestObjects[0].ApiName.ToString(), "Root");
+
+                //Add a new Request for each item that is retrieved in the getRequests() method
+                for(int y = 0; y< RequestObjects.Length; y++)
+                {
+                    MenuItem subItem = new MenuItem(RequestObjects.ElementAt(y).RequestName, RequestObjects[0].ApiName.ToString());
+
+                    int size = RequestObjects[y].ParameterList.Count();
+
+                    //Fill parameters of subitem
+                    for (int z=0; z<size; z++)
+                    {
+                        //Add each requestObjects parameter pair to the menu item
+                        subItem.ParameterList.Add(RequestObjects[y].ParameterList.ElementAt(z));
+                    }
+
+                    //Add the subitem
+                    item.Items.Add(subItem);
+                }
+
+                //Add the new root to the menu
+                MenuItems.Add(item);
+            }
+            return MenuItems;
         }
 
 

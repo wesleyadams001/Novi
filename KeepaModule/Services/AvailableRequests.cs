@@ -37,7 +37,7 @@ namespace KeepaModule.Services
             var subclasses = types.Where(t => t.IsSubclassOf(parentType));
 
             //Gets methods
-            var methods = subclasses.SelectMany(x => x.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)).Where(y => y.GetCustomAttributes(typeof(Tag), false).Length > 0).ToArray();//.Where(y => y.GetCustomAttributes(typeof(Tag), false).Length > 0
+            var methods = subclasses.SelectMany(x => x.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)).Where(y => y.GetCustomAttributes(typeof(Tag), false).Length > 0).ToArray();
 
             //Gets the names
             var mNames = methods.Select(t => t.Name);

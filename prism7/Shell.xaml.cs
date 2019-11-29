@@ -57,7 +57,7 @@ namespace prism7
             linkGroup.Links.Add(new Link
             {
                 DisplayName = "Active Requests",
-                Source = GetUri(typeof(Mui))
+                Source = GetUri(typeof(Requests))
             });
 
             linkGroup.Links.Add(new Link

@@ -14,7 +14,7 @@ using Autofac;
 
 namespace prism7.ViewModels
 {
-    public partial class MuiViewModel : BindableBase
+    public partial class RequestsViewModel : BindableBase
     {
         private IComponentContext container;
         private IActiveRequestsService service;
@@ -63,10 +63,10 @@ namespace prism7.ViewModels
         /// The main constructor for MuiViewModel that takes an instance of Active Requests Service
         /// </summary>
         /// <param name="service"></param>
-        public MuiViewModel(IComponentContext container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
+        public RequestsViewModel(IComponentContext container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
         {
             this.ea = aggregator;
-            this.logger = loggerFactory.Create<MuiViewModel>();
+            this.logger = loggerFactory.Create<RequestsViewModel>();
             this.container = container;
             this.service = service;
             this.ActiveRequests = new ObservableCollection<RequestObject>();
