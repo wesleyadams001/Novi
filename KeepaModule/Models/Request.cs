@@ -878,9 +878,9 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var stats = (int?)p2;
-            var offers = (int?)p3;
-            var asins = (string[])p4;
+            var statsParsed = int.TryParse(p2.ToString(),out int stats);
+            var offersParsed = int.TryParse(p3.ToString(), out int offers);
+            var asins = p4.ToString().Split(',');
 
             var r = getProductRequest(domainId, stats, offers, asins);
             return r;

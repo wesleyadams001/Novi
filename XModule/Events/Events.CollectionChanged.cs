@@ -12,6 +12,6 @@ namespace XModule.Events
     /// <summary>
     /// The collection changed event for observable collections
     /// </summary>
-    public class CollectionChangedEvent : PubSubEvent<IEnumerable<RequestObject>> { }
+    public class CollectionChangedEvent : PubSubEvent<RequestObject> { }
     
 }

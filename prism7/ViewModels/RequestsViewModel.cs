@@ -11,6 +11,7 @@ using XModule.Tools;
 using XModule.Events;
 using XModule.Interfaces;
 using Autofac;
+using System.Timers;
 
 namespace prism7.ViewModels
 {
@@ -19,12 +20,40 @@ namespace prism7.ViewModels
         private IComponentContext container;
         private IActiveRequestsService service;
         private IEventAggregator ea;
+        private ILoggerFactory loggerFac;
         private ILogger logger;
         private ObservableCollection<RequestObject> requests;
         private ObservableCollection<Pair<string, object>> parameters;
         private RequestObject selectedActiveReqItem;
         private Pipeline.Pipe Pipe;
+        private System.Timers.Timer Timer;
+        private bool _canStartPipeline;
+        private bool _canStopPipeline;
         public RequestObject SelectedRequestItem { get; set; }
+
+        /// <summary>
+        /// Indicates whether the pipeline is currently inactive and can be started
+        /// </summary>
+        public bool CanStartPipeline 
+        {
+            get { return _canStartPipeline; }
+            set
+            {
+                SetProperty(ref _canStartPipeline, value);
+            } 
+        }
+
+        /// <summary>
+        /// Indicates whether the pipeline is currently active can be stopped
+        /// </summary>
+        public bool CanStopPipeline 
+        {
+            get { return _canStopPipeline; }
+            set
+            {
+                SetProperty(ref _canStopPipeline, value);
+            } 
+        }
 
         /// <summary>
         /// The currently selected active request item
@@ -66,20 +95,23 @@ namespace prism7.ViewModels
         public RequestsViewModel(IComponentContext container, IActiveRequestsService service, IEventAggregator aggregator, ILoggerFactory loggerFactory)
         {
             this.ea = aggregator;
+            this.loggerFac = loggerFactory;
             this.logger = loggerFactory.Create<RequestsViewModel>();
             this.container = container;
             this.service = service;
             this.ActiveRequests = new ObservableCollection<RequestObject>();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
             this.ActiveRequests = service.GetRequests();
-            this.Pipe = new Pipeline.Pipe(this.container, loggerFactory);
+            this.Pipe = null;
             this.MakeRequestCommand = new DelegateCommand(MakeRequest);
-
-            this.ea.GetEvent<CollectionChangedEvent>().Subscribe((oc) => 
-            {
-                this.ActiveRequests.Clear();
-                this.ActiveRequests = this.service.GetRequests();
-            }, ThreadOption.UIThread);
+            this.Timer = new Timer();
+            Timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            Timer.Interval = 500;
+            Timer.Enabled = true;
+            this.CanStartPipeline = true;
+            this.CanStopPipeline = false;
+            this.StartPipelineCommand = new DelegateCommand(StartPipeline);
+            this.StopPipelineCommand = new DelegateCommand(StopPipeline);
 
             this.ea.GetEvent<SelectionChangedEvent>().Subscribe((item) => {
                 if (item!=null && item.ParameterList != null)
@@ -89,6 +121,12 @@ namespace prism7.ViewModels
             });
         }
 
-       
+        // Specify what you want to happen when the Elapsed event is raised.
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            UpdateServices();
+        }
+
+
     }
 }

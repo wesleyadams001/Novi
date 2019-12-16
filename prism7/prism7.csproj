@@ -142,6 +142,7 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converter\Collections.cs" />
+    <Compile Include="Converter\PipelineEnabledConverter.cs" />
     <Compile Include="Converter\TreeViewValueConverter.cs" />
     <Compile Include="Converter\Variables.cs" />
     <Compile Include="Factory\Factory.cs" />

@@ -16,21 +16,27 @@ using Autofac;
 namespace prism7.Pipeline
 {
     /// <summary>
-    /// Data pipeline object
+    /// Data pipeline
     /// </summary>
     public class Pipe
     {
         private IComponentContext _container;
         private ILoggerFactory logFac;
         private ILogger logger;
+        private IEnumerable<INoviModule> _components;
+        private BufferBlock<RequestObject> _startBlock;
+        private BufferBlock<RequestObject> _broadcastBlock;
 
         public Pipe(IComponentContext container, ILoggerFactory logger)
         {
             this._container = container;
             this.logFac = logger;
-            this.logger = logger.Create<Pipe>();
+            this.logger = this.logFac.Create<Pipe>();
             this.logger.Debug("Created Pipeline");
-         
+            this._startBlock = new BufferBlock<RequestObject>();
+
+            this._broadcastBlock = new BufferBlock<RequestObject>();
+            this._components = this._container.Resolve<IEnumerable<INoviModule>>();
         }
 
         /// <summary>
@@ -40,32 +46,32 @@ namespace prism7.Pipeline
         public void Post(RequestObject request)
         {
 
-            var startBlock = new BufferBlock<RequestObject>();
-
-            var broadcastBlock = new BufferBlock<RequestObject>();
-            
             var t = Task.Run(() =>
             {
-                var components = this._container.Resolve<IEnumerable<INoviModule>>();
 
-                for(int x=0; x< components.Count(); x++)
+                for(int x=0; x< this._components.Count(); x++)
                 {
                     //call each to process from the block
-                    components.ElementAt(x).Process(broadcastBlock);
+                    this._components.ElementAt(x).Process(this._broadcastBlock);
                 }
                     
             });
             
 
-            startBlock.LinkTo(broadcastBlock, new DataflowLinkOptions { PropagateCompletion = true });
+            this._startBlock.LinkTo(this._broadcastBlock, new DataflowLinkOptions { PropagateCompletion = true });
 
             //post request
             this.logger.Debug("Posted message to Pipeline" + request.RequestName);
-            startBlock.Post(request);
+            this._startBlock.Post(request);
         }
 
-       
-
+        /// <summary>
+        /// Completes the pipeline
+        /// </summary>
+        public void StopPipeline()
+        {
+            this._startBlock.Complete();
+        }
 
     }
 }

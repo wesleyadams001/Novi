@@ -143,10 +143,9 @@ namespace KeepaModule
             //Keep the active Context Graph small by using a new context for each Unit of Work
             var insertBlock = new ActionBlock<IRecord>((a) =>
             {
-                this._logger.Debug("InsertBlock");
+               
                 this._keepaAllocator.Filter(a);
 
-                
             });
 
             //logs the results of the requests

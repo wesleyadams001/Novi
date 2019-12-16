@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using NodaTime;
+using Prism.Mvvm;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -39,13 +40,15 @@ namespace XModule.Models
         /// Returns a hash of the request object
         /// </summary>
         /// <returns></returns>
-        public int GetHash()
+        public long GetHash()
         {
-            int hash = this.RequestName.GetHashCode() + this.ApiName.GetHashCode();
-            for(int x =0; x<this.ParameterList.Count(); x++)
+            //Instant now = SystemClock.Instance.GetCurrentInstant();
+            long hash = (long)this.RequestName.GetHashCode() + (long)this.ApiName.GetHashCode();
+            for(int x =0; x< this.ParameterList.Count; x++)
             {
                 hash += this.ParameterList.ElementAt(x).First.GetHashCode() + this.ParameterList.ElementAt(x).Second.GetHashCode();
             }
+            
             return hash;
         }
         

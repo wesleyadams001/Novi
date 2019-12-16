@@ -118,13 +118,17 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible">
-                    <DataGrid.Columns>
-                        <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}" IsReadOnly="True"/>
-                        <mui:DataGridTextColumn Header="Value" Binding="{Binding Second, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel Grid.RowSpan="2" Height="380" >
+                    <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" MaxWidth="380" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}" IsReadOnly="True"/>
+                            <mui:DataGridTextColumn Header="Value" Binding="{Binding Second, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+               
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                     <GroupBox  Header="Options:" Height="80" Width="350">
                         <Grid>

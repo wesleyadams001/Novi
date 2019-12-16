@@ -185,6 +185,7 @@
     <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\RequestObject.cs" />
+    <Compile Include="Models\RequestObjectEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IActiveRequestsService.cs" />
     <Compile Include="Services\IAvailableRequestsService.cs" />

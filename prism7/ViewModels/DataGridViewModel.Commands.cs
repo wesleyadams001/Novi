@@ -60,7 +60,7 @@ namespace prism7.ViewModels
                 this.ActiveRequests.Add(this.SelectedRequestItem);
 
                 //publish event
-                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
+                this.ea.GetEvent<CollectionChangedEvent>().Publish(this.SelectedRequestItem);
             }
 
         }
@@ -96,8 +96,6 @@ namespace prism7.ViewModels
                 //refresh previously updated properties
                 Properties.Settings.Default.Reload();
 
-                //publish event
-                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
            
         }
@@ -168,8 +166,6 @@ namespace prism7.ViewModels
 
                 this.ParameterList.Clear();
 
-                //publish event
-                this.ea.GetEvent<CollectionChangedEvent>().Publish(activerequests.AsEnumerable());
             }
         }
 

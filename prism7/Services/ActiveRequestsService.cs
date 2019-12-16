@@ -17,7 +17,10 @@ namespace prism7.Services
         public ObservableCollection<RequestObject> GetRequests()
         {
             this.requestObjects = new ObservableCollection<RequestObject>();
-           
+
+            //Reload to refresh persistence
+            Properties.Settings.Default.Reload();
+
             //if there are more than 0 items 
             if (Properties.Settings.Default.ActiveRequests.Count > 0)
             {
