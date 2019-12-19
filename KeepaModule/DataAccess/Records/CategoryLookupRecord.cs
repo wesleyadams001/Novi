@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XModule.Tools;
+using static XModule.Constants.Enums;
 
-namespace KeepaModule.Models
+namespace KeepaModule.DataAccess.Records
 {
     /// <summary>
     /// A category object
     /// </summary>
-    public class Category
+    public class CategoryLookupRecord : Record
     {
         /// <summary>
         /// The default constructor of Category object
@@ -22,7 +23,7 @@ namespace KeepaModule.Models
         /// <param name="parent"></param>
         /// <param name="highestRank"></param>
         /// <param name="productCount"></param>
-        public Category(byte domainId, long catId, string name, long[] children, long parent, int highestRank, int productCount)
+        public CategoryLookupRecord(byte domainId, long catId, string name, long[] children, long parent, int highestRank, int productCount)
         {
             this.domainId = domainId;
             this.catId = catId;
@@ -31,6 +32,9 @@ namespace KeepaModule.Models
             this.parent = parent;
             this.highestRank = highestRank;
             this.productCount = productCount;
+            this.TimeStamp = Utilities.GetUnixTime();
+            this.KeepaRecordType = KeepaRecordType.CategoryLookupRecord;
+            this.RecordType = RecordType.Keepa;
         }
 
         /// <summary>
@@ -69,13 +73,5 @@ namespace KeepaModule.Models
         /// </summary>
         public int productCount;
 
-        /// <summary>
-        /// Override of the To string method
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
     }
 }

@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Tools;
 using XModule.Interfaces;
-using static XModule.Constants.Enums;
 using KeepaModule.DataAccess.Records;
 using KeepaModule.Tools;
 using System.Threading.Tasks.Dataflow;
+using static XModule.Constants.Enums;
 
 namespace KeepaModule.Factories
 {
@@ -19,8 +19,12 @@ namespace KeepaModule.Factories
     /// </summary>
     public class KeepaRecordFactory
     {
-        public KeepaRecordFactory()
+        private ILoggerFactory _loggerFactory;
+        private ILogger _logger;
+        public KeepaRecordFactory(ILoggerFactory loggerFac)
         {
+            this._loggerFactory = loggerFac;
+            this._logger = loggerFac.Create<KeepaRecordFactory>();
         }
 
         /// <summary>
@@ -139,6 +143,10 @@ namespace KeepaModule.Factories
             {
                 CreateTracking(r, ref recList);
             }
+            if (responseFlags.HasFlag(KeepaRecordType.CategoryLookupRecord))
+            {
+                CreateCategoryLookupRecord(r, ref recList);
+            }
             if (responseFlags.HasFlag(KeepaRecordType.CategoryTreeRecord))
             {
                 CreateCategoryTreeRecord(r, ref recList);
@@ -153,7 +161,7 @@ namespace KeepaModule.Factories
         /// Inspect a response and apply appropriate bit flags
         /// </summary>
         /// <param name="r"></param>
-        private static KeepaRecordType InspectResponse(Response r, KeepaRecordType type)
+        private KeepaRecordType InspectResponse(Response r, KeepaRecordType type)
         {
             if (r.bestSellersList != null)
             {
@@ -168,7 +176,7 @@ namespace KeepaModule.Factories
             if (r.categories != null)
             {
                 //add category flag
-                type |= KeepaRecordType.CategoryRecord;
+                type |= KeepaRecordType.CategoryLookupRecord;
             }
             if (r.notifications != null)
             {
@@ -206,7 +214,7 @@ namespace KeepaModule.Factories
         /// <param name="p"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private static KeepaRecordType InspectResponse(Product p, KeepaRecordType type)
+        private KeepaRecordType InspectResponse(Product p, KeepaRecordType type)
         {
             if (p.categories != null)
             {
@@ -287,7 +295,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateEan(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private void CreateEan(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product
             for (int x = 0; x < products.Length; x++)
@@ -317,7 +325,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateEbayListing(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private void CreateEbayListing(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             for (int x = 0; x < products.Length; x++)
             {
@@ -340,7 +348,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateFeatures(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateFeatures(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             for (int x = 0; x < products.Length; x++)
             {
@@ -366,7 +374,7 @@ namespace KeepaModule.Factories
         /// <param name="products"></param>
         /// <param name="recList"></param>
         /// <param name="indexList"></param>
-        private static void CreateFbaFees(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateFbaFees(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             for (int x = 0; x < products.Length; x++)
             {
@@ -390,7 +398,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateFreqBoughtTgthr(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateFreqBoughtTgthr(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -417,7 +425,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateLanguages(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateLanguages(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -480,7 +488,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateLiveOfferOrder(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateLiveOfferOrder(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -504,7 +512,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateOffers(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateOffers(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product
             for (int x = 0; x < products.Length; x++)
@@ -529,7 +537,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreatePromotion(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreatePromotion(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -556,7 +564,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateUpc(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateUpc(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -582,7 +590,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="products"></param>
         /// <param name="recList"></param>
-        private static void CreateVariations(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateVariations(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product...
             for (int x = 0; x < products.Length; x++)
@@ -619,7 +627,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="r"></param>
         /// <param name="recList"></param>
-        private static void CreateTopSeller(Response r, ref List<IRecord> recList)
+        private  void CreateTopSeller(Response r, ref List<IRecord> recList)
         {
             var TopSeller = r.sellerIdList;
             for (int x = 0; x < TopSeller.Length; x++)
@@ -637,7 +645,7 @@ namespace KeepaModule.Factories
         /// Create a tracking record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateTracking(Response r, ref List<IRecord> recList)
+        private  void CreateTracking(Response r, ref List<IRecord> recList)
         {
             var x = r.trackings;
 
@@ -647,7 +655,7 @@ namespace KeepaModule.Factories
         /// Create a tracking creation record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateTrackingCreation(Response r, ref List<IRecord> recList)
+        private  void CreateTrackingCreation(Response r, ref List<IRecord> recList)
         {
 
             throw new NotImplementedException();
@@ -660,7 +668,7 @@ namespace KeepaModule.Factories
         /// However I am laazy and this works for my purposes
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateStatistics(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateStatistics(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product
             for (int x = 0; x < products.Length; x++)
@@ -687,19 +695,25 @@ namespace KeepaModule.Factories
                     }
                     else
                     {
+                        try { 
+                            //two dimensional arrays are flattened
+                            StatisticsRecord statsRec = new StatisticsRecord(indexList[x], y, val.current?[y], val.avg?[y], val.avg30?[y], val.avg90?[y],
+                            val.avg180?[y], val.atIntervalStart?[y], y, val.min[y]?.ElementAtOrDefault(a), val.min[y]?.ElementAtOrDefault(b), y, val.max[y]?.ElementAtOrDefault(a), val.max[y]?.ElementAt(b),
+                            y, val.minInInterval[y]?.ElementAtOrDefault(a), val.minInInterval[y]?.ElementAtOrDefault(b),
+                            y, val.maxInInterval[y]?.ElementAt(a), val.maxInInterval[y]?.ElementAt(b), val.outOfStockPercentageInInterval?[y],
+                            val.outOfStockPercentage30?[y], val.outOfStockPercentage90?[y], val.lastOffersUpdate, val.totalOfferCount, val.lightningDealInfo?[y],
+                            val.retrievedOfferCount, val.buyBoxPrice, val.buyBoxShipping, val.buyBoxIsUnqualified, val.buyBoxIsShippable, val.buyBoxIsPreorder,
+                            val.buyBoxIsFBA, val.buyBoxIsAmazon, val.buyBoxIsMAP, val.buyBoxIsUsed, val.isAddonItem, val.sellerIdsLowestFBA?[y],
+                            val.sellerIdsLowestFBM?[y], val.offerCountFBA, val.offerCountFBM);
 
-                        //two dimensional arrays are flattened
-                        StatisticsRecord statsRec = new StatisticsRecord(indexList[x], y, val.current?[y], val.avg?[y], val.avg30?[y], val.avg90?[y],
-                        val.avg180?[y], val.atIntervalStart?[y], y, val.min[y]?.ElementAtOrDefault(a), val.min[y]?.ElementAtOrDefault(b), y, val.max[y]?.ElementAtOrDefault(a), val.max[y]?.ElementAt(b),
-                        y, val.minInInterval[y]?.ElementAtOrDefault(a), val.minInInterval[y]?.ElementAtOrDefault(b),
-                        y, val.maxInInterval[y]?.ElementAt(a), val.maxInInterval[y]?.ElementAt(b), val.outOfStockPercentageInInterval?[y],
-                        val.outOfStockPercentage30?[y], val.outOfStockPercentage90?[y], val.lastOffersUpdate, val.totalOfferCount, val.lightningDealInfo?[y],
-                        val.retrievedOfferCount, val.buyBoxPrice, val.buyBoxShipping, val.buyBoxIsUnqualified, val.buyBoxIsShippable, val.buyBoxIsPreorder,
-                        val.buyBoxIsFBA, val.buyBoxIsAmazon, val.buyBoxIsMAP, val.buyBoxIsUsed, val.isAddonItem, val.sellerIdsLowestFBA?[y],
-                        val.sellerIdsLowestFBM?[y], val.offerCountFBA, val.offerCountFBM);
-
-                        //add stats record
-                        recList.Add(statsRec);
+                            //add stats record
+                            recList.Add(statsRec);
+                        }
+                        catch(Exception e)
+                        {
+                            this._logger.Error("Filed to create: " + nameof(StatisticsRecord) + " with message: " + e.Message);
+                        }
+                        
 
                     }
                 }
@@ -711,7 +725,7 @@ namespace KeepaModule.Factories
         /// for the statistics object
         /// </summary>
         /// <param name="val"></param>
-        private static int GetLongestArrayProperty(Stats val)
+        private  int GetLongestArrayProperty(Stats val)
         {
             var length = 0;
 
@@ -769,7 +783,7 @@ namespace KeepaModule.Factories
         /// Create a seller record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateSeller(Response r, ref List<IRecord> recList)
+        private  void CreateSeller(Response r, ref List<IRecord> recList)
         {
             //for each entry in dictionary
             foreach (KeyValuePair<string, Seller> entry in r.sellers)
@@ -828,7 +842,7 @@ namespace KeepaModule.Factories
         /// </summary>
         /// <param name="Arr"></param>
         /// <returns></returns>
-        private static (int time, int value, int time2, int value2) ExtractRatings(int[][] Arr)
+        private  (int time, int value, int time2, int value2) ExtractRatings(int[][] Arr)
         {
             //RATING: split into relative arrays
             int time = Arr[0].ElementAt(Arr[0].Length - 2);
@@ -850,7 +864,7 @@ namespace KeepaModule.Factories
         /// jagged arrays
         /// </summary>
         /// <param name="r"></param>
-        private static List<ulong> CreateProduct(Response r, ref List<IRecord> recList)
+        private  List<ulong> CreateProduct(Response r, ref List<IRecord> recList)
         {
             List<ulong> indexList = new List<ulong>();
             var products = r.products;
@@ -880,7 +894,7 @@ namespace KeepaModule.Factories
         /// Create a notification record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateNotification(Response r, ref List<IRecord> recList)
+        private  void CreateNotification(Response r, ref List<IRecord> recList)
         {
             var x = r.notifications;
         }
@@ -889,7 +903,7 @@ namespace KeepaModule.Factories
         /// Create a Marketplace Offer record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateMarketplaceOffer(Response r, ref List<IRecord> recList)
+        private  void CreateMarketplaceOffer(Response r, ref List<IRecord> recList)
         {
             //var x = r.offer;
             throw new NotImplementedException();
@@ -899,16 +913,16 @@ namespace KeepaModule.Factories
         /// Crate a Deal record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateDeal(Response r, ref List<IRecord> recList)
+        private  void CreateDeal(Response r, ref List<IRecord> recList)
         {
             var x = r.deals;
         }
 
         /// <summary>
-        /// Create a category record
+        /// Creates a category record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateCategory(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreateCategory(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             for (int x = 0; x < products.Length; x++)
             {
@@ -929,17 +943,33 @@ namespace KeepaModule.Factories
         }
 
         /// <summary>
+        /// Creates a category record
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="recList"></param>
+        private void CreateCategoryLookupRecord(Response r, ref List<IRecord> recList)
+        {
+            var categorySet = r.categories;
+            foreach(KeyValuePair<long, Category> entry in categorySet)
+            {
+                //create a new categoy lookup record for each entry in the dictionary and add to the recList
+                var rec = new CategoryLookupRecord(entry.Value.domainId, entry.Value.catId, entry.Value.name, entry.Value.children, entry.Value.parent, entry.Value.highestRank, entry.Value.productCount);
+                recList.Add(rec);
+            }
+        }
+        /// <summary>
         /// Create Category Tree Record
         /// </summary>
         /// <param name="r"></param>
         /// <param name="recList"></param>
-        private static void CreateCategoryTreeRecord(Response r, ref List<IRecord> recList)
+        private void CreateCategoryTreeRecord(Response r, ref List<IRecord> recList)
         {
             var CategoryTree = r.categories;
 
             foreach (KeyValuePair<long, Category> entry in CategoryTree)
             {
                 ///Make this fucker relational....
+                //var rec = new CategoryTreeRecord(entry.Value.catId, entry.Value.name);
             }
 
         }
@@ -948,7 +978,7 @@ namespace KeepaModule.Factories
         /// Create a best seller record
         /// </summary>
         /// <param name="r"></param>
-        private static void CreateBestSeller(Response r, ref List<IRecord> recList)
+        private  void CreateBestSeller(Response r, ref List<IRecord> recList)
         {
             var BestSeller = r.bestSellersList;
             for (int x = 0; x < BestSeller.asinList.Length; x++)
@@ -968,7 +998,7 @@ namespace KeepaModule.Factories
         /// <param name="products"></param>
         /// <param name="recList"></param>
         /// <param name="indexList"></param>
-        private static void CreatePriceHistory(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
+        private  void CreatePriceHistory(Product[] products, ref List<IRecord> recList, ref List<ulong> indexList)
         {
             //for each product
             for (int x = 0; x < products.Length; x++)

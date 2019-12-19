@@ -121,6 +121,7 @@
     <Compile Include="DataAccess\Entities\Actions\Operations.cs" />
     <Compile Include="DataAccess\Entities\best_sellers.cs" />
     <Compile Include="DataAccess\Entities\category.cs" />
+    <Compile Include="DataAccess\Entities\category_lookup.cs" />
     <Compile Include="DataAccess\Entities\category_tree.cs" />
     <Compile Include="DataAccess\Entities\DbContext.cs" />
     <Compile Include="DataAccess\Entities\ean.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="DataAccess\Entities\variation.cs" />
     <Compile Include="DataAccess\KeepaFilter.cs" />
     <Compile Include="DataAccess\Records\BestSellerRecord.cs" />
+    <Compile Include="DataAccess\Records\CategoryLookupRecord.cs" />
     <Compile Include="DataAccess\Records\CategoryRecord.cs" />
     <Compile Include="DataAccess\Records\CategoryTreeRecord.cs" />
     <Compile Include="DataAccess\Records\EanRecord.cs" />
@@ -161,6 +163,11 @@
     <Compile Include="Factories\KeepaRecordFactory.cs" />
     <Compile Include="Factories\KeepaRequestFactory.cs" />
     <Compile Include="Factories\KeepaResponseFactory.cs" />
+    <Compile Include="Migrations\201912191922127_Initial.cs" />
+    <Compile Include="Migrations\201912191922127_Initial.Designer.cs">
+      <DependentUpon>201912191922127_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BestSeller.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Deal.cs" />
@@ -228,6 +235,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201912191922127_Initial.resx">
+      <DependentUpon>201912191922127_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

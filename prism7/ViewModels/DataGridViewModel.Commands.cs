@@ -56,8 +56,8 @@ namespace prism7.ViewModels
             //if selected request item is not null
             if(this.SelectedRequestItem != null && (this.SelectedRequestItem.RequestName.Equals(this.SelectedRequestItem.ApiName.ToString())==false))
             {
-                //Add to obs collection
-                this.ActiveRequests.Add(this.SelectedRequestItem);
+                //Add a copy of the selected request item to obs collection using copy constructor
+                this.ActiveRequests.Add(new RequestObject(this.SelectedRequestItem));
 
                 //publish event
                 this.ea.GetEvent<CollectionChangedEvent>().Publish(this.SelectedRequestItem);
@@ -70,11 +70,14 @@ namespace prism7.ViewModels
         /// </summary>
         private void EditParameters()
         {
-            this.ParameterList.Clear();
+            if (this.SelectedActiveRequestParameterList.Count > 0)
+            {
+                this.SelectedActiveRequestParameterList.Clear();
+            }
 
             for(int x =0; x< this.SelectedActiveRequestItem.ParameterList.Count; x++)
             {
-                this.ParameterList.Add(this.SelectedActiveRequestItem.ParameterList.ElementAt(x));
+                this.SelectedActiveRequestParameterList.Add(this.SelectedActiveRequestItem.ParameterList.ElementAt(x));
             }
             
         }
@@ -151,6 +154,7 @@ namespace prism7.ViewModels
            //if not null
             if(this.SelectedActiveRequestItem != null)
             {
+
                 //Remove item from observable list
                 this.ActiveRequests.Remove(this.SelectedActiveRequestItem);
 
@@ -163,7 +167,7 @@ namespace prism7.ViewModels
 
                 //refresh previously updated properties
                 Properties.Settings.Default.Reload();
-
+                //this.SelectedActiveRequestItem.ParameterList.Clear();
                 this.ParameterList.Clear();
 
             }

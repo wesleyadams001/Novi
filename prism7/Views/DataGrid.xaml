@@ -121,7 +121,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.RowSpan="2" Height="380" >
-                    <DataGrid  ItemsSource="{Binding ParameterList}" Grid.RowSpan="2" Height="380" MaxWidth="380" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                    <DataGrid  ItemsSource="{Binding SelectedActiveRequestParameterList}" Grid.RowSpan="2" Height="380" MaxWidth="380" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <mui:DataGridTextColumn Header="Parameter" Binding="{Binding First}" IsReadOnly="True"/>
                             <mui:DataGridTextColumn Header="Value" Binding="{Binding Second, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>

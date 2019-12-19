@@ -142,9 +142,13 @@ namespace XModule.Constants
             /// <summary>
             /// An Item record associated with a seller record
             /// </summary>
-            SellerItemRecord = 0x01000000
+            SellerItemRecord = 0x01000000,
+
+            /// <summary>
+            /// A category record that corresponds to a lookedup category request
+            /// </summary>
+            CategoryLookupRecord = 0x02000000
             //additional bit flags
-            //0x02000000
             //0x04000000
             //0x08000000
             //0x10000000

@@ -15,6 +15,8 @@ namespace KeepaModule.DataAccess.Entities
             Database.SetInitializer(new CreateDatabaseIfNotExists<KeepaContext>());
         }
 
+        public virtual DbSet<category_lookup> category_lookup { get; set; }
+
         public virtual DbSet<best_sellers> best_sellers { get; set; }
 
         public virtual DbSet<category> categories { get; set; }

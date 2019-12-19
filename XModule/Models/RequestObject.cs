@@ -12,6 +12,9 @@ using static XModule.Constants.Enums;
 
 namespace XModule.Models
 {
+    /// <summary>
+    /// A request object that has an Associated Api & Request Name as well as a list of parameters 
+    /// </summary>
     public class RequestObject : BindableBase
     {
         /// <summary>
@@ -21,8 +24,6 @@ namespace XModule.Models
         {
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
         }
-
-        
 
         /// <summary>
         /// Constructor used when initializing with the target requestname and apiname
@@ -34,6 +35,24 @@ namespace XModule.Models
             this.RequestName = requestName;
             this.ApiName = apiName;
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
+        }
+
+        /// <summary>
+        /// A Constructor for the explicit purpose of copying a given request object
+        /// </summary>
+        /// <param name="ro"></param>
+        public RequestObject(RequestObject ro)
+        {
+            this.RequestName = ro.RequestName;
+            this.ApiName = ro.ApiName;
+            this.ParameterList = new ObservableCollection<Pair<string, object>>();
+
+            //for each pair in the target request object's parameter list,
+            foreach(Pair<string, object> temp in ro.ParameterList)
+            {
+                // add a new pair with the same values to the copy
+                this.ParameterList.Add(new Pair<string, object>(temp.First, temp.Second));
+            }
         }
 
         /// <summary>

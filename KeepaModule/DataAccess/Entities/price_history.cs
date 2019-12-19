@@ -12,12 +12,12 @@ namespace KeepaModule.DataAccess.Entities
     {
         public price_history(ulong? product_id, int? ob_history_type, decimal? ob_date, decimal? ob_price, decimal? ob_shipping, decimal? time_stamp)
         {
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.ob_history_type = ob_history_type ?? throw new ArgumentNullException(nameof(ob_history_type));
-            this.ob_date = ob_date ?? throw new ArgumentNullException(nameof(ob_date));
-            this.ob_price = ob_price ?? throw new ArgumentNullException(nameof(ob_price));
-            this.ob_shipping = ob_shipping ?? throw new ArgumentNullException(nameof(ob_shipping));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.product_id = product_id;
+            this.ob_history_type = ob_history_type;
+            this.ob_date = ob_date;
+            this.ob_price = ob_price;
+            this.ob_shipping = ob_shipping;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

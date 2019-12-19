@@ -39,6 +39,7 @@ namespace KeepaModule.DataAccess
                 }
                  
             });
+
             this.InsertCategoryAction = new ActionBlock<category[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -48,6 +49,17 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
+            this.InsertCategoryLookupAction = new ActionBlock<category_lookup[]>(a =>
+            {
+                using (var context = new KeepaContext())
+                {
+                    //context.Configuration.AutoDetectChangesEnabled = false;
+                    context.category_lookup.AddRange(a);
+                    context.SaveChanges();
+                }
+            });
+
             this.InsertCategoryTreeAction = new ActionBlock<category_tree[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -57,6 +69,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertEanAction = new ActionBlock<ean[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -66,6 +79,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertFbaFeesAction = new ActionBlock<fba_fees[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -75,6 +89,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertFeatureAction = new ActionBlock<feature[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -84,6 +99,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertFreqBoughtAction = new ActionBlock<freq_bought_together[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -93,6 +109,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertLanguageAction = new ActionBlock<language[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -102,6 +119,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertMostRatedSellersAction = new ActionBlock<most_rated_sellers[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -111,6 +129,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertPriceHistoryAction = new ActionBlock<price_history[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -120,6 +139,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertProductAction = new ActionBlock<product[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -129,6 +149,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertSellerAction = new ActionBlock<seller[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -138,6 +159,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertSellersListedItemsAction = new ActionBlock<sellers_listed_items[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -147,6 +169,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertStatisticAction = new ActionBlock<statistic[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -156,6 +179,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertUpcAction = new ActionBlock<upc[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -165,6 +189,7 @@ namespace KeepaModule.DataAccess
                     context.SaveChanges();
                 }
             });
+
             this.InsertVariationAction = new ActionBlock<variation[]>(a =>
             {
                 using (var context = new KeepaContext())
@@ -179,6 +204,7 @@ namespace KeepaModule.DataAccess
             #region NewBatchBlocks 
             this.bestSellerBlock = new BatchBlock<best_sellers>(BATCH_SIZE);
             this.categoryBlock = new BatchBlock<category>(BATCH_SIZE);
+            this.categoryLookupBlock = new BatchBlock<category_lookup>(BATCH_SIZE);
             this.categoryTreeBlock = new BatchBlock<category_tree>(BATCH_SIZE);
             this.eanBlock = new BatchBlock<ean>(BATCH_SIZE);
             this.fbaFeesBlock = new BatchBlock<fba_fees>(BATCH_SIZE);
@@ -202,6 +228,12 @@ namespace KeepaModule.DataAccess
 
                 var dobj = (BestSellerRecord)x;
                 var val = new best_sellers(dobj.DomainId, dobj.LastUpdate, dobj.CategoryId, dobj.Asin, dobj.TimeStamp);
+                return val;
+            });
+            this.CategoryLookupTBlock = new TransformBlock<IRecord, category_lookup>(x =>
+            {
+                var dobj = (CategoryLookupRecord)x;
+                var val = new category_lookup(dobj.domainId, dobj.catId, dobj.name, dobj.children, dobj.parent, dobj.highestRank, dobj.productCount, dobj.TimeStamp);
                 return val;
             });
             this.CategoryTBlock = new TransformBlock<IRecord, category>(x => {
@@ -304,6 +336,7 @@ namespace KeepaModule.DataAccess
             #endregion
 
             #region NewFilters
+            this.CategoryLookupFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryLookupRecord; };
             this.BestSellerFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.BestSellerRecord; };
             this.CategoryFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryRecord; };
             this.CategoryTreeFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryTreeRecord; };
@@ -329,6 +362,7 @@ namespace KeepaModule.DataAccess
             #region TopToTransform
             this.TopBlock.LinkTo(this.BestSellerTBlock, this.LinkOptions, this.BestSellerFilter);
             this.TopBlock.LinkTo(this.CategoryTBlock, this.LinkOptions, this.CategoryFilter);
+            this.TopBlock.LinkTo(this.CategoryLookupTBlock, this.LinkOptions, this.CategoryLookupFilter);
             this.TopBlock.LinkTo(this.EanTBlock, this.LinkOptions, this.EanFilter);
             this.TopBlock.LinkTo(this.FbaFeesTBlock, this.LinkOptions, this.FbaFeesFilter);
             this.TopBlock.LinkTo(this.FeatureTBlock, this.LinkOptions, this.FeatureFilter);
@@ -347,6 +381,7 @@ namespace KeepaModule.DataAccess
             #region TransformToBatch
             this.BestSellerTBlock.LinkTo(this.bestSellerBlock, this.LinkOptions);
             this.CategoryTBlock.LinkTo(this.categoryBlock, this.LinkOptions);
+            this.CategoryLookupTBlock.LinkTo(this.categoryLookupBlock, this.LinkOptions);
             this.EanTBlock.LinkTo(this.eanBlock, this.LinkOptions);
             this.FbaFeesTBlock.LinkTo(this.fbaFeesBlock, this.LinkOptions);
             this.FeatureTBlock.LinkTo(this.featuresBlock, this.LinkOptions);
@@ -369,90 +404,112 @@ namespace KeepaModule.DataAccess
                 InsertBestSellersAction.Complete(); 
                 InsertBestSellersAction.Completion.Wait(); 
             });
+
             this.categoryBlock.LinkTo(InsertCategoryAction, this.LinkOptions);
             this.categoryBlock.Completion.ContinueWith(delegate 
             { 
                 InsertCategoryAction.Complete(); 
                 InsertCategoryAction.Completion.Wait(); 
             });
+
+            this.categoryLookupBlock.LinkTo(InsertCategoryLookupAction, this.LinkOptions);
+            this.categoryLookupBlock.Completion.ContinueWith(delegate
+            {
+                InsertCategoryLookupAction.Complete();
+                InsertCategoryLookupAction.Completion.Wait();
+            });
+
             this.categoryTreeBlock.LinkTo(InsertCategoryTreeAction, this.LinkOptions);
             this.categoryTreeBlock.Completion.ContinueWith(delegate 
             { 
                 InsertCategoryTreeAction.Complete(); 
                 InsertCategoryTreeAction.Completion.Wait(); 
             });
+
             this.eanBlock.LinkTo(InsertEanAction, this.LinkOptions);
             this.eanBlock.Completion.ContinueWith(delegate 
             { 
                 InsertEanAction.Complete(); 
                 InsertEanAction.Completion.Wait(); 
             });
+
             this.fbaFeesBlock.LinkTo(InsertFbaFeesAction, this.LinkOptions);
             this.fbaFeesBlock.Completion.ContinueWith(delegate 
             { 
                 InsertFbaFeesAction.Complete(); 
                 InsertFbaFeesAction.Completion.Wait(); 
             });
+
             this.featuresBlock.LinkTo(InsertFeatureAction, this.LinkOptions);
             this.featuresBlock.Completion.ContinueWith(delegate 
             { 
                 InsertFeatureAction.Complete(); 
                 InsertFeatureAction.Completion.Wait(); 
             });
+
             this.freqBoughtBlock.LinkTo(InsertFreqBoughtAction, this.LinkOptions);
             this.freqBoughtBlock.Completion.ContinueWith(delegate 
             { 
                 InsertFreqBoughtAction.Complete(); 
                 InsertFreqBoughtAction.Completion.Wait(); 
             });
+
             this.languagesBlock.LinkTo(InsertLanguageAction, this.LinkOptions);
             this.languagesBlock.Completion.ContinueWith(delegate 
             { 
                 InsertLanguageAction.Complete(); 
                 InsertLanguageAction.Completion.Wait(); 
             });
+
             this.mostRatedSellerBlock.LinkTo(InsertMostRatedSellersAction, this.LinkOptions);
             this.mostRatedSellerBlock.Completion.ContinueWith(delegate 
             { 
                 InsertMostRatedSellersAction.Complete(); 
                 InsertMostRatedSellersAction.Completion.Wait(); 
             });
+
             this.priceHistoryBlock.LinkTo(InsertPriceHistoryAction, this.LinkOptions);
             this.priceHistoryBlock.Completion.ContinueWith(delegate 
             { 
                 InsertPriceHistoryAction.Complete(); 
                 InsertPriceHistoryAction.Completion.Wait(); 
             });
+
             this.productBlock.LinkTo(InsertProductAction, this.LinkOptions);
             this.productBlock.Completion.ContinueWith(delegate 
             { 
                 InsertProductAction.Complete(); 
                 InsertProductAction.Completion.Wait(); 
             });
+
             this.sellerItemBlock.LinkTo(InsertSellersListedItemsAction, this.LinkOptions);
             this.sellerItemBlock.Completion.ContinueWith(delegate 
             { 
                 InsertSellersListedItemsAction.Complete(); 
                 InsertSellersListedItemsAction.Completion.Wait(); 
             });
+
             this.sellerBlock.LinkTo(InsertSellerAction, this.LinkOptions);
             this.sellerBlock.Completion.ContinueWith(delegate 
             { 
                 InsertSellerAction.Complete(); 
                 InsertSellerAction.Completion.Wait(); 
             });
+
             this.statisticsBlock.LinkTo(InsertStatisticAction, this.LinkOptions);
             this.statisticsBlock.Completion.ContinueWith(delegate 
             { 
                 InsertStatisticAction.Complete(); 
                 InsertStatisticAction.Completion.Wait(); 
             });
+
             this.upcBlock.LinkTo(InsertUpcAction, this.LinkOptions);
             this.upcBlock.Completion.ContinueWith(delegate 
             { 
                 InsertUpcAction.Complete(); 
                 InsertUpcAction.Completion.Wait(); 
             });
+
             this.variationBlock.LinkTo(InsertVariationAction, this.LinkOptions);
             this.variationBlock.Completion.ContinueWith(delegate 
             { 
@@ -470,6 +527,7 @@ namespace KeepaModule.DataAccess
         #region InsertBlocks
         private ActionBlock<best_sellers[]> InsertBestSellersAction { get; set; }
         private ActionBlock<category[]> InsertCategoryAction { get; set; }
+        private ActionBlock<category_lookup[]> InsertCategoryLookupAction { get; set; }
         private ActionBlock<category_tree[]> InsertCategoryTreeAction { get; set; }
         private ActionBlock<ean[]> InsertEanAction { get; set; }
         private ActionBlock<fba_fees[]> InsertFbaFeesAction { get; set; }
@@ -489,6 +547,7 @@ namespace KeepaModule.DataAccess
         #region BatchBlocks
         public BatchBlock<best_sellers> bestSellerBlock { get; set; }
         public BatchBlock<category> categoryBlock { get; set; }
+        public BatchBlock<category_lookup> categoryLookupBlock { get; set; } 
         public BatchBlock<category_tree> categoryTreeBlock { get; set; }
         public BatchBlock<ean> eanBlock { get; set; }
         public BatchBlock<fba_fees> fbaFeesBlock { get; set; }
@@ -510,6 +569,7 @@ namespace KeepaModule.DataAccess
         #region Filters
         private Predicate<IRecord> BestSellerFilter { get; set; }
         private Predicate<IRecord> CategoryFilter { get; set; }
+        private Predicate<IRecord> CategoryLookupFilter { get; set; }
         private Predicate<IRecord> CategoryTreeFilter { get; set; }
         private Predicate<IRecord> DealFilter { get; set; }
         private Predicate<IRecord> EanFilter { get; set; }
@@ -530,6 +590,7 @@ namespace KeepaModule.DataAccess
         #region TransformBlocks
         private TransformBlock<IRecord, best_sellers> BestSellerTBlock { get; set; }
         private TransformBlock<IRecord, category> CategoryTBlock { get; set; }
+        private TransformBlock<IRecord, category_lookup> CategoryLookupTBlock { get; set; }
         private TransformBlock<IRecord, ean> EanTBlock { get; set; }
         private TransformBlock<IRecord, fba_fees> FbaFeesTBlock { get; set; }
         private TransformBlock<IRecord, feature> FeatureTBlock { get; set; }

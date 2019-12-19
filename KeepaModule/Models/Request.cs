@@ -493,8 +493,10 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var parents = (bool)p2;
-            var category = (long)p3;
+            var parsedToBool = bool.TryParse(p2.ToString(), out bool result);
+            var parents = result;
+            var parsedToLong = long.TryParse(p3.ToString(), out long longResult);
+            var category = longResult;
 
             var r = getCategoryLookupRequest(domainId, parents, category);
             return r;

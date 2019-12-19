@@ -29,6 +29,7 @@ namespace prism7.ViewModels
         private ObservableCollection<RequestObject> activerequests;
         private IComponentContext container;
         private ObservableCollection<Pair<string, object>> parameters;
+        private ObservableCollection<Pair<string, object>> activeRequestParameterList;
         private string selectedRequestRootName;
         private string selectedRequestItemName;
         private MenuItem selectedMenuItemObject;
@@ -124,6 +125,15 @@ namespace prism7.ViewModels
         }
 
         /// <summary>
+        /// List of selected Active request parameters
+        /// </summary>
+        public ObservableCollection<Pair<string, object>> SelectedActiveRequestParameterList
+        {
+            get { return activeRequestParameterList; }
+            set { SetProperty(ref activeRequestParameterList, value); }
+        }
+
+        /// <summary>
         /// Constructor that takes an instance of AvailableRequestsService
         /// </summary>
         /// <param name="service"></param>
@@ -144,15 +154,21 @@ namespace prism7.ViewModels
             this.SelectedRequestItem = new RequestObject();
             this.SelectedActiveRequestItem = new RequestObject();
             this.ParameterList = new ObservableCollection<Pair<string, object>>();
+            this.SelectedActiveRequestParameterList = new ObservableCollection<Pair<string, object>>();
             this.EditParametersCommand = new DelegateCommand(EditParameters);
             this.SaveParametersCommand = new DelegateCommand(SaveParameters);
 
             this.ea.GetEvent<SelectedMenuItemChangedEvent>().Subscribe((item) =>
             {
-               
+                //once clicked parse out the appropriate menu item properties (api name & request name)
                 Enum.TryParse(item.Title, out RequestTypes result);
                 this.SelectedRequestItem.ApiName = result;
                 this.SelectedRequestItem.RequestName = item.Title;
+
+                //remove any previous parameters
+                this.SelectedRequestItem.ParameterList.Clear();
+
+                //add the menu items parameter list to the selected request items parameter list
                 this.SelectedRequestItem.ParameterList.AddRange(item.ParameterList);
                
                 

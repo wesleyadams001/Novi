@@ -44,17 +44,11 @@ namespace KeepaModule
             //Builds a request factory with the associated key
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
             this._reqFactory = new KeepaRequestFactory(baseUrl);
-            this._recordFactory = new KeepaRecordFactory();
+            this._recordFactory = new KeepaRecordFactory(loggerFac);
 
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
             this._keepaReqClient = new Client();
-
-            //Create a DbContext
-            this._logger.Debug("Created new DbContext");
-            //this._context = new KeepaContext();
-            this._logger.Debug("Set AutoDetectChanges to false");
-            
 
             //Create the records filter
             this._logger.Debug("Created new Allocator.");
@@ -147,22 +141,6 @@ namespace KeepaModule
                 this._keepaAllocator.Filter(a);
 
             });
-
-            //logs the results of the requests
-            var logAction = new ActionBlock<string>((a) =>
-            {
-                //save changes
-                try
-                {
-                    var x = 0;
-                    x = this._context.SaveChanges();
-                    this._logger.Debug("Saved changes to database with: " + x + " changes.");
-                }
-                catch (Exception e)
-                {
-                    this._logger.Debug("Failed to save changes. With errors message: " + e.Message);
-                }
-            }); 
            
             //Links
             buffer.LinkTo(bufferblock, linkops, RequestFilter);
@@ -173,8 +151,6 @@ namespace KeepaModule
             RecordBlock.LinkTo(ExpandedBlock, linkops);
             ExpandedBlock.LinkTo(StagingBlock, linkops);
             StagingBlock.LinkTo(insertBlock, linkops);
-            //BatchRecBlock.LinkTo(insertBlock, linkops);
-            insertBlock.Completion.ContinueWith(delegate { logAction.Complete(); });
            
         }
 
