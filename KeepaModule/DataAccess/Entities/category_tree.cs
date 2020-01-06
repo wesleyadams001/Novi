@@ -12,9 +12,9 @@ namespace KeepaModule.DataAccess.Entities
     {
         public category_tree(ulong? product_id, decimal? amzn_cat_id, string amzn_cat_name)
         {
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.amzn_cat_id = amzn_cat_id ?? throw new ArgumentNullException(nameof(amzn_cat_id));
-            this.amzn_cat_name = amzn_cat_name ?? throw new ArgumentNullException(nameof(amzn_cat_name));
+            this.product_id = product_id;
+            this.amzn_cat_id = amzn_cat_id;
+            this.amzn_cat_name = amzn_cat_name;
         }
 
         [Key]

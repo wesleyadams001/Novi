@@ -12,9 +12,9 @@ namespace KeepaModule.DataAccess.Entities
     {
         public freq_bought_together(ulong? product_id, string associated_asin, long? time_stamp)
         {
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.associated_asin = associated_asin ?? throw new ArgumentNullException(nameof(associated_asin));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.product_id = product_id;
+            this.associated_asin = associated_asin;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

@@ -12,11 +12,11 @@ namespace KeepaModule.DataAccess.Entities
     {
         public language(ulong? product_id, string language_name, string language_type, string audio_format, long? time_stamp)
         {
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.language_name = language_name ?? throw new ArgumentNullException(nameof(language_name));
-            this.language_type = language_type ?? throw new ArgumentNullException(nameof(language_type));
-            this.audio_format = audio_format ?? throw new ArgumentNullException(nameof(audio_format));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.product_id = product_id;
+            this.language_name = language_name;
+            this.language_type = language_type;
+            this.audio_format = audio_format;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

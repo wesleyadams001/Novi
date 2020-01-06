@@ -12,9 +12,9 @@ namespace KeepaModule.DataAccess.Entities
     {
         public feature(ulong? product_id, string features, long? time_stamp)
         {
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.features = features ?? throw new ArgumentNullException(nameof(features));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.product_id = product_id;
+            this.features = features;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

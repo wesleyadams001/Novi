@@ -13,11 +13,11 @@ namespace KeepaModule.DataAccess.Entities
         public variation(ulong? product_id, string variation_asin, string variation_dimension, string variation_value, long? time_stamp)
         {
             
-            this.product_id = product_id ?? throw new ArgumentNullException(nameof(product_id));
-            this.variation_asin = variation_asin ?? throw new ArgumentNullException(nameof(variation_asin));
-            this.variation_dimension = variation_dimension ?? throw new ArgumentNullException(nameof(variation_dimension));
-            this.variation_value = variation_value ?? throw new ArgumentNullException(nameof(variation_value));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.product_id = product_id;
+            this.variation_asin = variation_asin;
+            this.variation_dimension = variation_dimension;
+            this.variation_value = variation_value;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

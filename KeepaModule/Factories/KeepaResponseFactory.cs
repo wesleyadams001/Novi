@@ -20,8 +20,16 @@ namespace KeepaModule.Factories
         /// <returns></returns>
         public static Task<Response> Create(Task<string> jsonTask)
         {
-            //Convert Task<string> to Task<Response> via JsonDeserializer
-            Task<Response> ConvertedTaskObject = jsonTask.ContinueWith(t => JsonConvert.DeserializeObject<Response>(t.Result));
+            Task<Response> ConvertedTaskObject = null;
+            //try catch
+            try { 
+
+                ConvertedTaskObject = jsonTask.ContinueWith(t => JsonConvert.DeserializeObject<Response>(t.Result));
+            }
+            catch(Exception e)
+            {
+                //log e
+            }
             return ConvertedTaskObject;
         }
     }

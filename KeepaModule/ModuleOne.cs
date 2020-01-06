@@ -32,7 +32,7 @@ namespace KeepaModule
         private const string baseUrl = "https://api.keepa.com/";
 
         /// <summary>
-        /// Entry point for the module to insert unity container
+        /// Entry point for the module to insert logger factory
         /// </summary>
         /// <param name="container"></param>
         public ModuleOne(ILoggerFactory loggerFac)
@@ -55,6 +55,28 @@ namespace KeepaModule
             this._keepaAllocator = new Allocator();
 
             
+        }
+
+        /// <summary>
+        /// Service Constructor that is parameterless
+        /// </summary>
+        public ModuleOne()
+        {
+
+            //Builds a request factory with the associated key
+            this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
+            this._reqFactory = new KeepaRequestFactory(baseUrl);
+            this._recordFactory = new KeepaRecordFactory();
+
+            //creates a new client
+            this._logger.Debug("Created new Client of type:" + typeof(Client));
+            this._keepaReqClient = new Client();
+
+            //Create the records filter
+            this._logger.Debug("Created new Allocator.");
+            this._keepaAllocator = new Allocator();
+
+
         }
 
         /// <summary>

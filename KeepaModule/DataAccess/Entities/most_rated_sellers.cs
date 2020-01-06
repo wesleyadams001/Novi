@@ -12,8 +12,8 @@ namespace KeepaModule.DataAccess.Entities
     {
         public most_rated_sellers(string seller, long? time_stamp)
         {
-            this.seller = seller ?? throw new ArgumentNullException(nameof(seller));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.seller = seller;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

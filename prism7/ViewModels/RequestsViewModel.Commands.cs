@@ -9,12 +9,23 @@ using XModule.Models;
 using Autofac;
 using System.Windows.Threading;
 using System.Windows;
+using System.ServiceProcess;
+using XModule.Interfaces;
 
 namespace prism7.ViewModels
 {
     public partial class RequestsViewModel
     {
-       
+        /// <summary>
+        /// Delegate command that points to the start service method
+        /// </summary>
+        public DelegateCommand StartServiceCommand { get; private set; }
+
+        /// <summary>
+        /// Delegate command that points to the stop service method
+        /// </summary>
+        public DelegateCommand StopServiceCommand { get; private set; }
+
         /// <summary>
         /// Delegate command that points to the start pipeline method
         /// </summary>
@@ -145,6 +156,23 @@ namespace prism7.ViewModels
             this.Pipe.StopPipeline();
             this.CanStopPipeline = false;
             this.CanStartPipeline = true;
+        }
+
+        /// <summary>
+        /// Method that starts the Novi Service
+        /// </summary>
+        private void StartService()
+        {
+            var service = container.Resolve<IService>();
+ 
+        }
+
+        /// <summary>
+        /// Method that starts the Novi Service
+        /// </summary>
+        private void StopService()
+        {
+
         }
     }
 }

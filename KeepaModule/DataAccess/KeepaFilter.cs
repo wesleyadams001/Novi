@@ -33,9 +33,10 @@ namespace KeepaModule.DataAccess
             {
                 using(var context = new KeepaContext())
                 {
+                    
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.best_sellers.AddRange(a);
-                    context.SaveChanges();
+                    context.SaveChangesAsync();
                 }
                  
             });

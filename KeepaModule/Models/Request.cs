@@ -169,7 +169,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getTrackingGetRequest(string asin)
         {
             base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
@@ -216,7 +215,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getTrackingListRequest(bool asinsOnly)
         {
             base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
@@ -266,7 +264,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getTrackingNotificationRequest(int since, bool revise)
         {
 
@@ -315,7 +312,6 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
         private KeepaRequest getTrackingRemoveRequest(string asin)
         {
             base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
@@ -354,7 +350,6 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        [Tag]
         private KeepaRequest getTrackingRemoveAllRequest()
         {
             base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL, "tracking");
@@ -400,7 +395,7 @@ namespace KeepaModule.Models
             return r;
         }
 
-        [Tag]
+    
         private KeepaRequest getTrackingWebHookRequest(string url)
         {
 
@@ -618,7 +613,7 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var seller = (string[])p2;
+            var seller = p2.ToString().Split(',');
 
             var r = getSellerRequest(domainId, seller);
             return r;
@@ -637,8 +632,8 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var seller = (string)p2;
-            var storefront = (bool)p3;
+            var seller = p2.ToString();
+            var storefront = bool.Parse(p3.ToString());
 
             var r = getSellerRequest(domainId, seller, storefront);
             return r;
@@ -661,8 +656,8 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var seller = (string)p2;
-            var storefront = (bool)p3;
+            var seller = p2.ToString();
+            var storefront = bool.Parse(p3.ToString());
             var update = (int)p4;
 
             var r = getSellerRequest(domainId, seller, storefront, update);
@@ -784,8 +779,10 @@ namespace KeepaModule.Models
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
-            var term = (string)p2;
-            var stats = (int?)p3;
+            var term = p2.ToString();
+            int stats = 0;
+            bool result = int.TryParse(p3.ToString(), out stats);
+            
 
             var r = getProductSearchRequest(domainId, term, stats);
             return r;

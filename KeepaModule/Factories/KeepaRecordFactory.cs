@@ -21,10 +21,23 @@ namespace KeepaModule.Factories
     {
         private ILoggerFactory _loggerFactory;
         private ILogger _logger;
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="loggerFac"></param>
         public KeepaRecordFactory(ILoggerFactory loggerFac)
         {
             this._loggerFactory = loggerFac;
             this._logger = loggerFac.Create<KeepaRecordFactory>();
+        }
+
+        /// <summary>
+        /// Service constructor
+        /// </summary>
+        public KeepaRecordFactory()
+        {
+
         }
 
         /// <summary>

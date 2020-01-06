@@ -13,11 +13,11 @@ namespace KeepaModule.DataAccess.Entities
     {
         public best_sellers(int? domain_id, int? last_update, long? category_id, string asin_list, long? time_stamp)
         {
-            this.domain_id = domain_id ?? throw new ArgumentNullException(nameof(domain_id));
-            this.last_update = last_update ?? throw new ArgumentNullException(nameof(last_update));
-            this.category_id = category_id ?? throw new ArgumentNullException(nameof(category_id));
-            this.asin_list = asin_list ?? throw new ArgumentNullException(nameof(asin_list));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.domain_id = domain_id;
+            this.last_update = last_update;
+            this.category_id = category_id;
+            this.asin_list = asin_list;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

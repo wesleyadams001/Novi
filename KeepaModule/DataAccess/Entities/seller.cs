@@ -13,20 +13,20 @@ namespace KeepaModule.DataAccess.Entities
         public seller(ulong seller_id, int? domain_id, int? tracking_since, int? last_update, string amzn_seller_id, string seller_name, bool? is_scammer, bool? has_fba, int? total_store_front_rec_time, int? total_store_front_asins, int? rating, int? rating_time, int? rating_count, long? rating_count_time, long? time_stamp)
         {
             this.seller_id = seller_id;
-            this.domain_id = domain_id ?? throw new ArgumentNullException(nameof(domain_id));
-            this.tracking_since = tracking_since ?? throw new ArgumentNullException(nameof(tracking_since));
-            this.last_update = last_update ?? throw new ArgumentNullException(nameof(last_update));
-            this.amzn_seller_id = amzn_seller_id ?? throw new ArgumentNullException(nameof(amzn_seller_id));
-            this.seller_name = seller_name ?? throw new ArgumentNullException(nameof(seller_name));
-            this.is_scammer = is_scammer ?? throw new ArgumentNullException(nameof(is_scammer));
-            this.has_fba = has_fba ?? throw new ArgumentNullException(nameof(has_fba));
-            this.total_store_front_rec_time = total_store_front_rec_time ?? throw new ArgumentNullException(nameof(total_store_front_rec_time));
-            this.total_store_front_asins = total_store_front_asins ?? throw new ArgumentNullException(nameof(total_store_front_asins));
-            this.rating = rating ?? throw new ArgumentNullException(nameof(rating));
-            this.rating_time = rating_time ?? throw new ArgumentNullException(nameof(rating_time));
-            this.rating_count = rating_count ?? throw new ArgumentNullException(nameof(rating_count));
-            this.rating_count_time = rating_count_time ?? throw new ArgumentNullException(nameof(rating_count_time));
-            this.time_stamp = time_stamp ?? throw new ArgumentNullException(nameof(time_stamp));
+            this.domain_id = domain_id;
+            this.tracking_since = tracking_since;
+            this.last_update = last_update;
+            this.amzn_seller_id = amzn_seller_id;
+            this.seller_name = seller_name;
+            this.is_scammer = is_scammer;
+            this.has_fba = has_fba;
+            this.total_store_front_rec_time = total_store_front_rec_time;
+            this.total_store_front_asins = total_store_front_asins;
+            this.rating = rating;
+            this.rating_time = rating_time;
+            this.rating_count = rating_count;
+            this.rating_count_time = rating_count_time;
+            this.time_stamp = time_stamp;
         }
 
         [Key]

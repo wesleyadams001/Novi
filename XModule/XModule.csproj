@@ -183,6 +183,7 @@
     <Compile Include="Interfaces\IRecord.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRequest.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\RequestObject.cs" />
     <Compile Include="Models\RequestObjectEqualityComparer.cs" />
