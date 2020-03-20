@@ -115,6 +115,8 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Language");
+
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.languages.AddRange(a);
                     context.SaveChanges();
@@ -125,6 +127,8 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - MostRatedSellers");
+
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.most_rated_sellers.AddRange(a);
                     context.SaveChanges();
@@ -135,6 +139,8 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - PriceHistory");
+
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.price_history.AddRange(a);
                     context.SaveChanges();
@@ -145,6 +151,8 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Product");
+
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.products.AddRange(a);
                     context.SaveChanges();
@@ -155,6 +163,7 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Seller");
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.sellers.AddRange(a);
                     context.SaveChanges();
@@ -165,6 +174,7 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - SellersListedItems");
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.sellers_listed_items.AddRange(a);
                     context.SaveChanges();
@@ -175,6 +185,7 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Statistic");
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.statistics.AddRange(a);
                     context.SaveChanges();
@@ -185,6 +196,7 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Upc");
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.upcs.AddRange(a);
                     context.SaveChanges();
@@ -195,6 +207,7 @@ namespace KeepaModule.DataAccess
             {
                 using (var context = new KeepaContext())
                 {
+                    Console.WriteLine("HIT - Variation");
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.variations.AddRange(a);
                     context.SaveChanges();

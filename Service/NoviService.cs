@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Xml.Linq;
 using XModule.Models;
 using Newtonsoft.Json;
+using System.Xml;
 
 namespace Service
 {
@@ -29,9 +30,12 @@ namespace Service
         private Autofac.IContainer container { get; set; }
         private string configPath;
         private string currentXml;
-        private XDocument doc;
+        private XmlDocument doc;
         private List<RequestObject> ActiveRequests;
 
+        /// <summary>
+        /// Default constructor for the Novi Service
+        /// </summary>
         public NoviService()
         {
             InitializeComponent();
@@ -73,6 +77,9 @@ namespace Service
         {
         }
 
+        /// <summary>
+        /// Configures the Novi Service
+        /// </summary>
         public void Configure()
         {
             //set up a new containerBuilder
@@ -121,15 +128,25 @@ namespace Service
             
         }
 
+        /// <summary>
+        /// Parse out config file 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private RequestObject[] ParseConfigFile(string path)
         {
             //load XDocument from path
-            this.doc = XDocument.Load(path);
-            
-            //Parse out array strings
-            var arrNames = this.doc.Root
-                .Descendants("ArrayOfString")
-                .Select(e => e.Attribute("string").Value.ToString()).ToArray();
+            this.doc = new XmlDocument();
+            doc.Load(path);
+
+            //Parse out array strings via access through XPath
+            var values = doc.SelectSingleNode("configuration/userSettings/prism7.Properties.Settings/setting[@name='ActiveRequests']/value/ArrayOfString");//
+            var nodeCount = values.ChildNodes.Count;
+            string[] arrNames = new string[nodeCount];
+            for (int x = 0; x < arrNames.Length; x++)
+            {
+                arrNames[x] = values.ChildNodes[x].InnerText;
+            }
 
             //Create array of requestobjects
             RequestObject[] requests = new RequestObject[arrNames.Length];
@@ -159,6 +176,10 @@ namespace Service
 
         }
 
+        /// <summary>
+        /// Configure the appropriate component registry
+        /// </summary>
+        /// <param name="componentRegistry"></param>
         public void Configure(IComponentRegistry componentRegistry)
         {
             
