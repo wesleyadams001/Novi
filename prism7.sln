@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XModule", "XModule\XModule.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeepaModule", "KeepaModule\KeepaModule.csproj", "{36B72692-ED5B-4DA8-98E7-795CAE23F342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{7C5389D2-0E77-452E-9A7B-1A3FBA92EDC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttomModule", "AttomModule\AttomModule.csproj", "{D09F7E2C-5BAE-496F-9234-B67F3A0A706E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{36B72692-ED5B-4DA8-98E7-795CAE23F342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B72692-ED5B-4DA8-98E7-795CAE23F342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36B72692-ED5B-4DA8-98E7-795CAE23F342}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C5389D2-0E77-452E-9A7B-1A3FBA92EDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C5389D2-0E77-452E-9A7B-1A3FBA92EDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C5389D2-0E77-452E-9A7B-1A3FBA92EDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C5389D2-0E77-452E-9A7B-1A3FBA92EDC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D09F7E2C-5BAE-496F-9234-B67F3A0A706E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D09F7E2C-5BAE-496F-9234-B67F3A0A706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D09F7E2C-5BAE-496F-9234-B67F3A0A706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D09F7E2C-5BAE-496F-9234-B67F3A0A706E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

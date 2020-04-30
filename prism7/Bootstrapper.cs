@@ -20,13 +20,19 @@ using IModule = Autofac.Core.IModule;
 
 namespace prism7
 {
-
+    /// <summary>
+    /// Bootstrapper
+    /// </summary>
     class Bootstrapper : AutofacBootstrapper
     {
         private const string MODULES_PATH = @".\modules";
         private LinkGroupCollection linkGroupCollection = null;
         public static ContainerBuilder Builder = null;
 
+        /// <summary>
+        /// Creates the application shell
+        /// </summary>
+        /// <returns></returns>
         protected override DependencyObject CreateShell()
         {
             Shell shell = Container.Resolve<Shell>();
@@ -56,6 +62,10 @@ namespace prism7
             App.Current.MainWindow.Show();
         }
 
+        /// <summary>
+        /// Configures the IoC container for the dependency injection by registering various types through reflection
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             base.ConfigureContainerBuilder(builder);
@@ -80,6 +90,7 @@ namespace prism7
             {
                 //  Gets the all modules from each assembly to be registered.
                 //  Make sure that each module **MUST** have a parameterless constructor.
+                //  Also pass in log factory
                 var modules = assembly.GetTypes()
                                       .Where(p => typeof(IModule).IsAssignableFrom(p)
                                                   && !p.IsAbstract)
@@ -101,6 +112,9 @@ namespace prism7
             return new DirectoryModuleCatalog() { ModulePath = MODULES_PATH };
         }
 
+        /// <summary>
+        /// Configures the module catalog
+        /// </summary>
         protected override void ConfigureModuleCatalog()
         {
             // Dynamic Modules are copied to a directory as part of a post-build step.
@@ -144,6 +158,12 @@ namespace prism7
             moduleCatalog.AddModule(typeof(XModule.XModule));
         }
 
+        /// <summary>
+        /// Filters based on interface
+        /// </summary>
+        /// <param name="typeObj"></param>
+        /// <param name="criteriaObj"></param>
+        /// <returns></returns>
         private bool InterfaceFilter(Type typeObj, Object criteriaObj)
         {
             return typeObj.ToString() == criteriaObj.ToString();
