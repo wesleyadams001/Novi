@@ -9,7 +9,7 @@ using XModule.Models;
 using XModule.Services;
 using static XModule.Constants.Enums;
 
-namespace prism7.Factory
+namespace AclProcessor.Factory
 {
     public class RequestFactory : IFacFactory
     {
@@ -28,8 +28,8 @@ namespace prism7.Factory
            
             switch (requestObject.ApiName)
             {
-                case RequestTypes.Keepa:
-                    this.factory = this.container.Resolve<IKeepaRequestFactory>();
+                case RequestTypes.Ntfs:
+                    this.factory = this.container.Resolve<INtfsRequestFactory>();
                     break;
                 
             }

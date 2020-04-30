@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace XModule.Events
 {
     /// <summary>
-    /// Adding a keepa connection string event
+    /// Adding a Ntfs connection string event
     /// </summary>
-    public class AddKeepaConnEvent : PubSubEvent<string> { }
+    public class AddNtfsConnEvent : PubSubEvent<string> { }
 }

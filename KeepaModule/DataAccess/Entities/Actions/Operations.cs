@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using XModule.Interfaces;
 
-namespace KeepaModule.DataAccess.Entities.Actions
+namespace NtfsModule.DataAccess.Entities.Actions
 {
     public static class Operations<TEntity> where TEntity : class
     {
@@ -16,7 +16,7 @@ namespace KeepaModule.DataAccess.Entities.Actions
         /// <param name="broadcast"></param>
         /// <param name="batchSize"></param>
         /// <param name="context"></param>
-        public static void Insert(BatchBlock<TEntity> broadcast, KeepaContext context) 
+        public static void Insert(BatchBlock<TEntity> broadcast, NtfsContext context) 
         {
             // Create a BatchBlock<best_sellers> that holds several best_seller objects and
             // then propagates them out as an array.

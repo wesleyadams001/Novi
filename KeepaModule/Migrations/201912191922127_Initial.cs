@@ -1,4 +1,4 @@
-namespace KeepaModule.Migrations
+namespace NtfsModule.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -8,7 +8,7 @@ namespace KeepaModule.Migrations
         public override void Up()
         {
             CreateTable(
-                "Novi.best_sellers",
+                "AclProcessor.best_sellers",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -21,7 +21,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.categories",
+                "AclProcessor.categories",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -31,7 +31,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.category_lookup",
+                "AclProcessor.category_lookup",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -39,7 +39,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.category_tree",
+                "AclProcessor.category_tree",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -49,7 +49,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.eans",
+                "AclProcessor.eans",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -59,7 +59,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.fba_fees",
+                "AclProcessor.fba_fees",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -72,7 +72,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.features",
+                "AclProcessor.features",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -82,7 +82,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.freq_bought_together",
+                "AclProcessor.freq_bought_together",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -92,7 +92,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.languages",
+                "AclProcessor.languages",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -104,7 +104,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.most_rated_sellers",
+                "AclProcessor.most_rated_sellers",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -114,7 +114,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.price_history",
+                "AclProcessor.price_history",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -127,7 +127,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.products",
+                "AclProcessor.products",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -189,7 +189,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.sellers",
+                "AclProcessor.sellers",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -211,7 +211,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.sellers_listed_items",
+                "AclProcessor.sellers_listed_items",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -222,7 +222,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.statistics",
+                "AclProcessor.statistics",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -270,7 +270,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.upcs",
+                "AclProcessor.upcs",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -280,7 +280,7 @@ namespace KeepaModule.Migrations
                 .PrimaryKey(t => t.Primary_key);
             
             CreateTable(
-                "Novi.variations",
+                "AclProcessor.variations",
                 c => new
                     {
                         Primary_key = c.Int(nullable: false, identity: true),
@@ -295,23 +295,23 @@ namespace KeepaModule.Migrations
         
         public override void Down()
         {
-            DropTable("Novi.variations");
-            DropTable("Novi.upcs");
-            DropTable("Novi.statistics");
-            DropTable("Novi.sellers_listed_items");
-            DropTable("Novi.sellers");
-            DropTable("Novi.products");
-            DropTable("Novi.price_history");
-            DropTable("Novi.most_rated_sellers");
-            DropTable("Novi.languages");
-            DropTable("Novi.freq_bought_together");
-            DropTable("Novi.features");
-            DropTable("Novi.fba_fees");
-            DropTable("Novi.eans");
-            DropTable("Novi.category_tree");
-            DropTable("Novi.category_lookup");
-            DropTable("Novi.categories");
-            DropTable("Novi.best_sellers");
+            DropTable("AclProcessor.variations");
+            DropTable("AclProcessor.upcs");
+            DropTable("AclProcessor.statistics");
+            DropTable("AclProcessor.sellers_listed_items");
+            DropTable("AclProcessor.sellers");
+            DropTable("AclProcessor.products");
+            DropTable("AclProcessor.price_history");
+            DropTable("AclProcessor.most_rated_sellers");
+            DropTable("AclProcessor.languages");
+            DropTable("AclProcessor.freq_bought_together");
+            DropTable("AclProcessor.features");
+            DropTable("AclProcessor.fba_fees");
+            DropTable("AclProcessor.eans");
+            DropTable("AclProcessor.category_tree");
+            DropTable("AclProcessor.category_lookup");
+            DropTable("AclProcessor.categories");
+            DropTable("AclProcessor.best_sellers");
         }
     }
 }

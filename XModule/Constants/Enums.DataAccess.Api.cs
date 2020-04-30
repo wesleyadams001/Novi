@@ -10,7 +10,7 @@ namespace XModule.Constants
     {
 		public enum EntityApi
         {
-			Keepa,
+			Ntfs,
 			Doba
         }
     }

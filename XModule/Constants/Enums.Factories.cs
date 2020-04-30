@@ -13,7 +13,7 @@ namespace XModule.Constants
         /// </summary>
         public enum FactoryType
         {
-            Keepa,
+            Ntfs,
             Doba,
         }
     }

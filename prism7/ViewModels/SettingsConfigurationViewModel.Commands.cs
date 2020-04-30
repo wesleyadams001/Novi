@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Newtonsoft.Json;
-using prism7.Security;
+using AclProcessor.Security;
 using System.Collections.Concurrent;
 using System.Windows;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     public partial class SettingsConfigurationViewModel
     {

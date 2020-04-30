@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace prism7.Views
+namespace AclProcessor.Views
 {
     /// <summary>
     /// Interaction logic for DataGrid.xaml

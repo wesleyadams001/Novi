@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace prism7.Converter
+namespace AclProcessor.Converter
 {
     /// <summary>
     /// Converter for the main tree view

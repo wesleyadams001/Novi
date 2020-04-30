@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace XModule.Tools
 {
     /// <summary>
-    /// A Utilities library for the Keepa.Core
+    /// A Utilities library for the Ntfs.Core
     /// </summary>
     public static class Utilities
     {
@@ -37,14 +37,14 @@ namespace XModule.Tools
         }
 
         /// <summary>
-        /// Convert keepa time to unit time
+        /// Convert Ntfs time to unit time
         /// </summary>
-        /// <param name="keepaTime"></param>
+        /// <param name="NtfsTime"></param>
         /// <returns></returns>
-        public static long GetUnixTimeFromKeepaTime(int keepaTime)
+        public static long GetUnixTimeFromNtfsTime(int NtfsTime)
         {
-            var newkeepa = (long)keepaTime;
-            long unixTime = (newkeepa + 21564000) * 60;
+            var newNtfs = (long)NtfsTime;
+            long unixTime = (newNtfs + 21564000) * 60;
             return unixTime;
         }
 

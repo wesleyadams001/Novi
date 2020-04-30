@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// About:
@@ -18,10 +18,10 @@ namespace KeepaModule.Models
     {
 
         /// <summary>
-        /// States the time we have started tracking this seller, in Keepa Time minutes.
-        /// <p>Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
+        /// States the time we have started tracking this seller, in Ntfs Time minutes.
+        /// <p>Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
         /// </summary>
-        public int trackedSince; // keepa minutes
+        public int trackedSince; // Ntfs minutes
 
         /// <summary>
         /// The domainId of the products Amazon locale
@@ -52,10 +52,10 @@ namespace KeepaModule.Models
         public int[][] csv;
 
         /// <summary>
-        /// States the time of our last update of this seller, in Keepa Time minutes.
+        /// States the time of our last update of this seller, in Ntfs Time minutes.
         /// <br>Example: 2711319
         /// </summary>
-        public int lastUpdate; // keepa minutes
+        public int lastUpdate; // Ntfs minutes
 
         /// <summary>
         /// Indicating whether or not our system identified that this seller attempts to scam users.
@@ -75,8 +75,8 @@ namespace KeepaModule.Models
         /// Contains the number of storefront ASINs if available and the last update of that metric.<br>
         /// Is null if not available (no storefront was ever retrieved). This field is available in the <br>
         /// default Request Seller Information (storefront parameter is not required).<br>
-        /// <p>Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p><br>
-        /// Has the format: [ last update of the storefront in Keepa Time minutes, the count of storefront ASINs ]<br><br>
+        /// <p>Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p><br>
+        /// Has the format: [ last update of the storefront in Ntfs Time minutes, the count of storefront ASINs ]<br><br>
         /// Example: [2711319, 1200]
         /// </summary>
         public int[] totalStorefrontAsins = null;
@@ -91,10 +91,10 @@ namespace KeepaModule.Models
 
         /// <summary>
         ///  Only available if the <i>storefront</i> parameter was used and only updated if the <i>update</i> parameter was utilized.<br><br>
-        ///  Contains the last time (in Keepa Time minutes) we were able to verify each ASIN in the _asinList_ field.<br>
+        ///  Contains the last time (in Ntfs Time minutes) we were able to verify each ASIN in the _asinList_ field.<br>
         ///  <i>asinList</i> and <i>asinListLastSeen</i> share the same indexation, so the corresponding time stamp<br>
         ///  for `asinList[10]` would be `asinListLastSeen[10]`.
-        ///  <p>Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
+        ///  <p>Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
         ///  <br>
         ///  Example: [2711319, 2711311]
         /// </summary>
@@ -104,8 +104,8 @@ namespace KeepaModule.Models
         /// 	Only available if the <i>storefront</i> parameter was used and only updated if the <i>update</i> parameter was utilized.<br><br>
         ///  Contains the total amount of listings of this seller. Includes historical data<br>
         ///  <i>asinList</i> and <i>asinListLastSeen</i> share the same indexation, so the corresponding time stamp<br>
-        ///  for `asinList[10]` would be `asinListLastSeen[10]`. Has the format: Keepa Time minutes, count, ...
-        ///  <p>Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
+        ///  for `asinList[10]` would be `asinListLastSeen[10]`. Has the format: Ntfs Time minutes, count, ...
+        ///  <p>Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
         ///  <br>
         ///  Example: [2711319, 1200, 2711719, 1187]
         /// </summary>

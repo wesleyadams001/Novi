@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace prism7
+namespace AclProcessor
 {
     /// <summary>
     /// Interaction logic for App.xaml

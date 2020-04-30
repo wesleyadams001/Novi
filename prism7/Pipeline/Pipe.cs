@@ -9,7 +9,7 @@ using XModule.Constants;
 using XModule.Interfaces;
 using Autofac;
 
-namespace prism7.Pipeline
+namespace AclProcessor.Pipeline
 {
     /// <summary>
     /// Data pipeline
@@ -19,7 +19,7 @@ namespace prism7.Pipeline
         private IComponentContext _container;
         private ILoggerFactory logFac;
         private ILogger logger;
-        private IEnumerable<INoviModule> _components;
+        private IEnumerable<IAclProcessorModule> _components;
         private BufferBlock<RequestObject> _startBlock;
         private BufferBlock<RequestObject> _broadcastBlock;
 
@@ -32,7 +32,7 @@ namespace prism7.Pipeline
             this._startBlock = new BufferBlock<RequestObject>();
 
             this._broadcastBlock = new BufferBlock<RequestObject>();
-            this._components = this._container.Resolve<IEnumerable<INoviModule>>();
+            this._components = this._container.Resolve<IEnumerable<IAclProcessorModule>>();
         }
 
         /// <summary>

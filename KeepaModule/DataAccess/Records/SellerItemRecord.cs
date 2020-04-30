@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// Seller items associated with sellers
@@ -18,8 +18,8 @@ namespace KeepaModule.DataAccess.Records
         /// </summary>
         public SellerItemRecord(ulong associatedSeller, string asin, int? asinLastSeen)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.SellerItemRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.SellerItemRecord;
             this.AssociatedSeller = associatedSeller;
             this.Asin = asin;
             this.AsinLastSeen = asinLastSeen;

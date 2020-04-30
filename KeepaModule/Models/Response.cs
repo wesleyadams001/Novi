@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using XModule.Tools;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
-    /// A Keepa Response object
+    /// A Ntfs Response object
     /// </summary>
     public class Response
     {

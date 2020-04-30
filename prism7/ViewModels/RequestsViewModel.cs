@@ -13,7 +13,7 @@ using XModule.Interfaces;
 using Autofac;
 using System.Timers;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     public partial class RequestsViewModel : BindableBase
     {

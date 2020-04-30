@@ -13,7 +13,7 @@ namespace XModule.Constants
         /// </summary>
         public enum ResponseTypes
         {
-            Keepa = 0,
+            Ntfs = 0,
             Doba =1
         }
     }

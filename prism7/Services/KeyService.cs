@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Services;
 
-namespace prism7.Services
+namespace AclProcessor.Services
 {
     public class KeyService : IKeyService
     {

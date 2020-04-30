@@ -23,7 +23,7 @@ namespace XModule.Interfaces
         /// <summary>
         /// The record type
         /// </summary>
-        KeepaRecordType KeepaRecordType { get; set; }
+        NtfsRecordType NtfsRecordType { get; set; }
 
         /// <summary>
         /// Override of the To string method that each record should have

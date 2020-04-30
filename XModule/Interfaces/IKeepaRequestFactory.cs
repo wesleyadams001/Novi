@@ -8,7 +8,7 @@ using XModule.Services;
 
 namespace XModule.Interfaces
 {
-    public interface IKeepaRequestFactory : IRequestFactory
+    public interface INtfsRequestFactory : IRequestFactory
     {
         /// <summary>
         /// Create method

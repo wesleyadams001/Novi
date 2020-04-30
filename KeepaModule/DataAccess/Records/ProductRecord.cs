@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using static XModule.Constants.Enums;
 using XModule.Tools;
-using KeepaModule.Tools;
+using NtfsModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A product record
@@ -127,8 +127,8 @@ namespace KeepaModule.DataAccess.Records
             this.isRedirectASIN = isRedirectASIN;
             this.isSNS = isSNS;
             this.offersSuccessful = offersSuccessful;
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.ProductRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.ProductRecord;
             this.TimeStamp = XModule.Tools.Utilities.GetUnixTime();
         }
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Services;
 
-namespace KeepaModule.ViewModels
+namespace NtfsModule.ViewModels
 {
     public partial class DataGridViewModel
     {

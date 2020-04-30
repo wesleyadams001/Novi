@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// About:
@@ -70,8 +70,8 @@ namespace KeepaModule.Models
         public long? rootCat = 0L;
 
         /// <summary>
-        /// States the time this deal was found, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the time this deal was found, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int? creationDate = 0;
 
@@ -90,14 +90,14 @@ namespace KeepaModule.Models
         public long[] categories = null;
 
         /// <summary>
-        /// States the last time we have updated the information for this deal, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the last time we have updated the information for this deal, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int? lastUpdate = 0;
 
         /// <summary>
-        /// States the time this lightning deal is scheduled to end, in Keepa Time minutes. Only applicable to lightning deals. 0 otherwise. <br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the time this lightning deal is scheduled to end, in Ntfs Time minutes. Only applicable to lightning deals. 0 otherwise. <br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int? lightningEnd = 0;
 

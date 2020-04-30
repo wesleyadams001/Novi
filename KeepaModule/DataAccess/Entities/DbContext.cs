@@ -1,4 +1,4 @@
-namespace KeepaModule.DataAccess.Entities
+namespace NtfsModule.DataAccess.Entities
 {
     using System;
     using System.Data.Entity;
@@ -6,13 +6,13 @@ namespace KeepaModule.DataAccess.Entities
     using System.Linq;
     using System.Data.Entity.Core.EntityClient;
 
-    public partial class KeepaContext : DbContext
+    public partial class NtfsContext : DbContext
     {
         
-        public KeepaContext() : base("Keepa")
+        public NtfsContext() : base("Ntfs")
         {
             //this.Database.Connection.ConnectionString = Properties.Settings.Default.CurrentConnString;
-            Database.SetInitializer(new CreateDatabaseIfNotExists<KeepaContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<NtfsContext>());
         }
 
         public virtual DbSet<category_lookup> category_lookup { get; set; }
@@ -51,7 +51,7 @@ namespace KeepaModule.DataAccess.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Novi");
+            modelBuilder.HasDefaultSchema("AclProcessor");
 
             
         }

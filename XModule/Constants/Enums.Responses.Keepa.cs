@@ -9,9 +9,9 @@ namespace XModule.Constants
     public static partial class Enums
     {
         /// <summary>
-        /// Enumeration that represents the Keepa Response types
+        /// Enumeration that represents the Ntfs Response types
         /// </summary>
-        [Flags]public enum KeepaResponseTypes
+        [Flags]public enum NtfsResponseTypes
         {
             Default,
             BestSellersObject,

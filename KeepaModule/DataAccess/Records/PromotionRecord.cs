@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A Promotion Record
@@ -19,16 +19,16 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="promotionType"></param>
         /// <param name="elgibilityRequirementDescription"></param>
         /// <param name="benefitDescription"></param>
-        /// <param name="keepaPromotionId"></param>
-        public PromotionRecord(ulong productId, string promotionType, string elgibilityRequirementDescription, string benefitDescription, string keepaPromotionId)
+        /// <param name="NtfsPromotionId"></param>
+        public PromotionRecord(ulong productId, string promotionType, string elgibilityRequirementDescription, string benefitDescription, string NtfsPromotionId)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.PromotionsRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.PromotionsRecord;
             this.ProductId = productId;
             this.PromotionType = promotionType;
             this.ElgibilityRequirementDescription = elgibilityRequirementDescription;
             this.BenefitDescription = benefitDescription;
-            this.KeepaPromotionId = keepaPromotionId;
+            this.NtfsPromotionId = NtfsPromotionId;
             this.TimeStamp = Utilities.GetUnixTime();
         }
 
@@ -36,6 +36,6 @@ namespace KeepaModule.DataAccess.Records
         public string PromotionType { get; set; }
         public string ElgibilityRequirementDescription { get; set; }
         public string BenefitDescription { get; set; }
-        public string KeepaPromotionId { get; set; }
+        public string NtfsPromotionId { get; set; }
     }
 }

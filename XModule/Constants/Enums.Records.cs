@@ -14,7 +14,7 @@ namespace XModule.Constants
         /// </summary>
         public enum RecordType
         {
-            Keepa = 0,
+            Ntfs = 0,
             Doba = 1
         }
     }

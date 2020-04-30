@@ -1,18 +1,18 @@
-namespace KeepaModule.Migrations
+namespace NtfsModule.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<KeepaModule.DataAccess.Entities.KeepaContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<NtfsModule.DataAccess.Entities.NtfsContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(KeepaModule.DataAccess.Entities.KeepaContext context)
+        protected override void Seed(NtfsModule.DataAccess.Entities.NtfsContext context)
         {
             //  This method will be called after migrating to the latest version.
 

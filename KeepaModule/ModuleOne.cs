@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Autofac;
-using KeepaModule.DataAccess;
-using KeepaModule.DataAccess.Entities;
-using KeepaModule.DataAccess.Entities.Actions;
-using KeepaModule.DataAccess.Records;
-using KeepaModule.Factories;
-using KeepaModule.Models;
-using KeepaModule.Services;
-using KeepaModule.Tools;
+using NtfsModule.DataAccess;
+using NtfsModule.DataAccess.Entities;
+using NtfsModule.DataAccess.Entities.Actions;
+using NtfsModule.DataAccess.Records;
+using NtfsModule.Factories;
+using NtfsModule.Models;
+using NtfsModule.Services;
+using NtfsModule.Tools;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using XModule.Interfaces;
@@ -18,18 +18,18 @@ using XModule.Models;
 using XModule.Services;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule
+namespace NtfsModule
 {
-    public class ModuleOne : Module, INoviModule, IModule
+    public class ModuleOne : Module, IAclProcessorModule, IModule
     {
         private ILoggerFactory _loggerFac;
         private ILogger _logger;
-        private KeepaRequestFactory _reqFactory;
-        private KeepaRecordFactory _recordFactory;
-        private Client _keepaReqClient;
-        private Allocator _keepaAllocator;
-        private KeepaContext _context;
-        private const string baseUrl = "https://api.keepa.com/";
+        private NtfsRequestFactory _reqFactory;
+        private NtfsRecordFactory _recordFactory;
+        private Client _NtfsReqClient;
+        private Allocator _NtfsAllocator;
+        private NtfsContext _context;
+        private const string baseUrl = "https://api.Ntfs.com/";
 
         /// <summary>
         /// Entry point for the module to insert logger factory
@@ -43,16 +43,16 @@ namespace KeepaModule
 
             //Builds a request factory with the associated key
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
-            this._reqFactory = new KeepaRequestFactory(baseUrl);
-            this._recordFactory = new KeepaRecordFactory(loggerFac);
+            this._reqFactory = new NtfsRequestFactory(baseUrl);
+            this._recordFactory = new NtfsRecordFactory(loggerFac);
 
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
-            this._keepaReqClient = new Client();
+            this._NtfsReqClient = new Client();
 
             //Create the records filter
             this._logger.Debug("Created new Allocator.");
-            this._keepaAllocator = new Allocator();
+            this._NtfsAllocator = new Allocator();
 
             
         }
@@ -65,16 +65,16 @@ namespace KeepaModule
 
             //Builds a request factory with the associated key
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
-            this._reqFactory = new KeepaRequestFactory(baseUrl);
-            this._recordFactory = new KeepaRecordFactory();
+            this._reqFactory = new NtfsRequestFactory(baseUrl);
+            this._recordFactory = new NtfsRecordFactory();
 
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
-            this._keepaReqClient = new Client();
+            this._NtfsReqClient = new Client();
 
             //Create the records filter
             this._logger.Debug("Created new Allocator.");
-            this._keepaAllocator = new Allocator();
+            this._NtfsAllocator = new Allocator();
 
 
         }
@@ -98,7 +98,7 @@ namespace KeepaModule
             //Register available requestservice
             builder.RegisterType<AvailableRequests>().As<IAvailableRequestsService>();
            
-            builder.RegisterType<ModuleOne>().As<INoviModule>();
+            builder.RegisterType<ModuleOne>().As<IAclProcessorModule>();
           
         }
 
@@ -110,7 +110,7 @@ namespace KeepaModule
         public void Process(BufferBlock<RequestObject> buffer)
         {
             //filter out non relevant items
-            Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Keepa; };
+            Predicate<RequestObject> RequestFilter = (RequestObject r) => { return r.ApiName == RequestTypes.Ntfs; };
 
             var linkops = new DataflowLinkOptions
             {
@@ -132,7 +132,7 @@ namespace KeepaModule
             var RequestBlock = new TransformBlock<string, Task<string>>(async x =>
             {
 
-               string response = await this._keepaReqClient.DownloadAsync(x);
+               string response = await this._NtfsReqClient.DownloadAsync(x);
                return response;
 
             });
@@ -140,7 +140,7 @@ namespace KeepaModule
             //Transforms response string to response object
             var ResponseBlock = new TransformBlock<Task<string>, Response>(x =>
             {
-                Task<Response> response = KeepaResponseFactory.Create(x);
+                Task<Response> response = NtfsResponseFactory.Create(x);
                 return response;
             });
 
@@ -160,7 +160,7 @@ namespace KeepaModule
             var insertBlock = new ActionBlock<IRecord>((a) =>
             {
                
-                this._keepaAllocator.Filter(a);
+                this._NtfsAllocator.Filter(a);
 
             });
            

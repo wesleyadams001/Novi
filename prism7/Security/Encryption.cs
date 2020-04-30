@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace prism7.Security
+namespace AclProcessor.Security
 {
     public static class Encryption
     {
@@ -23,7 +23,7 @@ namespace prism7.Security
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
 
                 //Get section for user settings
-                ConfigurationSection userSettings = config.GetSection("userSettings/prism7.Properties.Settings");
+                ConfigurationSection userSettings = config.GetSection("userSettings/AclProcessor.Properties.Settings");
 
                 //Check if encrypted
                 if (userSettings.SectionInformation.IsProtected)
@@ -88,7 +88,7 @@ namespace prism7.Security
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
 
                 //Get section for user settings
-                ConfigurationSection userSettings = config.GetSection("userSettings/prism7.Properties.Settings");
+                ConfigurationSection userSettings = config.GetSection("userSettings/AclProcessor.Properties.Settings");
 
                 //encrypt using RSA
                 userSettings.SectionInformation.ProtectSection(provider);
@@ -123,7 +123,7 @@ namespace prism7.Security
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
 
                 //Get section for user settings
-                ConfigurationSection userSettings = config.GetSection("userSettings/prism7.Properties.Settings");
+                ConfigurationSection userSettings = config.GetSection("userSettings/AclProcessor.Properties.Settings");
 
                 //Check if encrypted
                 if (userSettings.SectionInformation.IsProtected)

@@ -9,7 +9,7 @@ using XModule.Models;
 
 namespace XModule.Interfaces
 {
-    public interface INoviModule
+    public interface IAclProcessorModule
     {
 
         /// <summary>

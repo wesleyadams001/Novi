@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Services
+namespace NtfsModule.Services
 {
     /// <summary>
     /// The Internal Module Key serice that orients keys within the module

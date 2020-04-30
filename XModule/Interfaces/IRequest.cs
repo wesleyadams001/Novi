@@ -35,7 +35,7 @@ namespace XModule.Interfaces
     //    /// Override of the To string method that each record should have
     //    /// </summary>
     //    /// <returns></returns>
-    //    ApiSpecificRequestTypes KeepaRequestType { get; set; }
+    //    ApiSpecificRequestTypes NtfsRequestType { get; set; }
 
     //    /// <summary>
     //    /// Create method of an IRequest

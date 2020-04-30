@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Tools
+namespace NtfsModule.Tools
 {
     /// <summary>
     /// A Generic Utilities class
@@ -12,7 +12,7 @@ namespace KeepaModule.Tools
     public static class Utilities
     {
         /// <summary>
-        /// Transforms a string dictionary into a keepa URL format string
+        /// Transforms a string dictionary into a Ntfs URL format string
         /// </summary>
         /// <param name="dict"></param>
         /// <returns></returns>

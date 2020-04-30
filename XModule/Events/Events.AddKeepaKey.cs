@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace XModule.Events
 {
     /// <summary>
-    /// Adding a Key to the keepa module 
+    /// Adding a Key to the Ntfs module 
     /// </summary>
-    public class AddKeepaKeyEvent : PubSubEvent<string> { }
+    public class AddNtfsKeyEvent : PubSubEvent<string> { }
 }

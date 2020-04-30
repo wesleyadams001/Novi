@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using XModule.Tools;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// Record type representing an entry in the categories table 
@@ -21,8 +21,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="amznCategoryId"></param>
         public CategoryRecord(ulong productId, long? amznCategoryId)
         {
-            this.KeepaRecordType = KeepaRecordType.CategoryRecord;
-            this.RecordType = RecordType.Keepa;
+            this.NtfsRecordType = NtfsRecordType.CategoryRecord;
+            this.RecordType = RecordType.Ntfs;
             this.ProductId = productId;
             this.AmznCategoryId = amznCategoryId;
             this.TimeStamp = Utilities.GetUnixTime();

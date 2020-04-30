@@ -12,7 +12,7 @@ using System.Windows;
 using System.ServiceProcess;
 using XModule.Interfaces;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     public partial class RequestsViewModel
     {
@@ -159,7 +159,7 @@ namespace prism7.ViewModels
         }
 
         /// <summary>
-        /// Method that starts the Novi Service
+        /// Method that starts the AclProcessor Service
         /// </summary>
         private void StartService()
         {
@@ -168,7 +168,7 @@ namespace prism7.ViewModels
         }
 
         /// <summary>
-        /// Method that starts the Novi Service
+        /// Method that starts the AclProcessor Service
         /// </summary>
         private void StopService()
         {

@@ -1,4 +1,4 @@
-﻿using KeepaModule.Models;
+﻿using NtfsModule.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Factories
+namespace NtfsModule.Factories
 {
     /// <summary>
-    /// Keepa Response Factory 
+    /// Ntfs Response Factory 
     /// </summary>
-    public class KeepaResponseFactory
+    public class NtfsResponseFactory
     {
         /// <summary>
         /// Creates response objects from Json strings

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// Represents a price alert
@@ -29,7 +29,7 @@ namespace KeepaModule.Models
         public string image;
 
         /// <summary>
-        /// Creation date of the notification in {@link KeepaTime} minutes
+        /// Creation date of the notification in {@link NtfsTime} minutes
         /// </summary>
         public int createDate;
 

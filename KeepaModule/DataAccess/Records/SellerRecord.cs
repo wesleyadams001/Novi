@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A seller record
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// </summary>
         public SellerRecord(ulong id, int? domainId, int? trackingSince, int? lastUpdate, string sellerId, string sellerName, bool? isScammer, bool? hasFba, int? storeFrontRecTime, int? totalStoreFrontAsins, int? rating, int? ratingTime, int? ratingCount, int? ratingCountTime)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.SellerRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.SellerRecord;
             this.SellerUid = id;
             this.DomainId = domainId;
             this.TrackingSince = trackingSince;

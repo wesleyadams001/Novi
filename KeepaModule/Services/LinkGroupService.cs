@@ -1,9 +1,9 @@
 ﻿using System;
 using FirstFloor.ModernUI.Presentation;
 using XModule.Interfaces;
-using KeepaModule.Views;
+using NtfsModule.Views;
 
-namespace KeepaModule.Services
+namespace NtfsModule.Services
 {
     /// <summary>
     /// Creates a LinkGroup
@@ -18,13 +18,13 @@ namespace KeepaModule.Services
         {
             LinkGroup linkGroup = new LinkGroup
             {
-                DisplayName = "Keepa"
+                DisplayName = "Ntfs"
             };
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Keepa",
-                Source = new Uri($"/KeepaModule;component/Views/{nameof(MainView)}.xaml", UriKind.Relative)
+                DisplayName = "Ntfs",
+                Source = new Uri($"/NtfsModule;component/Views/{nameof(MainView)}.xaml", UriKind.Relative)
             });
 
             return linkGroup;

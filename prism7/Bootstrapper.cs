@@ -9,16 +9,16 @@ using System.Windows;
 using XModule.Interfaces;
 using Newtonsoft.Json;
 using XModule.Services;
-using prism7.Services;
+using AclProcessor.Services;
 using Prism.Events;
-using prism7.Factory;
+using AclProcessor.Factory;
 using System.IO;
 using Prism.Autofac;
 using Autofac;
 using Autofac.Core;
 using IModule = Autofac.Core.IModule;
 
-namespace prism7
+namespace AclProcessor
 {
     /// <summary>
     /// Bootstrapper

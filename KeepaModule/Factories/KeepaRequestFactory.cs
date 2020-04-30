@@ -1,4 +1,4 @@
-﻿using KeepaModule.Models;
+﻿using NtfsModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,12 +11,12 @@ using XModule.Models;
 using XModule.Services;
 using XModule.Tools;
 
-namespace KeepaModule.Factories
+namespace NtfsModule.Factories
 {
-    public class KeepaRequestFactory
+    public class NtfsRequestFactory
     {
         /// <summary>
-        /// The base URL for Keepa requests
+        /// The base URL for Ntfs requests
         /// </summary>
         private static string baseUrl { get; set; }
 
@@ -33,8 +33,8 @@ namespace KeepaModule.Factories
         /// <summary>
         /// A dictionary that maps strings to create objects
         /// </summary>
-        public static Dictionary<string, Func<KeepaRequest>> objects =
-        new Dictionary<string, Func<KeepaRequest>>
+        public static Dictionary<string, Func<NtfsRequest>> objects =
+        new Dictionary<string, Func<NtfsRequest>>
         {
                     {"getTrackingGetRequest", () => new GetTrackingGetRequest(accessKey, paramList, baseUrl)},
                     {"getTrackingListRequest", () => new GetTrackingListRequest(accessKey, paramList, baseUrl)},
@@ -53,10 +53,10 @@ namespace KeepaModule.Factories
         };  
 
         /// <summary>
-        /// Constructs a new Keepa Request factory
+        /// Constructs a new Ntfs Request factory
         /// </summary>
         /// <param name="key"></param>
-        public KeepaRequestFactory(string url)
+        public NtfsRequestFactory(string url)
         {
             baseUrl = url;
         }
@@ -75,7 +75,7 @@ namespace KeepaModule.Factories
                 return null;
             }
 
-            Func<KeepaRequest> objectCtor = null;
+            Func<NtfsRequest> objectCtor = null;
             objects.TryGetValue(name, out objectCtor);
 
             var x = objectCtor != null ? objectCtor().CreateRequest() : null;

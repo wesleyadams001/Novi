@@ -15,8 +15,8 @@ namespace XModule.Constants
         public enum RequestTypes
         {
             Default = -1,
-            [Description("Keepa")]
-            Keepa =0,
+            [Description("Ntfs")]
+            Ntfs =0,
             [Description("Doba")]
             Doba =1
         }

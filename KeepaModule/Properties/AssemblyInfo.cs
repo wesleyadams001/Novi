@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KeepaModule")]
+[assembly: AssemblyTitle("NtfsModule")]
 [assembly: AssemblyDescription("Demo module")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Wesley Adams")]
-[assembly: AssemblyProduct("Novi")]
+[assembly: AssemblyProduct("AclProcessor")]
 [assembly: AssemblyCopyright("Copyright ©  2016  by Wesley Adams")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

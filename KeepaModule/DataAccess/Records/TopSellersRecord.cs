@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     public class TopSellersRecord : Record
     {
@@ -24,8 +24,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="timeStamp"></param>
         public TopSellersRecord(int? sellerId, string name, double? rating, int? reviewCntTotal, int? reviewCntL30, bool? usesFBA, int? verifiedListings, string primarySales)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.TopSellerRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.TopSellerRecord;
             this.SellerId = sellerId;
             this.Name = name;
             this.Rating = rating;

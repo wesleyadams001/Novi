@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Interfaces;
 
-namespace KeepaModule.DataAccess.Entities
+namespace NtfsModule.DataAccess.Entities
 {
     public partial class category_lookup : IEntity
     {
@@ -64,12 +64,12 @@ namespace KeepaModule.DataAccess.Entities
         public long parent { get; set; }
 
         /// <summary>
-        ///  The highest (root category) sales rank we have observed of a product that is listed in this category. Note: Estimate, as the value is from the Keepa product database and not retrieved from Amazon.
+        ///  The highest (root category) sales rank we have observed of a product that is listed in this category. Note: Estimate, as the value is from the Ntfs product database and not retrieved from Amazon.
         /// </summary>
         public int highestRank { get; set; }
 
         /// <summary>
-        ///  Number of products that are listed in this category. Note: Estimate, as the value is from the Keepa product database and not retrieved from Amazon.
+        ///  Number of products that are listed in this category. Note: Estimate, as the value is from the Ntfs product database and not retrieved from Amazon.
         /// </summary>
         public int productCount { get; set; }
 

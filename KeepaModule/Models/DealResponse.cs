@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// The response of a browse deals request.

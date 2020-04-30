@@ -1,4 +1,4 @@
-﻿using KeepaModule.DataAccess.Records;
+﻿using NtfsModule.DataAccess.Records;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using XModule.Interfaces;
 using static XModule.Constants.Enums;
-using KeepaModule.DataAccess.Entities;
-using KeepaModule.DataAccess.Entities.Actions;
+using NtfsModule.DataAccess.Entities;
+using NtfsModule.DataAccess.Entities.Actions;
 
-namespace KeepaModule.DataAccess
+namespace NtfsModule.DataAccess
 {
     /// <summary>
-    /// The Keepa Specific Allocator
+    /// The Ntfs Specific Allocator
     /// </summary>
     public class Allocator //: IAllocator
     {
@@ -31,7 +31,7 @@ namespace KeepaModule.DataAccess
             #region NewInsertBlocks
             this.InsertBestSellersAction = new ActionBlock<best_sellers[]>(a =>
             {
-                using(var context = new KeepaContext())
+                using(var context = new NtfsContext())
                 {
                     
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -43,7 +43,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertCategoryAction = new ActionBlock<category[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.categories.AddRange(a);
@@ -53,7 +53,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertCategoryLookupAction = new ActionBlock<category_lookup[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.category_lookup.AddRange(a);
@@ -63,7 +63,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertCategoryTreeAction = new ActionBlock<category_tree[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.category_tree.AddRange(a);
@@ -73,7 +73,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertEanAction = new ActionBlock<ean[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.eans.AddRange(a);
@@ -83,7 +83,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertFbaFeesAction = new ActionBlock<fba_fees[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.fba_fees.AddRange(a);
@@ -93,7 +93,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertFeatureAction = new ActionBlock<feature[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.features.AddRange(a);
@@ -103,7 +103,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertFreqBoughtAction = new ActionBlock<freq_bought_together[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     //context.Configuration.AutoDetectChangesEnabled = false;
                     context.freq_bought_together.AddRange(a);
@@ -113,7 +113,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertLanguageAction = new ActionBlock<language[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Language");
 
@@ -125,7 +125,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertMostRatedSellersAction = new ActionBlock<most_rated_sellers[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - MostRatedSellers");
 
@@ -137,7 +137,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertPriceHistoryAction = new ActionBlock<price_history[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - PriceHistory");
 
@@ -149,7 +149,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertProductAction = new ActionBlock<product[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Product");
 
@@ -161,7 +161,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertSellerAction = new ActionBlock<seller[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Seller");
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -172,7 +172,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertSellersListedItemsAction = new ActionBlock<sellers_listed_items[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - SellersListedItems");
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -183,7 +183,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertStatisticAction = new ActionBlock<statistic[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Statistic");
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -194,7 +194,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertUpcAction = new ActionBlock<upc[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Upc");
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -205,7 +205,7 @@ namespace KeepaModule.DataAccess
 
             this.InsertVariationAction = new ActionBlock<variation[]>(a =>
             {
-                using (var context = new KeepaContext())
+                using (var context = new NtfsContext())
                 {
                     Console.WriteLine("HIT - Variation");
                     //context.Configuration.AutoDetectChangesEnabled = false;
@@ -350,24 +350,24 @@ namespace KeepaModule.DataAccess
             #endregion
 
             #region NewFilters
-            this.CategoryLookupFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryLookupRecord; };
-            this.BestSellerFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.BestSellerRecord; };
-            this.CategoryFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryRecord; };
-            this.CategoryTreeFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.CategoryTreeRecord; };
-            this.DealFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.DealRecord; };
-            this.EanFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.EanRecord; };
-            this.FbaFeesFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.FbaFeesRecord; };
-            this.FeatureFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.FeaturesRecord; };
-            this.FreqBoughtTogetherFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.FrequentlyBoughtTogetherRecord; };
-            this.LanguageFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.LanguagesRecord; };
-            this.MRSFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.TopSellerRecord; };
-            this.PriceHistoryFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.PriceHistoryRecord; };
-            this.ProductFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.ProductRecord; };
-            this.SellerFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.SellerRecord; };
-            this.SLIFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.SellerItemRecord; };
-            this.StatisticsFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.StatisitcsRecord; };
-            this.UpcFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.UpcRecord; };
-            this.VariationFilter = (IRecord r) => { return r.KeepaRecordType == KeepaRecordType.VariationsRecord; };
+            this.CategoryLookupFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.CategoryLookupRecord; };
+            this.BestSellerFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.BestSellerRecord; };
+            this.CategoryFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.CategoryRecord; };
+            this.CategoryTreeFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.CategoryTreeRecord; };
+            this.DealFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.DealRecord; };
+            this.EanFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.EanRecord; };
+            this.FbaFeesFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.FbaFeesRecord; };
+            this.FeatureFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.FeaturesRecord; };
+            this.FreqBoughtTogetherFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.FrequentlyBoughtTogetherRecord; };
+            this.LanguageFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.LanguagesRecord; };
+            this.MRSFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.TopSellerRecord; };
+            this.PriceHistoryFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.PriceHistoryRecord; };
+            this.ProductFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.ProductRecord; };
+            this.SellerFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.SellerRecord; };
+            this.SLIFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.SellerItemRecord; };
+            this.StatisticsFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.StatisitcsRecord; };
+            this.UpcFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.UpcRecord; };
+            this.VariationFilter = (IRecord r) => { return r.NtfsRecordType == NtfsRecordType.VariationsRecord; };
             #endregion
 
             //Dataflow Links

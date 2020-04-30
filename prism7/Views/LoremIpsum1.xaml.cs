@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace prism7.Views
+namespace AclProcessor.Views
 {
     /// <summary>
     /// Interaction logic for LoremIpsum1.xaml

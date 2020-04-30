@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// An EAN Record
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="eanNumber"></param>
         public EanRecord(ulong productId, string eanNumber)
         {
-            this.KeepaRecordType = KeepaRecordType.EanRecord;
-            this.RecordType = RecordType.Keepa;
+            this.NtfsRecordType = NtfsRecordType.EanRecord;
+            this.RecordType = RecordType.Ntfs;
             this.ProductId = productId;
             this.EanNumber = eanNumber;
             this.TimeStamp = Utilities.GetUnixTime();

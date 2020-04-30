@@ -12,11 +12,11 @@ using XModule.Events;
 using XModule.Interfaces;
 using Prism.Autofac;
 using Autofac;
-using prism7.Models;
+using AclProcessor.Models;
 using System;
 using static XModule.Constants.Enums;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     /// <summary>
     /// The main DataGridViewModel that manages the logic for the main panel

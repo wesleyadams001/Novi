@@ -13,9 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Presentation;
-using prism7.ViewModels;
+using AclProcessor.ViewModels;
 
-namespace prism7.Views
+namespace AclProcessor.Views
 {
     /// <summary>
     /// Interaction logic for SettingsAppearance.xaml

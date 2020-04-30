@@ -1,4 +1,4 @@
-namespace KeepaModule.DataAccess.Entities
+namespace NtfsModule.DataAccess.Entities
 {
     using System;
     using System.Collections.Generic;

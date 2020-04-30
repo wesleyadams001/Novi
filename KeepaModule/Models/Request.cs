@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule;
 using XModule.Interfaces;
-using KeepaModule.Tools;
+using NtfsModule.Tools;
 using static XModule.Constants.Enums;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using XModule.Tools;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
-    /// Keepa request class inherits from IKeepaRequest 
+    /// Ntfs request class inherits from INtfsRequest 
     /// </summary>
-    public class KeepaRequest : IKeepaRequest
+    public class NtfsRequest : INtfsRequest
     {
         protected string accessKey;
         protected string baseUrl;
@@ -25,19 +25,19 @@ namespace KeepaModule.Models
         protected string path;
         public Dictionary<string, string> parameter;
         protected List<object> list { get; set; }
-        protected KeepaRequest request { get; set; }
+        protected NtfsRequest request { get; set; }
         protected string requestString { get; set; }
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public KeepaRequest()
+        public NtfsRequest()
         {
             this.parameter = new Dictionary<string, string>(20);
             
         }
 
-        public ApiSpecificRequestTypes KeepaRequestType { get; set; }
+        public ApiSpecificRequestTypes NtfsRequestType { get; set; }
         public RequestTypes RequestType { get; set; }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace KeepaModule.Models
         /// <param name="reqType"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        protected KeepaRequest GetBaseRequest(ApiSpecificRequestTypes reqType, string path)
+        protected NtfsRequest GetBaseRequest(ApiSpecificRequestTypes reqType, string path)
         {
-            //KeepaRequest r = new KeepaRequest();
-            this.RequestType = RequestTypes.Keepa;
-            this.KeepaRequestType = reqType;
+            //NtfsRequest r = new NtfsRequest();
+            this.RequestType = RequestTypes.Ntfs;
+            this.NtfsRequestType = reqType;
             this.path = path;
             return this;
         }
@@ -103,16 +103,16 @@ namespace KeepaModule.Models
 
     }
 
-    //public class GetDealsRequest : KeepaRequest
+    //public class GetDealsRequest : NtfsRequest
     //{
 
     //    public IRequest getDealsRequest(object p1)
     //    {
     //        var dealRequest = (DealRequest)p1;
 
-    //        KeepaRequest r = new KeepaRequest();
-    //        r.RequestType = RequestTypes.Keepa;
-    //        r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_DEALS_REQUEST;
+    //        NtfsRequest r = new NtfsRequest();
+    //        r.RequestType = RequestTypes.Ntfs;
+    //        r.NtfsRequestType = ApiSpecificRequestTypes.Ntfs_DEALS_REQUEST;
     //        r.path = "deal";
     //        r.postData = JsonConvert.SerializeObject(dealRequest);
     //        return r;
@@ -120,7 +120,7 @@ namespace KeepaModule.Models
     //    }
     //}
 
-    //public class GetProductFinderRequest : KeepaRequest
+    //public class GetProductFinderRequest : NtfsRequest
     //{
 
     //    public IRequest getProductFinderRequest(object p1, object p2)
@@ -128,9 +128,9 @@ namespace KeepaModule.Models
     //        var domainId = (AmazonLocale)p1;
     //        var finderRequest = (ProductFinderRequest)p1;
 
-    //        KeepaRequest r = new KeepaRequest();
-    //        r.RequestType = RequestTypes.Keepa;
-    //        r.KeepaRequestType = ApiSpecificRequestTypes.KEEPA_PRODUCT_FINDER;
+    //        NtfsRequest r = new NtfsRequest();
+    //        r.RequestType = RequestTypes.Ntfs;
+    //        r.NtfsRequestType = ApiSpecificRequestTypes.Ntfs_PRODUCT_FINDER;
     //        r.path = "query";
     //        r.parameter.Add("domain", domainId.ToString());
     //        r.parameter.Add("selection", JsonConvert.SerializeObject(finderRequest));
@@ -143,7 +143,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking Get Request Object
     /// </summary>
-    public class GetTrackingGetRequest : KeepaRequest
+    public class GetTrackingGetRequest : NtfsRequest
     {
         public GetTrackingGetRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -162,16 +162,16 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getTrackingGetRequest(object p1)
+        private NtfsRequest getTrackingGetRequest(object p1)
         {
             var asin = (string)p1;
             var r = getTrackingGetRequest(asin);
             return r;
         }
 
-        private KeepaRequest getTrackingGetRequest(string asin)
+        private NtfsRequest getTrackingGetRequest(string asin)
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_GET, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_GET, "tracking");
             this.parameter.Add("type", "get");
             this.parameter.Add("asin", asin);
             return this;
@@ -188,7 +188,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking List Request Object
     /// </summary>
-    public class GetTrackingListRequest : KeepaRequest
+    public class GetTrackingListRequest : NtfsRequest
     {
         public GetTrackingListRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -208,16 +208,16 @@ namespace KeepaModule.Models
         }
 
 
-        private KeepaRequest getTrackingListRequest(object p1)
+        private NtfsRequest getTrackingListRequest(object p1)
         {
             var asinsOnly = (bool)p1;
             var r = getTrackingListRequest(asinsOnly);
             return r;
         }
 
-        private KeepaRequest getTrackingListRequest(bool asinsOnly)
+        private NtfsRequest getTrackingListRequest(bool asinsOnly)
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_LIST, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_LIST, "tracking");
             this.parameter.Add("type", "list");
             if (asinsOnly)
                 this.parameter.Add("asins-only", "1");
@@ -236,7 +236,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking Notification Request Object
     /// </summary>
-    public class GetTrackingNotificationRequest : KeepaRequest
+    public class GetTrackingNotificationRequest : NtfsRequest
     {
         public GetTrackingNotificationRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -255,7 +255,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getTrackingNotificationRequest(object p1, object p2)
+        private NtfsRequest getTrackingNotificationRequest(object p1, object p2)
         {
             var since = (int)p1;
             var revise = (bool)p2;
@@ -264,10 +264,10 @@ namespace KeepaModule.Models
             return r;
         }
 
-        private KeepaRequest getTrackingNotificationRequest(int since, bool revise)
+        private NtfsRequest getTrackingNotificationRequest(int since, bool revise)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_NOTIFICATION, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_NOTIFICATION, "tracking");
             this.parameter.Add("since", since.ToString());
             this.parameter.Add("revise", revise ? "1" : "0");
             this.parameter.Add("type", "notification");
@@ -285,7 +285,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking Remove Request object
     /// </summary>
-    public class GetTrackingRemoveRequest : KeepaRequest
+    public class GetTrackingRemoveRequest : NtfsRequest
     {
         public GetTrackingRemoveRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -305,16 +305,16 @@ namespace KeepaModule.Models
         }
 
 
-        private KeepaRequest getTrackingRemoveRequest(object p1)
+        private NtfsRequest getTrackingRemoveRequest(object p1)
         {
             var asin = (string)p1;
             var r = getTrackingRemoveRequest(asin);
             return r;
         }
 
-        private KeepaRequest getTrackingRemoveRequest(string asin)
+        private NtfsRequest getTrackingRemoveRequest(string asin)
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_REMOVE, "tracking");
             this.parameter.Add("type", "remove");
             this.parameter.Add("asin", asin);
             return this;
@@ -331,7 +331,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking Remove all Request object
     /// </summary>
-    public class GetTrackingRemoveAllRequest : KeepaRequest
+    public class GetTrackingRemoveAllRequest : NtfsRequest
     {
         public GetTrackingRemoveAllRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -350,9 +350,9 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getTrackingRemoveAllRequest()
+        private NtfsRequest getTrackingRemoveAllRequest()
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_REMOVE_ALL, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_REMOVE_ALL, "tracking");
             this.parameter.Add("type", "removeAll");
             return this;
         }
@@ -368,7 +368,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Tracking WebHook Request object
     /// </summary>
-    public class GetTrackingWebHookRequest : KeepaRequest
+    public class GetTrackingWebHookRequest : NtfsRequest
     {
         public GetTrackingWebHookRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -388,7 +388,7 @@ namespace KeepaModule.Models
         }
 
 
-        private KeepaRequest getTrackingWebHookRequest(object p1)
+        private NtfsRequest getTrackingWebHookRequest(object p1)
         {
             var url = (string)p1;
             var r = getTrackingWebHookRequest(url);
@@ -396,10 +396,10 @@ namespace KeepaModule.Models
         }
 
     
-        private KeepaRequest getTrackingWebHookRequest(string url)
+        private NtfsRequest getTrackingWebHookRequest(string url)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TRACKING_WEB_HOOK, "tracking");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TRACKING_WEB_HOOK, "tracking");
             this.parameter.Add("type", "webhook");
             this.parameter.Add("url", url);
             return this;
@@ -416,7 +416,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get best sellers request object
     /// </summary>
-    public class GetBestSellersRequest : KeepaRequest
+    public class GetBestSellersRequest : NtfsRequest
     {
         public GetBestSellersRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -435,7 +435,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getBestSellersRequest(object p1, object p2)
+        private NtfsRequest getBestSellersRequest(object p1, object p2)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -446,9 +446,9 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getBestSellersRequest(AmazonLocale domainId, string productGroup)
+        private NtfsRequest getBestSellersRequest(AmazonLocale domainId, string productGroup)
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_BEST_SELLERS, "bestsellers");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_BEST_SELLERS, "bestsellers");
             this.parameter.Add("category", productGroup);
             this.parameter.Add("domain", domainId.ToString("D"));
             return this;
@@ -465,7 +465,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A get category lookup request object
     /// </summary>
-    public class GetCategoryLookupRequest : KeepaRequest
+    public class GetCategoryLookupRequest : NtfsRequest
     {
         public GetCategoryLookupRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -484,7 +484,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getCategoryLookupRequest(object p1, object p2, object p3)
+        private NtfsRequest getCategoryLookupRequest(object p1, object p2, object p3)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -498,10 +498,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getCategoryLookupRequest(AmazonLocale domainId, bool parents, long category)
+        private NtfsRequest getCategoryLookupRequest(AmazonLocale domainId, bool parents, long category)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_LOOKUP, "category");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_CATEGORY_LOOKUP, "category");
             this.parameter.Add("category", category.ToString());
             this.parameter.Add("domain", domainId.ToString("D"));
 
@@ -522,7 +522,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A get category search request object
     /// </summary>
-    public class GetCategorySearchRequest : KeepaRequest
+    public class GetCategorySearchRequest : NtfsRequest
     {
         public GetCategorySearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -541,7 +541,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getCategorySearchRequest(object p1, object p2, object p3)
+        private NtfsRequest getCategorySearchRequest(object p1, object p2, object p3)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -553,10 +553,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getCategorySearchRequest(AmazonLocale domainId, string term, bool parents)
+        private NtfsRequest getCategorySearchRequest(AmazonLocale domainId, string term, bool parents)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_CATEGORY_SEARCH, "search");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_CATEGORY_SEARCH, "search");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("type", "category");
             this.parameter.Add("term", term);
@@ -577,7 +577,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A get seller request object
     /// </summary>
-    public class GetSellerRequest : KeepaRequest
+    public class GetSellerRequest : NtfsRequest
     {
         public GetSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -609,7 +609,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getSellerRequest(object p1, object p2)
+        private NtfsRequest getSellerRequest(object p1, object p2)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -620,15 +620,15 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getSellerRequest(AmazonLocale domainId, string[] seller)
+        private NtfsRequest getSellerRequest(AmazonLocale domainId, string[] seller)
         {
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_SELLER, "seller");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("seller", Tools.Utilities.arrayToCsv(seller));
             return this;
         }
 
-        private KeepaRequest getSellerRequest(object p1, object p2, object p3)
+        private NtfsRequest getSellerRequest(object p1, object p2, object p3)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -640,10 +640,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront)
+        private NtfsRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_SELLER, "seller");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("seller", seller);
 
@@ -652,7 +652,7 @@ namespace KeepaModule.Models
             return this;
         }
 
-        private KeepaRequest getSellerRequest(object p1, object p2, object p3, object p4)
+        private NtfsRequest getSellerRequest(object p1, object p2, object p3, object p4)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -665,10 +665,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront, int update)
+        private NtfsRequest getSellerRequest(AmazonLocale domainId, string seller, bool storefront, int update)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_SELLER, "seller");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_SELLER, "seller");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("seller", seller);
             if (update >= 0)
@@ -690,7 +690,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A get top seller request object
     /// </summary>
-    public class GetTopSellerRequest : KeepaRequest
+    public class GetTopSellerRequest : NtfsRequest
     {
         public GetTopSellerRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -716,7 +716,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getTopSellerRequest(object p1)
+        private NtfsRequest getTopSellerRequest(object p1)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -726,10 +726,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getTopSellerRequest(AmazonLocale domainId)
+        private NtfsRequest getTopSellerRequest(AmazonLocale domainId)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_TOP_SELLER, "topseller");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_TOP_SELLER, "topseller");
             this.parameter.Add("domain", domainId.ToString("D"));
             return this;
         }
@@ -745,7 +745,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Product search request 
     /// </summary>
-    public class GetProductSearchRequest : KeepaRequest
+    public class GetProductSearchRequest : NtfsRequest
     {
         public GetProductSearchRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -775,7 +775,7 @@ namespace KeepaModule.Models
         }
 
 
-        private KeepaRequest getProductSearchRequest(object p1, object p2, object p3)
+        private NtfsRequest getProductSearchRequest(object p1, object p2, object p3)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -789,10 +789,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats)
+        private NtfsRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT_SEARCH, "search");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("type", "product");
             this.parameter.Add("term", term);
@@ -802,7 +802,7 @@ namespace KeepaModule.Models
             return this;
         }
 
-        private KeepaRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
+        private NtfsRequest getProductSearchRequest(object p1, object p2, object p3, object p4, object p5, object p6)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -817,10 +817,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats, int? update, bool history, bool asinsOnly)
+        private NtfsRequest getProductSearchRequest(AmazonLocale domainId, string term, int? stats, int? update, bool history, bool asinsOnly)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_SEARCH, "search");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT_SEARCH, "search");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("type", "product");
             this.parameter.Add("term", term);
@@ -844,7 +844,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get product request 
     /// </summary>
-    public class GetProductRequest : KeepaRequest
+    public class GetProductRequest : NtfsRequest
     {
         public GetProductRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -873,7 +873,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4)
+        private NtfsRequest getProductRequest(object p1, object p2, object p3, object p4)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -886,10 +886,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductRequest(AmazonLocale domainId, int? stats, int? offers, string[] asins)
+        private NtfsRequest getProductRequest(AmazonLocale domainId, int? stats, int? offers, string[] asins)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT, "product");
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
             if (stats != null && stats > 0)
@@ -900,7 +900,7 @@ namespace KeepaModule.Models
             return this;
         }
 
-        private KeepaRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
+        private NtfsRequest getProductRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -916,10 +916,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] asins)
+        private NtfsRequest getProductRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] asins)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT, "product");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT, "product");
             this.parameter.Add("asin", Tools.Utilities.arrayToCsv(asins));
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("update", update.ToString());
@@ -944,7 +944,7 @@ namespace KeepaModule.Models
     /// <summary>
     /// A Get Product by Code Request
     /// </summary>
-    public class GetProductByCodeRequest : KeepaRequest
+    public class GetProductByCodeRequest : NtfsRequest
     {
         public GetProductByCodeRequest(string accessKey, ObservableCollection<Pair<string, object>> listParams, string url)
         {
@@ -976,7 +976,7 @@ namespace KeepaModule.Models
             return this.requestString;
         }
 
-        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
+        private NtfsRequest getProductByCodeRequest(object p1, object p2, object p3, object p4)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -989,10 +989,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? stats, int? offers, string[] codes)
+        private NtfsRequest getProductByCodeRequest(AmazonLocale domainId, int? stats, int? offers, string[] codes)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT_BY_CODE, "product");
             this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             this.parameter.Add("domain", domainId.ToString("D"));
             if (stats != null && stats > 0)
@@ -1003,7 +1003,7 @@ namespace KeepaModule.Models
             return this;
         }
 
-        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
+        private NtfsRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -1019,10 +1019,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] codes)
+        private NtfsRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, string[] codes)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT_BY_CODE, "product");
             this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("update", update.ToString());
@@ -1036,7 +1036,7 @@ namespace KeepaModule.Models
             return this;
         }
 
-        private KeepaRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
+        private NtfsRequest getProductByCodeRequest(object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10, object p11)
         {
             Enum.TryParse(p1.ToString(), out AmazonLocale locale);
             var domainId = locale;
@@ -1056,10 +1056,10 @@ namespace KeepaModule.Models
         }
 
         [Tag]
-        private KeepaRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, bool stock, bool rental, bool rating, bool fbafees, string[] codes)
+        private NtfsRequest getProductByCodeRequest(AmazonLocale domainId, int? offers, string statsStartDate, string statsEndDate, int update, bool history, bool stock, bool rental, bool rating, bool fbafees, string[] codes)
         {
 
-            base.GetBaseRequest(ApiSpecificRequestTypes.KEEPA_PRODUCT_BY_CODE, "product");
+            base.GetBaseRequest(ApiSpecificRequestTypes.Ntfs_PRODUCT_BY_CODE, "product");
             this.parameter.Add("code", Tools.Utilities.arrayToCsv(codes));
             this.parameter.Add("domain", domainId.ToString("D"));
             this.parameter.Add("update", update.ToString());

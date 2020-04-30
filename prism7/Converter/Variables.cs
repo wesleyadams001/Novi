@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace prism7.Converter
+namespace AclProcessor.Converter
 {
     public class EncryptionConverter : IValueConverter
     {

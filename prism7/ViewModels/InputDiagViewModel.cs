@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using XModule.Models;
 using XModule.Services;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     /// <summary>
     /// Input dialog box viewmodel

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A Features Record from the response objects product property
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="features"></param>
         public FeaturesRecord(ulong productId, string features)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.FeaturesRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.FeaturesRecord;
             this.ProductId = productId;
             this.Features = features;
             this.TimeStamp = Utilities.GetUnixTime();

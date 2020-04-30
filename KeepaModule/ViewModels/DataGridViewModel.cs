@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Timers;
-using KeepaModule.Services;
+using NtfsModule.Services;
 using Autofac;
 using Autofac.Core;
 using Prism.Commands;
@@ -19,7 +19,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace KeepaModule.ViewModels
+namespace NtfsModule.ViewModels
 {
     public partial class DataGridViewModel : BindableBase
     {
@@ -74,7 +74,7 @@ namespace KeepaModule.ViewModels
                 SetProperty(ref itemKey, value);
 
                 //publish event
-                ea.GetEvent<AddKeepaKeyEvent>().Publish(itemKey);
+                ea.GetEvent<AddNtfsKeyEvent>().Publish(itemKey);
             }
         }
 
@@ -90,7 +90,7 @@ namespace KeepaModule.ViewModels
                 SetProperty(ref itemConnectionString, value);
 
                 //publish event
-                ea.GetEvent<AddKeepaConnEvent>().Publish(itemConnectionString);
+                ea.GetEvent<AddNtfsConnEvent>().Publish(itemConnectionString);
             }
         }
 
@@ -158,14 +158,14 @@ namespace KeepaModule.ViewModels
                 }
             });
 
-            //subsccribes to the add keepa key event
-            this.ea.GetEvent<AddKeepaKeyEvent>().Subscribe((oc) =>
+            //subsccribes to the add Ntfs key event
+            this.ea.GetEvent<AddNtfsKeyEvent>().Subscribe((oc) =>
             {
                 AddKeyToPlugin();
             });
 
-            //subscribes to the add keepa conn event
-            this.ea.GetEvent<AddKeepaConnEvent>().Subscribe((oc) =>
+            //subscribes to the add Ntfs conn event
+            this.ea.GetEvent<AddNtfsConnEvent>().Subscribe((oc) =>
             {
                 AddConnToPlugin();
             });

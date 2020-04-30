@@ -10,7 +10,7 @@ using System.Collections.Concurrent;
 using Prism.Commands;
 using System.Collections.ObjectModel;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     /// <summary>
     /// The view model for the settings configuration
@@ -131,7 +131,7 @@ namespace prism7.ViewModels
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
 
             //Get section for user settings
-            ConfigurationSection userSettings = config.GetSection("userSettings/prism7.Properties.Settings");
+            ConfigurationSection userSettings = config.GetSection("userSettings/AclProcessor.Properties.Settings");
 
             //Sets the start up value of the check boxes isChecked value based on the encryption status of the settings file
             if (userSettings.SectionInformation.IsProtected)

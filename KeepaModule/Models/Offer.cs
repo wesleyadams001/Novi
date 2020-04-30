@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Tools;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// About:
@@ -37,7 +37,7 @@ namespace KeepaModule.Models
         public int offerId;
 
         /// <summary>
-        /// States the last time we have seen (and updated) this offer, in Keepa Time minutes.
+        /// States the last time we have seen (and updated) this offer, in Ntfs Time minutes.
         /// <p>
         /// Example: 2700145
         /// </summary>
@@ -52,7 +52,7 @@ namespace KeepaModule.Models
 
         /// <summary>
         /// Contains the current price and shipping costs of the offer as well as, if available, the offer's history.
-        /// It has the format Keepa time minutes, price, shipping cost, [...].
+        /// It has the format Ntfs time minutes, price, shipping cost, [...].
         /// <p>
         /// The price and shipping cost are integers of the respective Amazon locale's smallest currency unit (e.g. euro cents or yen).
         /// If we were unable to determine the price or shipping cost they have the value -2.
@@ -144,7 +144,7 @@ namespace KeepaModule.Models
 
         /// <summary>
         /// Contains the available stock of this offer as well as, if available, the stock's history.
-        /// It has the format Keepa time minutes, stock, [...].
+        /// It has the format Ntfs time minutes, stock, [...].
         /// <p>
         /// Most recent stock: stockCSV[stockCSV.length - 1]
         /// </summary>

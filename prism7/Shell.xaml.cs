@@ -1,10 +1,10 @@
 ﻿using System;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Presentation;
-using prism7.Themes;
-using prism7.Views;
+using AclProcessor.Themes;
+using AclProcessor.Views;
 
-namespace prism7
+namespace AclProcessor
 {
     public partial class Shell : ModernWindow
     {
@@ -50,7 +50,7 @@ namespace prism7
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Novi",
+                DisplayName = "AclProcessor",
                 Source = GetUri(typeof(IntroductionView))
             });
 

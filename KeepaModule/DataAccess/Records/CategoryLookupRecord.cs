@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using XModule.Tools;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A category object
@@ -33,8 +33,8 @@ namespace KeepaModule.DataAccess.Records
             this.highestRank = highestRank;
             this.productCount = productCount;
             this.TimeStamp = Utilities.GetUnixTime();
-            this.KeepaRecordType = KeepaRecordType.CategoryLookupRecord;
-            this.RecordType = RecordType.Keepa;
+            this.NtfsRecordType = NtfsRecordType.CategoryLookupRecord;
+            this.RecordType = RecordType.Ntfs;
         }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace KeepaModule.DataAccess.Records
         public long parent;
 
         /// <summary>
-        ///  The highest (root category) sales rank we have observed of a product that is listed in this category. Note: Estimate, as the value is from the Keepa product database and not retrieved from Amazon.
+        ///  The highest (root category) sales rank we have observed of a product that is listed in this category. Note: Estimate, as the value is from the Ntfs product database and not retrieved from Amazon.
         /// </summary>
         public int highestRank;
 
         /// <summary>
-        ///  Number of products that are listed in this category. Note: Estimate, as the value is from the Keepa product database and not retrieved from Amazon.
+        ///  Number of products that are listed in this category. Note: Estimate, as the value is from the Ntfs product database and not retrieved from Amazon.
         /// </summary>
         public int productCount;
 

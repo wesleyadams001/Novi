@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A UPC record
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="upcNumber"></param>
         public UpcRecord(ulong productId, string upcNumber)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.UpcRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.UpcRecord;
             this.ProductId = productId;
             this.UpcNumber = upcNumber;
             this.TimeStamp = Utilities.GetUnixTime();

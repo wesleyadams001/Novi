@@ -1,4 +1,4 @@
-﻿using KeepaModule.DataAccess.Entities;
+﻿using NtfsModule.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using XModule.Constants;
 using XModule.Interfaces;
 
-namespace KeepaModule.DataAccess.Repositories
+namespace NtfsModule.DataAccess.Repositories
 {
     /// <summary>
     /// The best sellers repository
@@ -16,14 +16,14 @@ namespace KeepaModule.DataAccess.Repositories
     public class BestSellerRepo : IRepository<best_sellers>
     {
 
-        KeepaContext _context = null;
+        NtfsContext _context = null;
 
-        public BestSellerRepo(KeepaContext context)
+        public BestSellerRepo(NtfsContext context)
         {
             _context = context;
         }
 
-        public Enums.EntityApi Api => Enums.EntityApi.Keepa;
+        public Enums.EntityApi Api => Enums.EntityApi.Ntfs;
 
         /// <summary>
         /// Add an entity to the database

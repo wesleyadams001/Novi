@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// An FBA Fees record
@@ -23,8 +23,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="storageFeeTax"></param>
         public FbaFeesRecord(ulong productId, int? pickPackFee, int? pickPackFeeTax, int? storageFee, int? storageFeeTax)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.FbaFeesRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.FbaFeesRecord;
             this.ProductId = productId;
             this.PickPackFee = pickPackFee;
             this.PickPackFeeTax = pickPackFeeTax;

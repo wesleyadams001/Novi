@@ -1,4 +1,4 @@
-﻿using KeepaModule.Models;
+﻿using NtfsModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Tools;
 using XModule.Interfaces;
-using KeepaModule.DataAccess.Records;
-using KeepaModule.Tools;
+using NtfsModule.DataAccess.Records;
+using NtfsModule.Tools;
 using System.Threading.Tasks.Dataflow;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.Factories
+namespace NtfsModule.Factories
 {
     /// <summary>
     /// Factory class that processes Response objects and produces
     /// the associated record objects
     /// </summary>
-    public class KeepaRecordFactory
+    public class NtfsRecordFactory
     {
         private ILoggerFactory _loggerFactory;
         private ILogger _logger;
@@ -26,16 +26,16 @@ namespace KeepaModule.Factories
         /// Default constructor
         /// </summary>
         /// <param name="loggerFac"></param>
-        public KeepaRecordFactory(ILoggerFactory loggerFac)
+        public NtfsRecordFactory(ILoggerFactory loggerFac)
         {
             this._loggerFactory = loggerFac;
-            this._logger = loggerFac.Create<KeepaRecordFactory>();
+            this._logger = loggerFac.Create<NtfsRecordFactory>();
         }
 
         /// <summary>
         /// Service constructor
         /// </summary>
-        public KeepaRecordFactory()
+        public NtfsRecordFactory()
         {
 
         }
@@ -54,113 +54,113 @@ namespace KeepaModule.Factories
             Response r = response;
 
             //Default type
-            KeepaRecordType type = KeepaRecordType.Default;
+            NtfsRecordType type = NtfsRecordType.Default;
 
             //Determine Appropriate record type
             var responseFlags = InspectResponse(r, type);
 
             //Generate appropriate records from response
-            if (responseFlags.HasFlag(KeepaRecordType.BestSellerRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.BestSellerRecord))
             {
                 //passing recList by ref to update the recList we already have with void methods
                 CreateBestSeller(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.DealRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.DealRecord))
             {
                 CreateDeal(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.MarketplaceOfferRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.MarketplaceOfferRecord))
             {
                 CreateMarketplaceOffer(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.NotificationRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.NotificationRecord))
             {
                 CreateNotification(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.ProductRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.ProductRecord))
             {
                 //create base product record
                 var guidlist = CreateProduct(r, ref recList);
 
                 //inspect product property of response here
-                KeepaRecordType productProperties = KeepaRecordType.Default;
+                NtfsRecordType productProperties = NtfsRecordType.Default;
                 productProperties = InspectResponse(r.products[0], productProperties);
 
                 //Create associated records from objects 
-                if (productProperties.HasFlag(KeepaRecordType.PriceHistoryRecord))
+                if (productProperties.HasFlag(NtfsRecordType.PriceHistoryRecord))
                 {
                     CreatePriceHistory(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.StatisitcsRecord))
+                if (productProperties.HasFlag(NtfsRecordType.StatisitcsRecord))
                 {
                     CreateStatistics(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.CategoryRecord))
+                if (productProperties.HasFlag(NtfsRecordType.CategoryRecord))
                 {
                     CreateCategory(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.EanRecord))
+                if (productProperties.HasFlag(NtfsRecordType.EanRecord))
                 {
                     CreateEan(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.EbayListingRecord))
+                if (productProperties.HasFlag(NtfsRecordType.EbayListingRecord))
                 {
                     CreateEbayListing(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.FeaturesRecord))
+                if (productProperties.HasFlag(NtfsRecordType.FeaturesRecord))
                 {
                     CreateFeatures(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.FrequentlyBoughtTogetherRecord))
+                if (productProperties.HasFlag(NtfsRecordType.FrequentlyBoughtTogetherRecord))
                 {
                     CreateFreqBoughtTgthr(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.LanguagesRecord))
+                if (productProperties.HasFlag(NtfsRecordType.LanguagesRecord))
                 {
                     CreateLanguages(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.LiveOffersOrderRecord))
+                if (productProperties.HasFlag(NtfsRecordType.LiveOffersOrderRecord))
                 {
                     CreateLiveOfferOrder(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.OffersRecord))
+                if (productProperties.HasFlag(NtfsRecordType.OffersRecord))
                 {
                     CreateOffers(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.PromotionsRecord))
+                if (productProperties.HasFlag(NtfsRecordType.PromotionsRecord))
                 {
                     CreatePromotion(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.UpcRecord))
+                if (productProperties.HasFlag(NtfsRecordType.UpcRecord))
                 {
                     CreateUpc(r.products, ref recList, ref guidlist);
                 }
-                if (productProperties.HasFlag(KeepaRecordType.VariationsRecord))
+                if (productProperties.HasFlag(NtfsRecordType.VariationsRecord))
                 {
                     CreateVariations(r.products, ref recList, ref guidlist);
                 }
             }
-            if (responseFlags.HasFlag(KeepaRecordType.SellerRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.SellerRecord))
             {
                 CreateSeller(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.TopSellerRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.TopSellerRecord))
             {
                 CreateTopSeller(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.TrackingCreationRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.TrackingCreationRecord))
             {
                 CreateTrackingCreation(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.TrackingRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.TrackingRecord))
             {
                 CreateTracking(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.CategoryLookupRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.CategoryLookupRecord))
             {
                 CreateCategoryLookupRecord(r, ref recList);
             }
-            if (responseFlags.HasFlag(KeepaRecordType.CategoryTreeRecord))
+            if (responseFlags.HasFlag(NtfsRecordType.CategoryTreeRecord))
             {
                 CreateCategoryTreeRecord(r, ref recList);
             }
@@ -174,48 +174,48 @@ namespace KeepaModule.Factories
         /// Inspect a response and apply appropriate bit flags
         /// </summary>
         /// <param name="r"></param>
-        private KeepaRecordType InspectResponse(Response r, KeepaRecordType type)
+        private NtfsRecordType InspectResponse(Response r, NtfsRecordType type)
         {
             if (r.bestSellersList != null)
             {
                 //add best seller flag
-                type |= KeepaRecordType.BestSellerRecord;
+                type |= NtfsRecordType.BestSellerRecord;
             }
             if (r.deals != null)
             {
                 //add deal flag
-                type |= KeepaRecordType.DealRecord;
+                type |= NtfsRecordType.DealRecord;
             }
             if (r.categories != null)
             {
                 //add category flag
-                type |= KeepaRecordType.CategoryLookupRecord;
+                type |= NtfsRecordType.CategoryLookupRecord;
             }
             if (r.notifications != null)
             {
                 //add notification flag
-                type |= KeepaRecordType.NotificationRecord;
+                type |= NtfsRecordType.NotificationRecord;
             }
             if (r.products != null)
             {
                 // add product flag
-                type |= KeepaRecordType.ProductRecord;
+                type |= NtfsRecordType.ProductRecord;
 
             }
             if (r.trackings != null)
             {
                 //add tracking flag
-                type |= KeepaRecordType.TrackingRecord;
+                type |= NtfsRecordType.TrackingRecord;
             }
             if (r.sellers != null)
             {
                 //add seller flag
-                type |= KeepaRecordType.SellerRecord;
+                type |= NtfsRecordType.SellerRecord;
             }
             if (r.sellerIdList != null)
             {
                 //add sellers id list flag
-                type |= KeepaRecordType.TopSellerRecord;
+                type |= NtfsRecordType.TopSellerRecord;
             }
 
             return type;
@@ -227,77 +227,77 @@ namespace KeepaModule.Factories
         /// <param name="p"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private KeepaRecordType InspectResponse(Product p, KeepaRecordType type)
+        private NtfsRecordType InspectResponse(Product p, NtfsRecordType type)
         {
             if (p.categories != null)
             {
                 //categories flag
-                type |= KeepaRecordType.CategoryRecord;
+                type |= NtfsRecordType.CategoryRecord;
             }
             if (p.eanList != null)
             {
                 //eanlist flag
-                type |= KeepaRecordType.EanRecord;
+                type |= NtfsRecordType.EanRecord;
             }
             if (p.ebayListingIds != null)
             {
                 //ebaylists flag
-                type |= KeepaRecordType.EbayListingRecord;
+                type |= NtfsRecordType.EbayListingRecord;
             }
             if (p.features != null)
             {
                 //features flag
-                type |= KeepaRecordType.FeaturesRecord;
+                type |= NtfsRecordType.FeaturesRecord;
             }
             if (p.frequentlyBoughtTogether != null)
             {
                 //frequently bought together flag
-                type |= KeepaRecordType.FrequentlyBoughtTogetherRecord;
+                type |= NtfsRecordType.FrequentlyBoughtTogetherRecord;
             }
             if (p.languages != null)
             {
                 //languages flag
-                type |= KeepaRecordType.LanguagesRecord;
+                type |= NtfsRecordType.LanguagesRecord;
             }
             if (p.liveOffersOrder != null)
             {
                 //live offers order flag
-                type |= KeepaRecordType.LiveOffersOrderRecord;
+                type |= NtfsRecordType.LiveOffersOrderRecord;
             }
             if (p.offers != null)
             {
                 //offers flag
-                type |= KeepaRecordType.OffersRecord;
+                type |= NtfsRecordType.OffersRecord;
             }
             if (p.promotions != null)
             {
                 //promotions flag
-                type |= KeepaRecordType.PromotionsRecord;
+                type |= NtfsRecordType.PromotionsRecord;
             }
             if (p.stats != null)
             {
                 //stats flag
-                type |= KeepaRecordType.StatisitcsRecord;
+                type |= NtfsRecordType.StatisitcsRecord;
             }
             if (p.upcList != null)
             {
                 //upc list flag
-                type |= KeepaRecordType.UpcRecord;
+                type |= NtfsRecordType.UpcRecord;
             }
             if (p.variations != null)
             {
                 //Variations flag
-                type |= KeepaRecordType.VariationsRecord;
+                type |= NtfsRecordType.VariationsRecord;
             }
             if (p.csv != null)
             {
                 //price history flag
-                type |= KeepaRecordType.PriceHistoryRecord;
+                type |= NtfsRecordType.PriceHistoryRecord;
             }
             if (p.fbaFees != null)
             {
                 //fba fees flag
-                type |= KeepaRecordType.FbaFeesRecord;
+                type |= NtfsRecordType.FbaFeesRecord;
             }
 
             return type;
@@ -851,7 +851,7 @@ namespace KeepaModule.Factories
 
         /// <summary>
         /// Extracts relevant values from the CSV for rating and timestamps
-        /// Keepa provides a way to get the most recent values 
+        /// Ntfs provides a way to get the most recent values 
         /// </summary>
         /// <param name="Arr"></param>
         /// <returns></returns>
@@ -1048,7 +1048,7 @@ namespace KeepaModule.Factories
                             var val = products[x].csv[y];
 
                             //create a priceHistoryRecord
-                            PriceHistoryRecord priceHistoryRec = new PriceHistoryRecord(indexList[x], y, XModule.Tools.Utilities.GetUnixTimeFromKeepaTime(val[n1]), val[n2], val[n3]);
+                            PriceHistoryRecord priceHistoryRec = new PriceHistoryRecord(indexList[x], y, XModule.Tools.Utilities.GetUnixTimeFromNtfsTime(val[n1]), val[n2], val[n3]);
 
                             //add record
                             recList.Add(priceHistoryRec);
@@ -1073,7 +1073,7 @@ namespace KeepaModule.Factories
                         {
 
                             //create a priceHistoryRecord
-                            PriceHistoryRecord priceHistoryRec = new PriceHistoryRecord(indexList[x], y, XModule.Tools.Utilities.GetUnixTimeFromKeepaTime(time[v]), price[v], null);
+                            PriceHistoryRecord priceHistoryRec = new PriceHistoryRecord(indexList[x], y, XModule.Tools.Utilities.GetUnixTimeFromNtfsTime(time[v]), price[v], null);
 
                             //add record
                             recList.Add(priceHistoryRec);

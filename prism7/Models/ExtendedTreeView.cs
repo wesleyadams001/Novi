@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace prism7.Models
+namespace AclProcessor.Models
 {
     /// <summary>
     /// A custome extended TreeView component for the purposes of enhanced binding support

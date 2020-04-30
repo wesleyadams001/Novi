@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using XModule.Models;
 using XModule.Services;
 
-namespace prism7.Services
+namespace AclProcessor.Services
 {
     public class ActiveRequestsService : IActiveRequestsService
     {

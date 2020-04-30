@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using XModule.Services;
 using XModule.Interfaces;
 
-namespace prism7.Services
+namespace AclProcessor.Services
 {
     public class Logger : XModule.Interfaces.ILogger
     {

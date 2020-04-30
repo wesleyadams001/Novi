@@ -1,4 +1,4 @@
-﻿using KeepaModule.DataAccess.Entities;
+﻿using NtfsModule.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using XModule.Constants;
 using XModule.Interfaces;
 
-namespace KeepaModule.DataAccess.Repositories
+namespace NtfsModule.DataAccess.Repositories
 {
     public class CategoryRepo : IRepository<category>
     {

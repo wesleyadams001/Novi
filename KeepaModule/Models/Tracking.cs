@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     ///  Represents a Tracking Object
@@ -25,7 +25,7 @@ namespace KeepaModule.Models
         public String asin = null;
 
         /// <summary>
-        ///Creation date of the tracking in {@link KeepaTime} minutes
+        ///Creation date of the tracking in {@link NtfsTime} minutes
         /// </summary>
         public int createDate;
 
@@ -75,7 +75,7 @@ namespace KeepaModule.Models
 
         /// <summary>
         ///A history of past notifications of this tracking. Each past notification consists of 5 entries, in the format:<br>
-        ///[{@link AmazonLocale}, {@link Product.CsvType}, {@link NotificationType}, {@link TrackingNotificationCause}, {@link KeepaTime}]
+        ///[{@link AmazonLocale}, {@link Product.CsvType}, {@link NotificationType}, {@link TrackingNotificationCause}, {@link NtfsTime}]
         /// </summary>
         public int[] notificationCSV;
 
@@ -150,7 +150,7 @@ namespace KeepaModule.Models
 
             /// <summary>
             ///The history of threshold values (or desired prices). Only for existing tracking!<br>
-            ///Format: [{@link KeepaTime}, value]
+            ///Format: [{@link NtfsTime}, value]
             /// </summary>
             public int[] thresholdValueCSV;
 

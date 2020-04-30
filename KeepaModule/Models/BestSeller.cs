@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// About:
@@ -24,8 +24,8 @@ namespace KeepaModule.Models
         public byte domainId;
 
         /// <summary>
-        /// States the last time we have updated the list, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the last time we have updated the list, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int lastUpdate;
 

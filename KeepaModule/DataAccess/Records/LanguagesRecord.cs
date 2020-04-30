@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A language record derived from the product record
@@ -22,8 +22,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="audioFormat"></param>
         public LanguagesRecord(ulong productId, string languageName, string languageType, string audioFormat)
         {
-            this.RecordType =RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.LanguagesRecord;
+            this.RecordType =RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.LanguagesRecord;
             this.ProductId = productId;
             this.LanguageName = languageName;
             this.LanguageType = languageType;

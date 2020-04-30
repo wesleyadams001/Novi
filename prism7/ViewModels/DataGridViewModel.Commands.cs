@@ -15,10 +15,10 @@ using System.Windows.Threading;
 using System.Data;
 using System.Timers;
 using XModule.Events;
-using prism7.Models;
+using AclProcessor.Models;
 using System.Collections.ObjectModel;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     public partial class DataGridViewModel
     {

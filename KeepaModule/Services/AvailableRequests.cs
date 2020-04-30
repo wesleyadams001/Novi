@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Interfaces;
 using XModule.Services;
-using KeepaModule.Models;
+using NtfsModule.Models;
 using System.Reflection;
 using XModule.Tools;
 using XModule.Models;
@@ -14,18 +14,18 @@ using System.IO;
 using XModule;
 using static XModule.Constants.Enums;
 
-namespace KeepaModule.Services
+namespace NtfsModule.Services
 {
     public class AvailableRequests : IAvailableRequestsService
     {
-        private const RequestTypes ModuleName = RequestTypes.Keepa;
+        private const RequestTypes ModuleName = RequestTypes.Ntfs;
         private RequestObject[] typesCollection;
 
         public RequestObject[] GetRequests()
         {
 
             //Use parent type as a root
-            Type parentType = typeof(KeepaRequest);
+            Type parentType = typeof(NtfsRequest);
 
             //Look at current assembly
             Assembly assembly = Assembly.GetExecutingAssembly();

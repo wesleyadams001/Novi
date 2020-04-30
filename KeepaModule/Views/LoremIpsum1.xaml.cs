@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace KeepaModule.Views
+namespace NtfsModule.Views
 {
     /// <summary>
     /// Interaction logic for LoremIpsum1.xaml

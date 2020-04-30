@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Media;
 using Prism.Mvvm;
 using FirstFloor.ModernUI.Presentation;
-using prism7.Themes;
+using AclProcessor.Themes;
 
-namespace prism7.ViewModels
+namespace AclProcessor.ViewModels
 {
     /// <summary>
     /// A simple view model for configuring theme, font and accent colors.
@@ -50,7 +50,7 @@ namespace prism7.ViewModels
         {
 
             // add additional themes
-            this.themes.Add(new Link { DisplayName = "Novi Theme", Source = new Uri(ThemesPath.Novi, UriKind.Relative) });
+            this.themes.Add(new Link { DisplayName = "AclProcessor Theme", Source = new Uri(ThemesPath.AclProcessor, UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "Light", Source = new Uri(ThemesPath.Light, UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "Dark", Source = new Uri(ThemesPath.Dark, UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "Light Bing Image", Source = new Uri(ThemesPath.LightBingImage, UriKind.Relative) });

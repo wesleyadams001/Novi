@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A statistics record
@@ -49,8 +49,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="offerCountFbm"></param>
         public StatisticsRecord(ulong productId, int? statType, int? current, int? avg, int? avg30, int? avg90, int? avg180, int? atIntervalStart, int? minPriceType, int? minPriceRecTime, int? minPriceValue, int? maxPriceType, int? maxPriceRecTime, int? maxPriceValue, int? minIntervalPriceType, int? minIntervalPriceRecTime, int? minIntervalPriceValue, int? maxIntervalPriceType, int? maxIntervalPriceRecTime, int? maxIntervalPriceValue, int? outOfStockPercentageInInterval, int? outOfStockPercentage30, int? outOfStockPercentage90, int? lastOffersUpdate, int? totalOffersCount, int? lightningDealInfo, int? retrievedOfferCount, int? buyBoxPrice, int? buyBoxShipping, bool? buyBoxIsUnqualified, bool? buyBoxIsShippable, bool? buyBoxIsPreorder, bool? buyBoxIsFba, bool? buyBoxIsAmazon, bool? buyBoxIsMap, bool? buyBoxIsUsed, bool? isAddOnItem, string sellerIdsLowestFba, string sellerIdsLowestFbm, int? offerCountFba, int? offerCountFbm)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.StatisitcsRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.StatisitcsRecord;
             this.ProductId = productId;
             this.StatType = statType;
             this.Current = current;

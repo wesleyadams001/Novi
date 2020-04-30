@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prism7.Themes
+namespace AclProcessor.Themes
 {
     /// <summary>
     /// Themes path to constants
@@ -13,7 +13,7 @@ namespace prism7.Themes
     {
         public const string Light = "/Themes/LightTheme.xaml";
         public const string Dark = "/Themes/DarkTheme.xaml";
-        public const string Novi = "/Themes/NoviTheme.xaml";
+        public const string AclProcessor = "/Themes/AclProcessorTheme.xaml";
         public const string LightBingImage = "/Themes/LightBingImageTheme.xaml";
         public const string DarkBingImage = "/Themes/DarkBingImageTheme.xaml";
         public const string Windows10 = "/Themes/Windows10Theme.xaml";

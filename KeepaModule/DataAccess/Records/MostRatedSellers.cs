@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// Record created by utilizing the getTopSellersRequest
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="amznSellerIdentifier"></param>
         public MostRatedSellersRecord(string amznSellerIdentifier)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.TopSellerRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.TopSellerRecord;
             this.AmznSellerIdentifier = amznSellerIdentifier;
             this.TimeStamp = Utilities.GetUnixTime();
         }

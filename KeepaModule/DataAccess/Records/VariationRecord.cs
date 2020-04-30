@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A Variation Record
@@ -28,8 +28,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="variationTwo"></param>
         public VariationRecord(ulong productId, string variation, string dimension, string value)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.VariationsRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.VariationsRecord;
             this.productId = productId;
             this.Variation = variation;
             this.vDimension = dimension;

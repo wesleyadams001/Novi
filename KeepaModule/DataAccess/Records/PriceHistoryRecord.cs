@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A Price History Record from the response objects product property
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="recordedTime"></param>
         public PriceHistoryRecord(ulong productId, int histType, long date, int price)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.PriceHistoryRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.PriceHistoryRecord;
             this.ProductId = productId;
             this.obHistoryType = histType;
             this.obDate = date;
@@ -38,8 +38,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="price"></param>
         public PriceHistoryRecord(ulong productId, int histType, long date, int price, int? shipping)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.PriceHistoryRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.PriceHistoryRecord;
             this.ProductId = productId;
             this.obHistoryType = histType;
             this.obDate = date;

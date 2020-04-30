@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Tools;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
-    /// The Keepa Product Class
+    /// The Ntfs Product Class
     /// </summary>
     public class Product
     {
@@ -90,16 +90,16 @@ namespace KeepaModule.Models
         public string title = null;
 
         /// <summary>
-        /// States the time we have started tracking this product, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the time we have started tracking this product, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int trackingSince = 0;
 
         /// <summary>
-        /// States the time the item was first listed on Amazon, in Keepa Time minutes.<br>
+        /// States the time the item was first listed on Amazon, in Ntfs Time minutes.<br>
         /// It is updated in conjunction with the offers request, but always accessible.<br>
         /// This timestamp is only available for some products. If not available the field has the value 0.
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int listedSince = 0;
 
@@ -298,32 +298,32 @@ namespace KeepaModule.Models
         public bool isEligibleForSuperSaverShipping = false;
 
         /// <summary>
-        /// States the last time we have updated the information for this product, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the last time we have updated the information for this product, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int lastUpdate = 0;
 
         /// <summary>
-        /// States the last time we have registered a price change (any price kind), in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the last time we have registered a price change (any price kind), in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int lastPriceChange = 0;
 
         /// <summary>
-        /// States the last time we have updated the eBay prices for this product, in Keepa Time minutes.<br>
+        /// States the last time we have updated the eBay prices for this product, in Ntfs Time minutes.<br>
         /// If no matching products were found the integer is negative.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int lastEbayUpdate = 0;
 
         /// <summary>
-        /// States the last time we have updated the product rating and review count, in Keepa Time minutes.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// States the last time we have updated the product rating and review count, in Ntfs Time minutes.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         /// </summary>
         public int lastRatingUpdate = 0;
 
         /// <summary>
-        /// Keepa product type {@link Product.ProductType}. Must always be evaluated first.
+        /// Ntfs product type {@link Product.ProductType}. Must always be evaluated first.
         /// </summary>
         public byte productType = 0;
 
@@ -357,10 +357,10 @@ namespace KeepaModule.Models
 
         /// <summary>
         /// Optional field. Only set if the offers parameter was used in the Product Request.<br>
-        /// Contains a history of sellerIds that held the Buy Box in the format Keepa time minutes, sellerId, [...].<br>
+        /// Contains a history of sellerIds that held the Buy Box in the format Ntfs time minutes, sellerId, [...].<br>
         /// If no seller qualified for the Buy Box the sellerId "-1" is used. If it was hold by an unknown seller (a brand new one) the sellerId is "-2".<br>
         /// Example: ["2860926","ATVPDKIKX0DER", …]
-        /// <p>Use {@link KeepaTime#keepaMinuteToUnixInMillis(String)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
+        /// <p>Use {@link NtfsTime#NtfsMinuteToUnixInMillis(String)} (long)} to get an uncompressed timestamp (Unix epoch time).</p>
         /// </summary>
         public String[] buyBoxSellerIdHistory = null;
 
@@ -428,7 +428,7 @@ namespace KeepaModule.Models
         /// Integer[][] - two dimensional price history array.<br>
         /// First dimension: {@link Product.CsvType}<br>
         /// Second dimension:<br>
-        /// Each array has the format timestamp, price, […]. To get an uncompressed timestamp use {@link KeepaTime#keepaMinuteToUnixInMillis(int)}.<br>
+        /// Each array has the format timestamp, price, […]. To get an uncompressed timestamp use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)}.<br>
         /// Example: "csv[0]": [411180,4900, ... ]<br>
         /// timestamp: 411180 => 1318510800000<br>
         /// price: 4900 => $ 49.00 (if domainId is 5, Japan, then price: 4900 => ¥ 4900)<br>

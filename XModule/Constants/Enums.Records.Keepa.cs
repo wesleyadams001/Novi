@@ -12,10 +12,10 @@ namespace XModule.Constants
     public static partial class Enums
     {
         /// <summary>
-        /// Enum using bit flags that indicates the Keepa Record Type
+        /// Enum using bit flags that indicates the Ntfs Record Type
         /// </summary>
         [Flags]
-        public enum KeepaRecordType
+        public enum NtfsRecordType
         {
             Default,
 

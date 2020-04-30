@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prism7", "prism7\prism7.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XModule", "XModule\XModule.csproj", "{9CD9BC3B-FA29-4DE9-A1EC-537A0E685D9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeepaModule", "KeepaModule\KeepaModule.csproj", "{36B72692-ED5B-4DA8-98E7-795CAE23F342}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NtfsModule", "KeepaModule\NtfsModule.csproj", "{36B72692-ED5B-4DA8-98E7-795CAE23F342}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

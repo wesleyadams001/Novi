@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A frequently bought together record
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="secondAsin"></param>
         public FreqBoughtTogetherRecord(ulong productId, string associatedAsin)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.FrequentlyBoughtTogetherRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.FrequentlyBoughtTogetherRecord;
             this.ProductId = productId;
             this.AssociatedAsin = associatedAsin;
             this.TimeStamp = Utilities.GetUnixTime();

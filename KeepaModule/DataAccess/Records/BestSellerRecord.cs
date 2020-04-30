@@ -5,7 +5,7 @@ using static XModule.Constants.Enums;
 using XModule.Tools;
 using Newtonsoft.Json;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// A Record generated from a best sellers response object
@@ -24,8 +24,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="asinList"></param>
         public BestSellerRecord(int? domainId, int? lastUpdate, long? categoryId, string asin)
         {
-            RecordType = RecordType.Keepa;
-            KeepaRecordType = KeepaRecordType.BestSellerRecord;
+            RecordType = RecordType.Ntfs;
+            NtfsRecordType = NtfsRecordType.BestSellerRecord;
             DomainId = domainId;
             LastUpdate = lastUpdate;
             CategoryId = categoryId;
@@ -40,7 +40,7 @@ namespace KeepaModule.DataAccess.Records
         public int? DomainId { get; set; }
 
         /// <summary>
-        /// States the last time Keepa updated the list, Keepa Time minutes translated to Unix Time
+        /// States the last time Ntfs updated the list, Ntfs Time minutes translated to Unix Time
         /// </summary>
         public int? LastUpdate { get; set; }
 

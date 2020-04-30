@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static XModule.Constants.Enums;
 using XModule.Tools;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     /// <summary>
     /// The category Tree Record inside of the product object
@@ -20,8 +20,8 @@ namespace KeepaModule.DataAccess.Records
         /// <param name="categoryName"></param>
         public CategoryTreeRecord(int? categoryId, string categoryName)
         {
-            this.RecordType = RecordType.Keepa;
-            this.KeepaRecordType = KeepaRecordType.CategoryRecord;
+            this.RecordType = RecordType.Ntfs;
+            this.NtfsRecordType = NtfsRecordType.CategoryRecord;
             this.CategoryId = categoryId;
             this.CategoryName = categoryName;
             this.TimeStamp = Utilities.GetUnixTime();

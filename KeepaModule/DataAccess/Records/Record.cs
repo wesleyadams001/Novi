@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using KeepaModule.DataAccess.Records;
+using NtfsModule.DataAccess.Records;
 using Newtonsoft.Json;
 using static XModule.Constants.Enums;
 using XModule.Interfaces;
 
-namespace KeepaModule.DataAccess.Records
+namespace NtfsModule.DataAccess.Records
 {
     public abstract class Record : IRecord
     {
@@ -19,7 +19,7 @@ namespace KeepaModule.DataAccess.Records
         /// <summary>
         /// Record type that represents the API specific record type
         /// </summary>
-        public KeepaRecordType KeepaRecordType { get; set; }
+        public NtfsRecordType NtfsRecordType { get; set; }
 
         /// <summary>
         /// Time stamp using unix time

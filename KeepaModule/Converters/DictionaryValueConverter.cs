@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace KeepaModule.Converters
+namespace NtfsModule.Converters
 {
     public class DictionaryValueConverter : IValueConverter
     {

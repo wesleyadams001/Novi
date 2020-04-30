@@ -1,7 +1,7 @@
-﻿using KeepaModule.ViewModels;
+﻿using NtfsModule.ViewModels;
 using System.Windows.Controls;
 
-namespace KeepaModule.Views
+namespace NtfsModule.Views
 {
     /// <summary>
     /// Interaction logic for DataGrid.xaml

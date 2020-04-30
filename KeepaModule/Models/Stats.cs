@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeepaModule.Models
+namespace NtfsModule.Models
 {
     /// <summary>
     /// Contains statistic values.
@@ -63,9 +63,9 @@ namespace KeepaModule.Models
         /// Contains the lowest prices registered for this product. <br>
         /// First dimension uses {@link Product.CsvType} indexing <br>
         /// Second dimension is either null, if there is no data available for the price type, or
-        /// an array of the size 2 with the first value being the time of the extreme point (in Keepa time minutes) and the second one the respective extreme value.
+        /// an array of the size 2 with the first value being the time of the extreme point (in Ntfs time minutes) and the second one the respective extreme value.
         /// <br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int[][] min = null;
 
@@ -73,9 +73,9 @@ namespace KeepaModule.Models
         /// Contains the lowest prices registered in the interval specified in the product request's stats parameter.<br>
         /// First dimension uses {@link Product.CsvType} indexing <br>
         /// Second dimension is either null, if there is no data available for the price type, or
-        /// an array of the size 2 with the first value being the time of the extreme point (in Keepa time minutes) and the second one the respective extreme value.
+        /// an array of the size 2 with the first value being the time of the extreme point (in Ntfs time minutes) and the second one the respective extreme value.
         /// <br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int[][] minInInterval = null;
 
@@ -83,8 +83,8 @@ namespace KeepaModule.Models
         /// Contains the highest prices registered for this product. <br>
         /// First dimension uses {@link Product.CsvType} indexing <br>
         /// Second dimension is either null, if there is no data available for the price type, or
-        /// an array of the size 2 with the first value being the time of the extreme point (in Keepa time minutes) and the second one the respective extreme value.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// an array of the size 2 with the first value being the time of the extreme point (in Ntfs time minutes) and the second one the respective extreme value.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int[][] max = null;
 
@@ -92,8 +92,8 @@ namespace KeepaModule.Models
         /// Contains the highest prices registered in the interval specified in the product request's stats parameter.<br>
         /// First dimension uses {@link Product.CsvType} indexing <br>
         /// Second dimension is either null, if there is no data available for the price type, or
-        /// an array of the size 2 with the first value being the time of the extreme point (in Keepa time minutes) and the second one the respective extreme value.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// an array of the size 2 with the first value being the time of the extreme point (in Ntfs time minutes) and the second one the respective extreme value.<br>
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int[][] maxInInterval = null;
 
@@ -123,11 +123,11 @@ namespace KeepaModule.Models
 
         /// <summary>
         /// Can be used to identify past, upcoming and current lightning deal offers.<br>
-        /// Has the format [startDate, endDate] (if not null, always array length 2). ///null/// if the product never had a lightning deal. Both timestamps are in UTC and Keepa time minutes.<br>
+        /// Has the format [startDate, endDate] (if not null, always array length 2). ///null/// if the product never had a lightning deal. Both timestamps are in UTC and Ntfs time minutes.<br>
         /// If there is a upcoming lightning deal, only startDate is be set (endDate has value -1)<br>
         /// If there is a current lightning deal, both startDate and endDate will be set. startDate will be older than the current time, but endDate will be a future date.<br>
         /// If there is only a past deal, both startDate and endDate will be set in the past.<br>
-        /// Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int[] lightningDealInfo = null; // [startDate, endDate], or null
 
@@ -137,7 +137,7 @@ namespace KeepaModule.Models
         public int totalOfferCount = -2;
 
         /// <summary>
-        /// the last time the offers information was updated. Use {@link KeepaTime#keepaMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
+        /// the last time the offers information was updated. Use {@link NtfsTime#NtfsMinuteToUnixInMillis(int)} (long)} to get an uncompressed timestamp (Unix epoch time).
         ///</summary>
         public int lastOffersUpdate = -1;
 

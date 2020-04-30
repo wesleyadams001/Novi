@@ -7,13 +7,13 @@ using static XModule.Constants.Enums;
 
 namespace XModule.Interfaces
 {
-    public interface IKeepaRequest : IRequest
+    public interface INtfsRequest : IRequest
     {
         /// <summary>
         /// Override of the To string method that each record should have
         /// </summary>
         /// <returns></returns>
-        ApiSpecificRequestTypes KeepaRequestType { get; set; }
+        ApiSpecificRequestTypes NtfsRequestType { get; set; }
 
     }
 }
