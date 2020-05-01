@@ -4,11 +4,6 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Autofac;
 using NtfsModule.DataAccess;
-using NtfsModule.DataAccess.Entities;
-using NtfsModule.DataAccess.Entities.Actions;
-using NtfsModule.DataAccess.Records;
-using NtfsModule.Factories;
-using NtfsModule.Models;
 using NtfsModule.Services;
 using NtfsModule.Tools;
 using Microsoft.Practices.Unity;
@@ -24,11 +19,8 @@ namespace NtfsModule
     {
         private ILoggerFactory _loggerFac;
         private ILogger _logger;
-        private NtfsRequestFactory _reqFactory;
-        private NtfsRecordFactory _recordFactory;
         private Client _NtfsReqClient;
         private Allocator _NtfsAllocator;
-        private NtfsContext _context;
         private const string baseUrl = "https://api.Ntfs.com/";
 
         /// <summary>
@@ -43,8 +35,8 @@ namespace NtfsModule
 
             //Builds a request factory with the associated key
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
-            this._reqFactory = new NtfsRequestFactory(baseUrl);
-            this._recordFactory = new NtfsRecordFactory(loggerFac);
+            //this._reqFactory = new NtfsRequestFactory(baseUrl);
+            //this._recordFactory = new NtfsRecordFactory(loggerFac);
 
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
@@ -65,8 +57,8 @@ namespace NtfsModule
 
             //Builds a request factory with the associated key
             this._logger.Debug("Created factory with key of:" + Properties.Settings.Default.CurrentKey);
-            this._reqFactory = new NtfsRequestFactory(baseUrl);
-            this._recordFactory = new NtfsRecordFactory();
+            //this._reqFactory = new NtfsRequestFactory(baseUrl);
+            //this._recordFactory = new NtfsRecordFactory();
 
             //creates a new client
             this._logger.Debug("Created new Client of type:" + typeof(Client));
@@ -121,12 +113,12 @@ namespace NtfsModule
             var bufferblock = new BufferBlock<RequestObject>();
 
             //transform Request objects into request strings
-            var Transblock = new TransformBlock<RequestObject, string>(x => {
+            //var Transblock = new TransformBlock<RequestObject, string>(x => {
                 
-                var requestString = this._reqFactory.Create(x.RequestName, x.ParameterList);
-                this._logger.Debug("Created" + requestString);
-                return requestString;
-            });
+            //    var requestString = this._reqFactory.Create(x.RequestName, x.ParameterList);
+            //    this._logger.Debug("Created" + requestString);
+            //    return requestString;
+            //});
 
             //Sends request to API
             var RequestBlock = new TransformBlock<string, Task<string>>(async x =>
@@ -138,18 +130,18 @@ namespace NtfsModule
             });
 
             //Transforms response string to response object
-            var ResponseBlock = new TransformBlock<Task<string>, Response>(x =>
-            {
-                Task<Response> response = NtfsResponseFactory.Create(x);
-                return response;
-            });
+            //var ResponseBlock = new TransformBlock<Task<string>, Response>(x =>
+            //{
+            //    Task<Response> response = NtfsResponseFactory.Create(x);
+            //    return response;
+            //});
 
             //Transforms responses to Record blocks
-            var RecordBlock = new TransformBlock<Response, List<IRecord>>(x => {
+            //var RecordBlock = new TransformBlock<Response, List<IRecord>>(x => {
                
-                var list = this._recordFactory.Create(x);
-                return list;
-            });
+            //    var list = this._recordFactory.Create(x);
+            //    return list;
+            //});
 
             //Expand enumerable to individual
             var ExpandedBlock = new TransformManyBlock<List<IRecord>, IRecord>(array => array);
@@ -165,14 +157,14 @@ namespace NtfsModule
             });
            
             //Links
-            buffer.LinkTo(bufferblock, linkops, RequestFilter);
-            bufferblock.LinkTo(Transblock, linkops);
-            Transblock.LinkTo(RequestBlock, linkops);
-            RequestBlock.LinkTo(ResponseBlock, linkops);
-            ResponseBlock.LinkTo(RecordBlock, linkops);
-            RecordBlock.LinkTo(ExpandedBlock, linkops);
-            ExpandedBlock.LinkTo(StagingBlock, linkops);
-            StagingBlock.LinkTo(insertBlock, linkops);
+            //buffer.LinkTo(bufferblock, linkops, RequestFilter);
+            //bufferblock.LinkTo(Transblock, linkops);
+            //Transblock.LinkTo(RequestBlock, linkops);
+            //RequestBlock.LinkTo(ResponseBlock, linkops);
+            //ResponseBlock.LinkTo(RecordBlock, linkops);
+            //RecordBlock.LinkTo(ExpandedBlock, linkops);
+            //ExpandedBlock.LinkTo(StagingBlock, linkops);
+            //StagingBlock.LinkTo(insertBlock, linkops);
            
         }
 

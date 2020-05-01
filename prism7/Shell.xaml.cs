@@ -56,14 +56,8 @@ namespace AclProcessor
 
             linkGroup.Links.Add(new Link
             {
-                DisplayName = "Active Requests",
-                Source = GetUri(typeof(Requests))
-            });
-
-            linkGroup.Links.Add(new Link
-            {
-                DisplayName = "Edit Requests",
-                Source = GetUri(typeof(DataGrid))
+                DisplayName = "Configuration",
+                Source = GetUri(typeof(SettingsConfiguration))
             });
 
             linkGroup.Links.Add(new Link

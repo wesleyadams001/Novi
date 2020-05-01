@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using XModule.Interfaces;
 using XModule.Services;
-using NtfsModule.Models;
 using System.Reflection;
 using XModule.Tools;
 using XModule.Models;
@@ -25,7 +24,7 @@ namespace NtfsModule.Services
         {
 
             //Use parent type as a root
-            Type parentType = typeof(NtfsRequest);
+            Type parentType = typeof(double);
 
             //Look at current assembly
             Assembly assembly = Assembly.GetExecutingAssembly();

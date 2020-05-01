@@ -11,7 +11,7 @@
         <mui:ModernTab SelectedSource="/NtfsModule;component/Views/DataGrid.xaml" Layout="List">
             <mui:ModernTab.Links>
                 <mui:Link DisplayName="Configuration" Source="/NtfsModule;component/Views/DataGrid.xaml" />
-                <mui:Link DisplayName="Analytics" Source="/NtfsModule;component/Views/LoremIpsum1.xaml" />
+                <mui:Link DisplayName="Analytics" Source="/NtfsModule;component/Views/DataVisual.xaml" />
                 <mui:Link DisplayName="Details" Source="/NtfsModule;component/Views/LoremIpsum2.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>

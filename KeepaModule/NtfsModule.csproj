@@ -39,14 +39,14 @@
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.9.0, Culture=neutral, PublicKeyToken=bc9b0c37bf06c6a9, processorArchitecture=MSIL">
       <HintPath>..\packages\ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -118,70 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\DictionaryValueConverter.cs" />
-    <Compile Include="DataAccess\Entities\Actions\Operations.cs" />
-    <Compile Include="DataAccess\Entities\best_sellers.cs" />
-    <Compile Include="DataAccess\Entities\category.cs" />
-    <Compile Include="DataAccess\Entities\category_lookup.cs" />
-    <Compile Include="DataAccess\Entities\category_tree.cs" />
-    <Compile Include="DataAccess\Entities\DbContext.cs" />
-    <Compile Include="DataAccess\Entities\ean.cs" />
-    <Compile Include="DataAccess\Entities\fba_fees.cs" />
-    <Compile Include="DataAccess\Entities\feature.cs" />
-    <Compile Include="DataAccess\Entities\freq_bought_together.cs" />
-    <Compile Include="DataAccess\Entities\language.cs" />
-    <Compile Include="DataAccess\Entities\most_rated_sellers.cs" />
-    <Compile Include="DataAccess\Entities\price_history.cs" />
-    <Compile Include="DataAccess\Entities\product.cs" />
-    <Compile Include="DataAccess\Entities\seller.cs" />
-    <Compile Include="DataAccess\Entities\sellers_listed_items.cs" />
-    <Compile Include="DataAccess\Entities\statistic.cs" />
-    <Compile Include="DataAccess\Entities\upc.cs" />
-    <Compile Include="DataAccess\Entities\variation.cs" />
-    <Compile Include="DataAccess\KeepaFilter.cs" />
-    <Compile Include="DataAccess\Records\BestSellerRecord.cs" />
-    <Compile Include="DataAccess\Records\CategoryLookupRecord.cs" />
-    <Compile Include="DataAccess\Records\CategoryRecord.cs" />
-    <Compile Include="DataAccess\Records\CategoryTreeRecord.cs" />
-    <Compile Include="DataAccess\Records\EanRecord.cs" />
-    <Compile Include="DataAccess\Records\FbaFeesRecord.cs" />
-    <Compile Include="DataAccess\Records\FeaturesRecord.cs" />
-    <Compile Include="DataAccess\Records\FreqBoughtTogetherRecord.cs" />
-    <Compile Include="DataAccess\Records\LanguagesRecord.cs" />
-    <Compile Include="DataAccess\Records\MostRatedSellers.cs" />
-    <Compile Include="DataAccess\Records\PriceHistoryRecord.cs" />
-    <Compile Include="DataAccess\Records\ProductRecord.cs" />
-    <Compile Include="DataAccess\Records\PromotionRecord.cs" />
-    <Compile Include="DataAccess\Records\Record.cs" />
-    <Compile Include="DataAccess\Records\SellerItemRecord.cs" />
-    <Compile Include="DataAccess\Records\SellerRecord.cs" />
-    <Compile Include="DataAccess\Records\StatisticsRecord.cs" />
-    <Compile Include="DataAccess\Records\TopSellersRecord.cs" />
-    <Compile Include="DataAccess\Records\UpcRecord.cs" />
-    <Compile Include="DataAccess\Records\VariationRecord.cs" />
-    <Compile Include="DataAccess\Repositories\BestSellerRepo.cs" />
-    <Compile Include="DataAccess\Repositories\CategoryRepo.cs" />
-    <Compile Include="Factories\KeepaRecordFactory.cs" />
-    <Compile Include="Factories\KeepaRequestFactory.cs" />
-    <Compile Include="Factories\KeepaResponseFactory.cs" />
-    <Compile Include="Migrations\201912191922127_Initial.cs" />
-    <Compile Include="Migrations\201912191922127_Initial.Designer.cs">
-      <DependentUpon>201912191922127_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BestSeller.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Deal.cs" />
-    <Compile Include="Models\DealRequest.cs" />
-    <Compile Include="Models\DealResponse.cs" />
-    <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\Offer.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Models\RequestError.cs" />
-    <Compile Include="Models\Response.cs" />
-    <Compile Include="Models\Seller.cs" />
-    <Compile Include="Models\Stats.cs" />
-    <Compile Include="Models\Tracking.cs" />
+    <Compile Include="DataAccess\NtfsFilter.cs" />
     <Compile Include="Services\AvailableRequests.cs" />
     <Compile Include="Services\IModuleKeyService.cs" />
     <Compile Include="Services\ModuleKeyService.cs" />
@@ -190,14 +127,16 @@
     <Compile Include="Tools\Utilities.cs" />
     <Compile Include="ViewModels\DataGridViewModel.Commands.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
+    <Compile Include="ViewModels\DataVisualViewModel.Commands.cs" />
+    <Compile Include="ViewModels\DataVisualViewModel.cs" />
     <Compile Include="Views\DataGrid.xaml.cs">
       <DependentUpon>DataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoremIpsum2.xaml.cs">
       <DependentUpon>LoremIpsum2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoremIpsum1.xaml.cs">
-      <DependentUpon>LoremIpsum1.xaml</DependentUpon>
+    <Compile Include="Views\DataVisual.xaml.cs">
+      <DependentUpon>DataVisual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\LinkGroupService.cs" />
     <Compile Include="ModuleOne.cs" />
@@ -212,7 +151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LoremIpsum1.xaml">
+    <Page Include="Views\DataVisual.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -235,9 +174,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201912191922127_Initial.resx">
-      <DependentUpon>201912191922127_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -255,6 +191,10 @@
       <Project>{9cd9bc3b-fa29-4de9-a1ec-537a0e685d9d}</Project>
       <Name>XModule</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Factories\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

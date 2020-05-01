@@ -11,11 +11,10 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="AclProcessor" Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
-                <mui:BBCodeBlock BBCode="[b]AclProcessor[/b] is a sample prototype for an ACL Harvester modular application constructed in a plugin architecture based on the based on the following:" Margin="0,0,0,24" />
+                <mui:BBCodeBlock BBCode="[b]AclProcessor[/b] is a sample prototype for an ACL Harvester modular application constructed in a plugin architecture based on the following:" Margin="0,0,0,24" />
                 <mui:BBCodeBlock BBCode="[b]Prism Library[/b] is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, Windows 10 UWP, and Xamarin Forms: [url=https://github.com/PrismLibrary/Prism]visit website[/url]" Margin="0,0,0,24" />
                 <mui:BBCodeBlock BBCode="[b]Modern UI for WPF (MUI)[/b] is an open source set of controls and styles converting your WPF application into a great looking Modern UI app: [url=https://github.com/firstfloorsoftware/mui]visit website[/url]" Margin="0,0,0,24" />
                 <mui:BBCodeBlock BBCode="[b]NLog for .Net (NLog)[/b] is an open source set of logging controls for you Application: [url=https://nlog-project.org/]visit website[/url]" Margin="0,0,0,24" />
-                <mui:BBCodeBlock BBCode="[b]Entity Framework 6 (EF6) [/b] is the flagship Microsoft object relational mapper: [url=https://docs.microsoft.com/en-us/ef/#pivot=ef6x] visit website[/url]" Margin="0,0,0,24"/>
                 <mui:BBCodeBlock BBCode="[b]Live Charts [/b] is a free data visualization library for .net: [url=https://docs.microsoft.com/en-us/ef/#pivot=ef6x] visit website[/url]" Margin="0,0,0,24"/>
 
             </StackPanel>

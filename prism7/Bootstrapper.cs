@@ -60,6 +60,7 @@ namespace AclProcessor
 
             App.Current.MainWindow = (Window)Shell;
             App.Current.MainWindow.Show();
+            App.Current.MainWindow.WindowState = WindowState.Maximized;
         }
 
         /// <summary>

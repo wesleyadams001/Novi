@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,11 +30,6 @@ namespace XModule.Services
         /// <returns></returns>
         bool Acquire(string request);
 
-        /// <summary>
-        /// Returns an interface that represents a database context associated with a plugin
-        /// </summary>
-        /// <returns></returns>
-        DbContext GetDataContext();
 
         
 

@@ -27,12 +27,12 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Add Api Key" Height="Auto" Width="185">
+                    <GroupBox Header="Add File System Path" Height="Auto" Width="185">
                         <StackPanel Grid.Column="0">
-                            <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
+                            <TextBlock Grid.Row="0" Text="System Type:" VerticalAlignment="Center" Margin="0,0,16,4" />
                             <ComboBox Name="Key" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}" />
 
-                            <TextBlock Grid.Row="1" Text="Key:" VerticalAlignment="Center" Margin="0,0,16,0" />
+                            <TextBlock Grid.Row="1" Text="Path:" VerticalAlignment="Center" Margin="0,0,16,0" />
                             <TextBox Name="Value" Grid.Row="0" Grid.Column="1" Text="{Binding ApiKey}" />
 
                             
@@ -54,15 +54,15 @@
                         </StackPanel>
                         
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Api and Associated Key" Height="Auto" Width="Auto">
+                    <GroupBox Grid.Column="1" Header="System and Storage Path" Height="Auto" Width="Auto">
                         <StackPanel Grid.Column="0">
                             <ListBox>
                                 <ListView Name="ApiKeysList" ItemsSource="{Binding ApiKeys}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" Width="300" SelectedItem="{Binding SelectedItemKey}">
                                     <ListView.View >
                                         <GridView>
-                                            <GridViewColumn Header="Api:"
+                                            <GridViewColumn Header="File System Type:"
                                                     DisplayMemberBinding="{Binding Key}" Width="100"/>
-                                            <GridViewColumn Header="Key:"
+                                            <GridViewColumn Header="Path:"
                                                      DisplayMemberBinding="{Binding Value}" Width="160"/>
                                         </GridView>
                                     </ListView.View>
@@ -74,7 +74,7 @@
                     </GroupBox>
                     <GroupBox Header="Add Connection String" Height="Auto" Width="185" Grid.Column="0" Grid.Row="1">
                         <StackPanel Grid.Column="0" Grid.Row="1">
-                            <TextBlock Grid.Row="0" Text="Api:" VerticalAlignment="Center" Margin="0,0,16,4" />
+                            <TextBlock Grid.Row="0" Text="File System:" VerticalAlignment="Center" Margin="0,0,16,4" />
                             <ComboBox Name="Key2" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableApis}" SelectedItem="{Binding Api}"/>
 
                             <TextBlock Grid.Row="1" Text="Connection String:" VerticalAlignment="Center" Margin="0,0,16,0" />
@@ -100,13 +100,13 @@
                         </StackPanel>
 
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Grid.Row="1" Header="Api and Connection String" Height="Auto" Width="Auto">
+                    <GroupBox Grid.Column="1" Grid.Row="1" Header="File System and Connection String" Height="Auto" Width="Auto">
                         <StackPanel Grid.Column="0">
                             <ListBox >
                                 <ListView ItemsSource="{Binding ConnectionStrings}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="150" Width="300" SelectedItem="{Binding SelectedItemKey}">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Api:"
+                                            <GridViewColumn Header="File System:"
                                                     DisplayMemberBinding="{Binding Key}" Width="100"/>
                                             <GridViewColumn Header="Connection String:"
                                                      DisplayMemberBinding="{Binding Value}" Width="160"/>

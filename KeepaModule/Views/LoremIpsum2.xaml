@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Grid MaxWidth="{StaticResource ViewMaxWidth}" HorizontalAlignment="Left">
+    <Grid MaxWidth="5000" HorizontalAlignment="Left">
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <TextBlock Text="MODULE ONE LOREM IPSUM 2" Margin="0,0,0,8" Style="{StaticResource Heading2}" />
